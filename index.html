@@ -261,11 +261,10 @@ footer .cr b{color:var(--gold);font-weight:400}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-media" id="heroMedia">
-    <!-- Reálné koncertní video (sépiový/tmavý filtr aplikuje CSS):
-    <video autoplay muted loop playsinline poster="assets/hero.jpg">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video> -->
     <div class="hero-fallback"></div>
+    <video autoplay muted loop playsinline preload="auto" poster="assets/hero.jpg">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-vignette"></div>
   <div class="hero-inner" id="heroInner">
