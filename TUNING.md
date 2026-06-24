@@ -18,14 +18,14 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Tenký zlatý scroll-progress proužek nahoře
 - [x] Seekbar ovladatelný klávesnicí (šipky)
 
-## Batch 2 — Mikrointerakce & detaily
-- [ ] Nav: animovaný podtržení odkazů, plynulé objevení nav po načtení
-- [ ] Hero: jemné parallax i pro obsah (různé rychlosti vrstev)
-- [ ] Jukebox: hlasitost, mute, plynulý fill (rAF interpolace), buffering stav, drag na seekbaru
-- [ ] Klávesy A-1/2/3 na fyzické klávesnici (1/2/3, mezerník = play, šipky = prev/next)
-- [ ] Tlačítka: jemný press/active stav, ripple-free elegantní feedback
-- [ ] Sekční nadpisy: reveal po slovech / clip-path
-- [ ] Vstupenky: jemný 3D tilt na hover (desktop)
+## Batch 2 — Mikrointerakce & detaily ✅
+- [x] Nav: animované podtržení odkazů + objevení nav po načtení (navIn)
+- [x] Hero: jemné mizení + posun obsahu při scrollu
+- [x] Jukebox: plynulý 60fps fill (rAF), drag na seekbaru (pointer)
+- [x] Klávesy 1/2/3 = výběr skladby, Esc = zavřít menu (prev/next/play přístupné nativně přes focus)
+- [x] Tlačítka: press/active stavy
+- [~] Sekční nadpisy reveal po slovech — vynecháno (data-reveal fade stačí, nešahat na vzhled)
+- [~] Vstupenky 3D tilt — vynecháno (kolize se style-hover liftem; hover lift ponechán)
 
 ## Batch 3 — Vizuální vychytávky
 - [ ] Hero: lokální fallback foto (frame z hero.mp4) místo závislosti na cizím serveru

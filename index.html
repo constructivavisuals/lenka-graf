@@ -99,6 +99,16 @@
   .nav-actions a:hover::after,.nav-actions a.active::after{ width:100%; }
   .nav-actions a.active{ color:#d8b97a; }
 
+  /* ---- press stavy & objevení nav ---- */
+  #playBtn,#prevBtn,#nextBtn{ transition:transform .12s ease, box-shadow .3s ease; }
+  #playBtn:active{ transform:scale(.93); }
+  #prevBtn:active,#nextBtn:active{ transform:scale(.88); }
+  #langBtn{ transition:border-color .3s ease, color .3s ease; }
+  #langBtn:hover{ border-color:#d8b97a; color:#f0dcae; }
+  .site-nav{ animation:navIn 1s cubic-bezier(.2,.6,.2,1) .15s both; }
+  @keyframes navIn{ from{ opacity:0; transform:translateY(-14px); } to{ opacity:1; transform:none; } }
+  #seekBar{ touch-action:none; }
+
   /* ---- mobile menu ---- */
   .burger{ display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px; }
   .burger span{ display:block; width:24px; height:1.5px; background:#ece7de; transition:.3s; }
@@ -659,29 +669,43 @@
     $('npPill').style.display = p?'inline-flex':'none';
   }
 
+  // plynulý 60fps progress (mezi timeupdate událostmi)
+  var raf=null;
+  function smoothLoop(){
+    if(!state.playing){ raf=null; return; }
+    if(!seeking){ state.time=audio.currentTime; if(audio.duration) state.dur=audio.duration; renderProgress(); }
+    raf=requestAnimationFrame(smoothLoop);
+  }
+  function startLoop(){ if(!raf && !reduceMotion) raf=requestAnimationFrame(smoothLoop); }
+
   function selectTrack(i){
     var was=state.playing;
     audio.src=TRACKS[i].src;
     audio.currentTime=0;
     state.current=i; state.time=0; state.dur=state.durs[i]||0;
     renderTracks(); renderNowPlaying(); renderProgress();
-    if(was){ audio.play().catch(function(){}); applyMachine(true); }
+    if(was){ audio.play().catch(function(){}); applyMachine(true); startLoop(); }
   }
   function next(){ selectTrack((state.current+1)%TRACKS.length); }
   function prev(){ selectTrack((state.current-1+TRACKS.length)%TRACKS.length); }
   function togglePlay(){
     if(state.playing){ audio.pause(); state.playing=false; applyMachine(false); }
-    else { audio.play().catch(function(){}); state.playing=true; applyMachine(true); }
+    else { audio.play().catch(function(){}); state.playing=true; applyMachine(true); startLoop(); }
   }
 
   $('playBtn').addEventListener('click', togglePlay);
   $('prevBtn').addEventListener('click', prev);
   $('nextBtn').addEventListener('click', next);
-  $('seekBar').addEventListener('click', function(e){
-    var r=this.getBoundingClientRect();
-    var frac=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width));
+  var seekBar=$('seekBar'), seeking=false;
+  function seekToClientX(x){
+    var r=seekBar.getBoundingClientRect();
+    var frac=Math.min(1,Math.max(0,(x-r.left)/r.width));
     if(audio.duration){ audio.currentTime=frac*audio.duration; state.time=audio.currentTime; renderProgress(); }
-  });
+  }
+  seekBar.addEventListener('pointerdown', function(e){ seeking=true; seekBar.setPointerCapture&&seekBar.setPointerCapture(e.pointerId); seekToClientX(e.clientX); });
+  seekBar.addEventListener('pointermove', function(e){ if(seeking) seekToClientX(e.clientX); });
+  seekBar.addEventListener('pointerup', function(){ seeking=false; });
+  seekBar.addEventListener('pointercancel', function(){ seeking=false; });
 
   // ---- hero reel ----
   var heroVideo=$('heroVideo');
@@ -721,6 +745,13 @@
   $('mNavClose').addEventListener('click', function(){ mnav.classList.remove('open'); });
   Array.prototype.forEach.call(mnav.querySelectorAll('a'), function(a){ a.addEventListener('click', function(){ mnav.classList.remove('open'); }); });
 
+  // ---- klávesové zkratky 1/2/3 = výběr skladby, Esc = zavřít mobilní menu ----
+  document.addEventListener('keydown', function(e){
+    var t=e.target; if(t && (t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable)) return;
+    if(e.key==='1'){ selectTrack(0); } else if(e.key==='2'){ selectTrack(1); } else if(e.key==='3'){ selectTrack(2); }
+    else if(e.key==='Escape'){ mnav.classList.remove('open'); }
+  });
+
   // ---- style-hover ----
   Array.prototype.forEach.call(document.querySelectorAll('[style-hover]'), function(el){
     var hov=el.getAttribute('style-hover'); var base=el.getAttribute('style')||'';
@@ -745,6 +776,7 @@
     if(sec) spy.push({ link:a, sec:sec });
   });
   var progressEl = $('scrollProgress');
+  var heroContent = document.querySelector('.hero-content');
 
   var ticking=false;
   function onScroll(){
@@ -753,7 +785,10 @@
     var h = document.documentElement.scrollHeight - window.innerHeight;
     progressEl.style.width = (h>0 ? (y/h*100) : 0) + '%';
     // parallax (jen bez reduced-motion)
-    if(!reduceMotion) heroMedia.style.transform = 'translateY(' + (y*0.16) + 'px)';
+    if(!reduceMotion){
+      heroMedia.style.transform = 'translateY(' + (y*0.16) + 'px)';
+      if(heroContent && y < window.innerHeight){ heroContent.style.opacity = Math.max(0, 1 - y/680); heroContent.style.transform = 'translateY(' + (y*0.06) + 'px)'; }
+    }
     // scrollspy
     var mid = y + window.innerHeight*0.35, active=null;
     spy.forEach(function(s){ if(s.sec.offsetTop <= mid) active=s.link; });
