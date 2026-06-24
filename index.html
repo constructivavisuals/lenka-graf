@@ -83,6 +83,43 @@
   @keyframes ndot { 0%,100% { transform:scaleY(.4);} 50%{transform:scaleY(1);} }
   @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
 
+  /* ===== preloader (loading animace) ===== */
+  #preloader{ position:fixed; inset:0; z-index:10000; background:#0a0908; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; transition:opacity .9s ease, visibility .9s ease; animation:plFailsafe 0s linear 5s forwards; }
+  #preloader.done{ opacity:0; visibility:hidden; }
+  @keyframes plFailsafe{ to{ opacity:0; visibility:hidden; } }
+  .pl-mark{ font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:48px; color:#d8b97a; letter-spacing:.04em; opacity:0; animation:plRise 1.2s cubic-bezier(.2,.6,.2,1) .1s both; text-shadow:0 0 30px rgba(216,185,122,.35); }
+  .pl-bar{ position:relative; width:120px; height:1px; background:rgba(216,185,122,.18); overflow:hidden; }
+  .pl-bar span{ position:absolute; inset:0; width:0; background:linear-gradient(90deg,#9a7c4a,#f0dcae); animation:plBar 1.7s cubic-bezier(.4,0,.2,1) .25s forwards; box-shadow:0 0 10px rgba(240,220,170,.6); }
+  .pl-text{ font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.42em; text-transform:uppercase; color:#6b665d; opacity:0; animation:plRise 1s ease .55s both; }
+  @keyframes plRise{ from{ opacity:0; transform:translateY(9px); } to{ opacity:1; transform:none; } }
+  @keyframes plBar{ to{ width:100%; } }
+
+  /* ===== ambientní struktura pozadí ===== */
+  #bgAmbient{ position:fixed; inset:0; z-index:9998; pointer-events:none; mix-blend-mode:screen; opacity:.55; }
+  #bgAmbient i{ position:absolute; display:block; border-radius:50%; filter:blur(80px); }
+  #bgAmbient .g1{ width:52vw; height:52vw; top:-14vw; right:-12vw; background:radial-gradient(circle, rgba(176,141,87,.15), transparent 66%); animation:amb1 28s ease-in-out infinite alternate; }
+  #bgAmbient .g2{ width:46vw; height:46vw; bottom:-14vw; left:-10vw; background:radial-gradient(circle, rgba(126,42,56,.13), transparent 66%); animation:amb2 34s ease-in-out infinite alternate; }
+  #bgAmbient .g3{ width:30vw; height:30vw; top:38%; left:55%; background:radial-gradient(circle, rgba(176,141,87,.06), transparent 70%); animation:amb3 40s ease-in-out infinite alternate; }
+  @keyframes amb1{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(-5vw,5vw) scale(1.18);} }
+  @keyframes amb2{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(6vw,-4vw) scale(1.22);} }
+  @keyframes amb3{ from{ transform:translate(0,0);} to{ transform:translate(-7vw,4vw);} }
+
+  /* ===== jukebox — halo + světelný sweep ===== */
+  .cabinet::after{ content:''; position:absolute; inset:-16% -22%; z-index:-1; border-radius:50%; background:radial-gradient(closest-side, transparent 58%, rgba(216,185,122,.16) 74%, rgba(126,42,56,.07) 88%, transparent 100%); filter:blur(26px); pointer-events:none; animation:halo 6s ease-in-out infinite; }
+  @keyframes halo{ 0%,100%{ opacity:.5; transform:scale(1);} 50%{ opacity:.95; transform:scale(1.05);} }
+  .dome-sweep{ position:absolute; top:0; bottom:0; left:-70%; width:55%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.12) 50%, transparent); transform:skewX(-14deg); pointer-events:none; animation:sweep 7s ease-in-out infinite; }
+  @keyframes sweep{ 0%,72%{ left:-70%; } 100%{ left:135%; } }
+
+  /* ===== footer polish ===== */
+  .foot-divider{ height:1px; background:linear-gradient(90deg, transparent, rgba(216,185,122,.5) 50%, transparent); margin:0 auto; max-width:1180px; }
+  .socials a{ position:relative; transition:color .35s ease; }
+  .socials a::after{ content:''; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:#d8b97a; transition:width .35s cubic-bezier(.2,.6,.2,1); }
+  .socials a:hover{ color:#f0dcae; }
+  .socials a:hover::after{ width:100%; }
+  #toTop{ position:fixed; right:22px; bottom:64px; z-index:70; width:44px; height:44px; border-radius:50%; border:1px solid rgba(216,185,122,.35); background:rgba(10,9,8,.6); backdrop-filter:blur(6px); color:#d8b97a; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transform:translateY(10px); transition:opacity .4s ease, visibility .4s ease, transform .4s ease, border-color .3s, background .3s; }
+  #toTop.show{ opacity:1; visibility:visible; transform:none; }
+  #toTop:hover{ border-color:#d8b97a; background:rgba(216,185,122,.14); }
+
   /* ---- a11y & polish ---- */
   :focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; border-radius:3px; }
   :focus:not(:focus-visible){ outline:none; }
@@ -140,6 +177,20 @@
 </style>
 </head>
 <body>
+<noscript><style>#preloader{display:none!important}</style></noscript>
+
+<!-- LOADING ANIMACE -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-mark">LG</div>
+  <div class="pl-bar"><span></span></div>
+  <div class="pl-text">Lenka Graf</div>
+</div>
+
+<!-- AMBIENTNÍ POZADÍ -->
+<div id="bgAmbient" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i></div>
+
+<button id="toTop" aria-label="Zpět nahoru">↑</button>
+
 <div id="scrollProgress" aria-hidden="true"></div>
 <div id="root" style="position:relative; width:100%; overflow-x:hidden; background:#0a0908;">
 
@@ -275,6 +326,7 @@
         <div style="position:relative; z-index:3; padding-top:6px;">
           <!-- DOME GLASS -->
           <div style="position:relative; height:118px; margin:0 4px 0; border-radius:150px 150px 14px 14px; overflow:hidden; background:radial-gradient(130% 120% at 50% 125%, #221913 0%, #0c0907 70%); box-shadow:inset 0 0 0 2px rgba(216,185,122,.28), inset 0 10px 36px rgba(0,0,0,.85);">
+            <div class="dome-sweep"></div>
             <div style="position:absolute; bottom:-30%; left:-10%; width:55%; height:80%; background:radial-gradient(circle, rgba(120,160,120,.22), rgba(0,0,0,0) 65%); pointer-events:none;"></div>
             <div style="position:absolute; bottom:-26%; right:-8%; width:55%; height:78%; background:radial-gradient(circle, rgba(120,90,150,.2), rgba(0,0,0,0) 65%); pointer-events:none;"></div>
             <div style="position:absolute; bottom:-20%; left:30%; width:45%; height:70%; background:radial-gradient(circle, rgba(216,185,122,.26), rgba(0,0,0,0) 65%); pointer-events:none;"></div>
@@ -537,6 +589,7 @@
 
   <!-- NEWSLETTER + FOOTER -->
   <footer style="position:relative; padding:clamp(70px,9vw,120px) 6vw 0; background:#0a0908; border-top:1px solid rgba(255,255,255,.07);">
+    <div class="foot-divider" style="margin-bottom:clamp(54px,7vw,84px);"></div>
     <div data-reveal style="max-width:680px; margin:0 auto; text-align:center;">
       <h3 data-i18n="news.title" style="font-family:'Playfair Display',serif; font-weight:500; font-size:clamp(28px,4vw,44px); color:#f5f1ea;">Zůstaňte v kontaktu</h3>
       <p data-i18n="news.sub" style="font-size:14.5px; color:#8a857c; margin:14px 0 30px;">Novinky o koncertech, singlech a projektech.</p>
@@ -546,7 +599,7 @@
       </form>
     </div>
     <div style="max-width:1180px; margin:clamp(54px,7vw,80px) auto 0; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between; padding-top:30px; border-top:1px solid rgba(255,255,255,.07);">
-      <div style="display:flex; gap:24px; flex-wrap:wrap;">
+      <div class="socials" style="display:flex; gap:24px; flex-wrap:wrap;">
         <a href="#" style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Instagram</a>
         <a href="#" style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Facebook</a>
         <a href="#" style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">YouTube</a>
@@ -765,7 +818,7 @@
     ents.forEach(function(e){ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none'; io.unobserve(e.target); } });
   }, { threshold:0.1, rootMargin:'0px 0px -7% 0px' });
   Array.prototype.forEach.call(document.querySelectorAll('[data-reveal]'), function(el){
-    el.style.opacity='0'; el.style.transform='translateY(28px)'; el.style.transition='opacity 1s cubic-bezier(.2,.6,.2,1), transform 1s cubic-bezier(.2,.6,.2,1)'; io.observe(el);
+    el.style.opacity='0'; el.style.transform='translateY(34px) scale(.985)'; el.style.transition='opacity 1.1s cubic-bezier(.2,.6,.2,1), transform 1.1s cubic-bezier(.2,.6,.2,1)'; io.observe(el);
   });
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -777,6 +830,8 @@
   });
   var progressEl = $('scrollProgress');
   var heroContent = document.querySelector('.hero-content');
+  var toTop = $('toTop');
+  toTop.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
 
   var ticking=false;
   function onScroll(){
@@ -793,6 +848,7 @@
     var mid = y + window.innerHeight*0.35, active=null;
     spy.forEach(function(s){ if(s.sec.offsetTop <= mid) active=s.link; });
     spy.forEach(function(s){ s.link.classList.toggle('active', s.link===active); });
+    toTop.classList.toggle('show', y > window.innerHeight*0.85);
     ticking=false;
   }
   window.addEventListener('scroll', function(){ if(!ticking){ requestAnimationFrame(onScroll); ticking=true; } }, { passive:true });
@@ -813,6 +869,15 @@
   // obnovit uložený jazyk
   try{ var saved=localStorage.getItem('lg_lang'); if(saved==='en'||saved==='cs'){ state.lang=saved; if(saved!=='cs') applyLang(); else $('langBtn').textContent='CS / EN'; } }catch(e){}
   renderTracks(); renderNowPlaying(); renderProgress(); onScroll();
+
+  // ---- preloader dismiss ----
+  function dismissPreloader(){
+    var pl=$('preloader'); if(!pl) return;
+    pl.classList.add('done');
+    setTimeout(function(){ if(pl && pl.parentNode) pl.parentNode.removeChild(pl); }, 950);
+  }
+  if(reduceMotion){ dismissPreloader(); }
+  else{ window.addEventListener('load', function(){ setTimeout(dismissPreloader, 650); }); setTimeout(dismissPreloader, 4200); }
 })();
 </script>
 </body>
