@@ -60,6 +60,12 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Jemnější reveal (translateY + scale)
 - [x] QA: 0 chyb, ověřeno mobil/desktop, vše cohezní
 
+## Batch 11 — Cross-browser & finiš ✅
+- [x] -webkit-backdrop-filter prefixy pro Safari (nav, badge, reel, klip, toTop, mobilní menu) — 7×
+- [x] Fade-in bočních hero popisků (Soprán·Crossover, IG/YT/SP)
+- [x] Tablet (1024) ověřen — dvousloupcový jukebox s halem OK
+- [~] 3D tilt vstupenek / volume / lightbox — VYNECHÁNO (riziko kolize se schváleným chováním, nejde spolehlivě QA screenshotem)
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
