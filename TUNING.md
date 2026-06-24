@@ -48,6 +48,18 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Re-QA: 0 console chyb, Playfair Display loaded lokálně, vzhled 1:1
 - [x] Funkční QA: jukebox (přepnutí skladby + play + pill), přepnutí jazyka (EN, lang=en), mobilní menu — vše OK
 
+## Batch 6-9 — Vizuální vlna (gradienty, animace, footer, loading) ✅
+- [x] Loading animace (preloader: LG monogram + progress bar + failsafe + reduced-motion)
+- [x] Ambientní struktura pozadí (3 driftující glow vrstvy, screen blend)
+- [x] Radiální gradienty v sekcích (jukebox/klip/koncerty) — víc hloubky
+- [x] Jukebox: halo glow kolem skříně + světelný sweep přes kupoli
+- [x] Footer: zlatý divider, back-to-top tlačítko, hover na socials, marquee pauza na hover
+- [x] Ken-burns na portrétu (jemné dýchání), shimmer na číslech sekcí (01/02/03)
+- [x] Kurzorový glow (desktop), hover glow na zlatých CTA, focus glow na inputu
+- [x] Newsletter: děkovný stav po odeslání (CS/EN)
+- [x] Jemnější reveal (translateY + scale)
+- [x] QA: 0 chyb, ověřeno mobil/desktop, vše cohezní
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
