@@ -3,72 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lenka Graf — Sopranistka &amp; Crossover · Energie pomáhá</title>
-<meta name="description" content="Lenka Graf — sopranistka, filantropka a zakladatelka nadace Energie pomáhá. Klasická opera × současný crossover. Nový singl Křídla snů, koncerty 2026.">
-<meta name="author" content="Lenka Graf">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0a0908">
-<link rel="canonical" href="https://lenkagraf.com/">
-
-<!-- Open Graph / Twitter -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Lenka Graf">
-<meta property="og:locale" content="cs_CZ">
-<meta property="og:locale:alternate" content="en_US">
-<meta property="og:title" content="Lenka Graf — Sopranistka &amp; Crossover">
-<meta property="og:description" content="Klasická opera × současný crossover. Nový singl Křídla snů, koncerty 2026, nadace Energie pomáhá.">
-<meta property="og:image" content="assets/hero.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lenka Graf — Sopranistka &amp; Crossover">
-<meta name="twitter:description" content="Klasická opera × současný crossover. Nový singl Křídla snů.">
-<meta name="twitter:image" content="assets/hero.jpg">
-
-<!-- Favicon (LG monogram) -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230a0908'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='34' fill='%23d8b97a'>LG</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230a0908'/><text x='50%25' y='52%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-weight='700' font-size='34' fill='%23d8b97a'>LG</text></svg>">
-
+<title>Lenka Graf</title>
+<meta name="description" content="Lenka Graf — sopranistka, filantropka a zakladatelka nadace Energie pomáhá. Klasická opera × současný crossover.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.lenkagraf.com" crossorigin>
-<link rel="dns-prefetch" href="https://www.lenkagraf.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-<!-- Strukturovaná data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "MusicGroup",
-  "name": "Lenka Graf",
-  "genre": ["Classical", "Crossover", "Opera"],
-  "url": "https://lenkagraf.com/",
-  "description": "Sopranistka, filantropka a zakladatelka nadace Energie pomáhá. Klasická opera × současný crossover.",
-  "member": {
-    "@type": "Person",
-    "name": "Lenka Graf",
-    "jobTitle": "Sopranistka",
-    "nationality": "Czech"
-  },
-  "track": [
-    { "@type": "MusicRecording", "name": "Křídla snů", "datePublished": "2026" },
-    { "@type": "MusicRecording", "name": "Everything Is Part Of One", "datePublished": "2024" },
-    { "@type": "MusicRecording", "name": "I Dare", "datePublished": "2022" }
-  ],
-  "event": [
-    {
-      "@type": "MusicEvent",
-      "name": "Lenka Graf — O2 arena",
-      "startDate": "2026-05-15T19:30",
-      "location": { "@type": "Place", "name": "O2 arena", "address": "Praha, CZ" }
-    },
-    {
-      "@type": "MusicEvent",
-      "name": "Lenka Graf — Adventní koncert, Palác Žofín",
-      "startDate": "2026-12-13T19:00",
-      "location": { "@type": "Place", "name": "Palác Žofín", "address": "Praha, CZ" }
-    }
-  ]
-}
-</script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -84,20 +23,6 @@
   @keyframes marqueeMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes ndot { 0%,100% { transform:scaleY(.4);} 50%{transform:scaleY(1);} }
   @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
-
-  /* ---- a11y & polish ---- */
-  :focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; border-radius:3px; }
-  :focus:not(:focus-visible){ outline:none; }
-  section[id], footer[id]{ scroll-margin-top:84px; }
-  #hero{ scroll-margin-top:0; }
-  /* tenký zlatý scroll-progress nahoře */
-  #scrollProgress{ position:fixed; top:0; left:0; height:2px; width:0; z-index:90; background:linear-gradient(90deg,#9a7c4a,#f0dcae); box-shadow:0 0 10px rgba(240,220,170,.6); transition:width .08s linear; }
-  /* nav odkazy — animované podtržení + aktivní stav */
-  .nav-actions a{ position:relative; transition:color .35s ease; }
-  .nav-actions a::after{ content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:#d8b97a; transition:width .4s cubic-bezier(.2,.6,.2,1); }
-  .nav-actions a:hover{ color:#ece7de; }
-  .nav-actions a:hover::after,.nav-actions a.active::after{ width:100%; }
-  .nav-actions a.active{ color:#d8b97a; }
 
   /* ---- mobile menu ---- */
   .burger{ display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px; }
@@ -132,11 +57,10 @@
 </style>
 </head>
 <body>
-<div id="scrollProgress" aria-hidden="true"></div>
 <div id="root" style="position:relative; width:100%; overflow-x:hidden; background:#0a0908;">
 
   <!-- GRAIN -->
-  <div aria-hidden="true" style="position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.04; mix-blend-mode:overlay; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
+  <div style="position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.04; mix-blend-mode:overlay; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
 
   <!-- NAV -->
   <nav class="site-nav" style="position:fixed; top:0; left:0; width:100%; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; background:linear-gradient(180deg, rgba(10,9,8,.8) 0%, rgba(10,9,8,0) 100%); backdrop-filter:blur(3px);">
@@ -153,7 +77,7 @@
       <a href="#hudba" data-i18n="nav.music" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Hudba</a>
       <a href="#koncerty" data-i18n="nav.shows" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Koncerty</a>
       <a href="#nadace" data-i18n="nav.foundation" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Nadace</a>
-      <button id="langBtn" aria-label="Přepnout jazyk / Switch language" style="background:none; border:1px solid #3a352d; border-radius:40px; padding:6px 13px; color:#d8b97a; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; cursor:pointer;">CS / EN</button>
+      <button id="langBtn" style="background:none; border:1px solid #3a352d; border-radius:40px; padding:6px 13px; color:#d8b97a; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; cursor:pointer;">CS / EN</button>
       <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
@@ -168,8 +92,8 @@
 
   <!-- HERO -->
   <section id="hero" style="position:relative; height:100vh; min-height:680px; width:100%; overflow:hidden;">
-    <div id="heroMedia" style="position:absolute; top:-7%; left:0; width:100%; height:114%; will-change:transform; background:radial-gradient(120% 90% at 65% 25%, #2a2118 0%, #14100b 45%, #0a0908 100%);">
-      <img src="https://www.lenkagraf.com/wp-content/uploads/2026/02/GRAF_DEFDEF-scaled.jpg" alt="Portrét sopranistky Lenky Graf" fetchpriority="high" decoding="async" onerror="this.style.display='none'" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; filter:grayscale(.42) contrast(1.05) brightness(.74) sepia(.14);">
+    <div id="heroMedia" style="position:absolute; top:-7%; left:0; width:100%; height:114%; will-change:transform;">
+      <img src="https://www.lenkagraf.com/wp-content/uploads/2026/02/GRAF_DEFDEF-scaled.jpg" alt="Lenka Graf" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; filter:grayscale(.42) contrast(1.05) brightness(.74) sepia(.14);">
       <video id="heroVideo" muted loop playsinline preload="none" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.07) brightness(.62); opacity:0; transition:opacity 1.2s ease;">
         <source src="assets/hero.mp4" type="video/mp4">
       </video>
@@ -303,12 +227,12 @@
           <!-- CHROME CONTROL STRIP -->
           <div style="margin-top:14px; border-radius:12px; padding:10px 14px; background:linear-gradient(180deg,#cfc6b8 0%,#8a8074 40%,#6f665b 60%,#a39a8c 100%); box-shadow:0 5px 14px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 3px rgba(0,0,0,.4);">
             <div style="display:flex; align-items:center; gap:14px;">
-              <button id="prevBtn" aria-label="Předchozí skladba" style="width:38px; height:38px; border-radius:50%; border:1px solid rgba(0,0,0,.3); background:radial-gradient(circle at 36% 30%, #3a3026, #15100a); color:#e4dccf; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">◀◀</button>
-              <button id="playBtn" aria-label="Přehrát nebo pozastavit" style="width:48px; height:48px; border-radius:50%; border:2px solid rgba(255,255,255,.4); background:radial-gradient(circle at 38% 30%, #f0dcae, #9a7c4a); color:#1a120a; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.5), inset 0 1px 2px rgba(255,255,255,.6);"><span id="playIcon">▶</span></button>
-              <button id="nextBtn" aria-label="Další skladba" style="width:38px; height:38px; border-radius:50%; border:1px solid rgba(0,0,0,.3); background:radial-gradient(circle at 36% 30%, #3a3026, #15100a); color:#e4dccf; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">▶▶</button>
+              <button id="prevBtn" style="width:38px; height:38px; border-radius:50%; border:1px solid rgba(0,0,0,.3); background:radial-gradient(circle at 36% 30%, #3a3026, #15100a); color:#e4dccf; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">◀◀</button>
+              <button id="playBtn" style="width:48px; height:48px; border-radius:50%; border:2px solid rgba(255,255,255,.4); background:radial-gradient(circle at 38% 30%, #f0dcae, #9a7c4a); color:#1a120a; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.5), inset 0 1px 2px rgba(255,255,255,.6);"><span id="playIcon">▶</span></button>
+              <button id="nextBtn" style="width:38px; height:38px; border-radius:50%; border:1px solid rgba(0,0,0,.3); background:radial-gradient(circle at 36% 30%, #3a3026, #15100a); color:#e4dccf; font-size:11px; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">▶▶</button>
               <div style="flex:1; display:flex; align-items:center; gap:10px;">
                 <span id="curTime" style="font-family:'Space Mono',monospace; font-size:10.5px; color:#2a2016; flex-shrink:0;">0:00</span>
-                <div id="seekBar" role="slider" tabindex="0" aria-label="Pozice ve skladbě" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="position:relative; flex:1; height:7px; border-radius:7px; background:rgba(20,12,6,.55); cursor:pointer; box-shadow:inset 0 1px 3px rgba(0,0,0,.7);">
+                <div id="seekBar" style="position:relative; flex:1; height:7px; border-radius:7px; background:rgba(20,12,6,.55); cursor:pointer; box-shadow:inset 0 1px 3px rgba(0,0,0,.7);">
                   <div id="progFill" style="position:absolute; left:0; top:0; height:100%; border-radius:7px; background:linear-gradient(90deg,#9a7c4a,#f0dcae); box-shadow:0 0 10px rgba(240,220,170,.7); width:0%;"></div>
                   <div id="progHandle" style="position:absolute; top:50%; transform:translate(-50%,-50%); width:13px; height:13px; border-radius:50%; background:#fff; box-shadow:0 0 8px rgba(240,220,170,.8); left:0%;"></div>
                 </div>
@@ -356,7 +280,7 @@
           <span style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.18em; color:#cfc8bb;">REC · 04:12</span>
         </div>
         <span style="position:absolute; top:calc(7% + 14px); right:24px; z-index:3; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.18em; color:#8a847a;">NEW WORLD · 4K</span>
-        <button id="klipBtn" aria-label="Přehrát featured klip Křídla snů" style="position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; background:rgba(10,7,6,.28); border:none; cursor:pointer; transition:background .3s;" style-hover="background:rgba(10,7,6,.12)">
+        <button id="klipBtn" style="position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; background:rgba(10,7,6,.28); border:none; cursor:pointer; transition:background .3s;" style-hover="background:rgba(10,7,6,.12)">
           <span style="width:90px; height:90px; border-radius:50%; border:1px solid rgba(216,185,122,.6); display:flex; align-items:center; justify-content:center; color:#f0dcae; font-size:24px; background:rgba(10,8,7,.4); box-shadow:0 0 0 8px rgba(216,185,122,.06); backdrop-filter:blur(2px);"><span id="klipIcon">▶</span></span>
         </button>
         <div class="klip-cap" style="position:absolute; left:0; bottom:calc(7% + 18px); width:100%; padding:0 24px; z-index:3; display:flex; align-items:flex-end; justify-content:space-between; gap:20px;">
@@ -648,7 +572,6 @@
     $('progHandle').style.left = pct+'%';
     $('curTime').textContent = fmt(state.time);
     $('durTime').textContent = fmt(state.dur);
-    var sb=$('seekBar'); if(sb) sb.setAttribute('aria-valuenow', Math.round(pct));
   }
 
   function applyMachine(p){
@@ -713,7 +636,7 @@
     $('langBtn').textContent = state.lang==='cs'?'CS / EN':'EN / CS';
     $('reelLabel').textContent = state.reel ? (state.lang==='cs'?'Zastavit ukázku':'Stop reel') : (state.lang==='cs'?'Přehrát ukázku':'Watch reel');
   }
-  $('langBtn').addEventListener('click', function(){ state.lang = state.lang==='cs'?'en':'cs'; applyLang(); try{ localStorage.setItem('lg_lang', state.lang); }catch(e){} });
+  $('langBtn').addEventListener('click', function(){ state.lang = state.lang==='cs'?'en':'cs'; applyLang(); });
 
   // ---- mobile menu ----
   var mnav=$('mNav');
@@ -736,48 +659,13 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-reveal]'), function(el){
     el.style.opacity='0'; el.style.transform='translateY(28px)'; el.style.transition='opacity 1s cubic-bezier(.2,.6,.2,1), transform 1s cubic-bezier(.2,.6,.2,1)'; io.observe(el);
   });
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // scrollspy — mapování nav odkazů na sekce
-  var spy = [];
-  Array.prototype.forEach.call(document.querySelectorAll('.nav-actions a[href^="#"]'), function(a){
-    var id = a.getAttribute('href').slice(1); var sec = document.getElementById(id);
-    if(sec) spy.push({ link:a, sec:sec });
-  });
-  var progressEl = $('scrollProgress');
-
   var ticking=false;
-  function onScroll(){
-    var y = window.scrollY;
-    // scroll progress
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    progressEl.style.width = (h>0 ? (y/h*100) : 0) + '%';
-    // parallax (jen bez reduced-motion)
-    if(!reduceMotion) heroMedia.style.transform = 'translateY(' + (y*0.16) + 'px)';
-    // scrollspy
-    var mid = y + window.innerHeight*0.35, active=null;
-    spy.forEach(function(s){ if(s.sec.offsetTop <= mid) active=s.link; });
-    spy.forEach(function(s){ s.link.classList.toggle('active', s.link===active); });
-    ticking=false;
-  }
-  window.addEventListener('scroll', function(){ if(!ticking){ requestAnimationFrame(onScroll); ticking=true; } }, { passive:true });
-
-  // ---- seekbar klávesnice ----
-  $('seekBar').addEventListener('keydown', function(e){
-    if(!audio.duration) return;
-    var step = audio.duration*0.05, t=audio.currentTime;
-    if(e.key==='ArrowRight'||e.key==='ArrowUp'){ audio.currentTime=Math.min(audio.duration,t+step); e.preventDefault(); }
-    else if(e.key==='ArrowLeft'||e.key==='ArrowDown'){ audio.currentTime=Math.max(0,t-step); e.preventDefault(); }
-    else if(e.key==='Home'){ audio.currentTime=0; e.preventDefault(); }
-    else if(e.key==='End'){ audio.currentTime=audio.duration; e.preventDefault(); }
-    else return;
-    state.time=audio.currentTime; renderProgress();
-  });
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(function(){ heroMedia.style.transform='translateY('+(window.scrollY*0.16)+'px)'; ticking=false; }); ticking=true; }
+  }, { passive:true });
 
   // ---- init ----
-  // obnovit uložený jazyk
-  try{ var saved=localStorage.getItem('lg_lang'); if(saved==='en'||saved==='cs'){ state.lang=saved; if(saved!=='cs') applyLang(); else $('langBtn').textContent='CS / EN'; } }catch(e){}
-  renderTracks(); renderNowPlaying(); renderProgress(); onScroll();
+  renderTracks(); renderNowPlaying(); renderProgress();
 })();
 </script>
 </body>
