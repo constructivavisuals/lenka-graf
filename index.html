@@ -120,6 +120,21 @@
   #toTop.show{ opacity:1; visibility:visible; transform:none; }
   #toTop:hover{ border-color:#d8b97a; background:rgba(216,185,122,.14); }
 
+  /* ===== jemnosti: shimmer čísel, focus, ken-burns ===== */
+  .sec-num{ background:linear-gradient(90deg,#9a7c4a,#f0dcae 45%,#9a7c4a); background-size:220% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:shimmer 5.5s linear infinite; }
+  @keyframes shimmer{ to{ background-position:-220% center; } }
+  footer input[type=email]:focus{ border-color:rgba(216,185,122,.7)!important; box-shadow:0 0 0 3px rgba(216,185,122,.1); }
+  footer button[type=submit]:hover{ filter:brightness(1.08); box-shadow:0 8px 26px -8px rgba(216,185,122,.55); }
+  .hero-ken{ animation:heroKen 26s ease-in-out infinite alternate; }
+  @keyframes heroKen{ from{ transform:scale(1.01); } to{ transform:scale(1.07); } }
+  /* zlaté CTA — jednotný hover glow */
+  a[style*="background:#d8b97a"], button[style*="background:#d8b97a"]{ transition:transform .3s ease, box-shadow .3s ease, filter .3s ease; }
+  a[style*="background:#d8b97a"]:hover, button[style*="background:#d8b97a"]:hover{ transform:translateY(-2px); filter:brightness(1.06); box-shadow:0 10px 28px -10px rgba(216,185,122,.6); }
+  /* kurzorový glow (jen desktop) */
+  #cursorGlow{ position:fixed; top:0; left:0; width:360px; height:360px; margin:-180px 0 0 -180px; border-radius:50%; pointer-events:none; z-index:9997; background:radial-gradient(circle, rgba(216,185,122,.07), transparent 66%); mix-blend-mode:screen; opacity:0; transition:opacity .5s ease; will-change:transform; }
+  #cursorGlow.on{ opacity:1; }
+  @media (hover:none),(pointer:coarse){ #cursorGlow{ display:none; } }
+
   /* ---- a11y & polish ---- */
   :focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; border-radius:3px; }
   :focus:not(:focus-visible){ outline:none; }
@@ -188,6 +203,7 @@
 
 <!-- AMBIENTNÍ POZADÍ -->
 <div id="bgAmbient" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i></div>
+<div id="cursorGlow" aria-hidden="true"></div>
 
 <button id="toTop" aria-label="Zpět nahoru">↑</button>
 
@@ -228,7 +244,7 @@
   <!-- HERO -->
   <section id="hero" style="position:relative; height:100vh; min-height:680px; width:100%; overflow:hidden;">
     <div id="heroMedia" style="position:absolute; top:-7%; left:0; width:100%; height:114%; will-change:transform; background:radial-gradient(120% 90% at 65% 25%, #2a2118 0%, #14100b 45%, #0a0908 100%);">
-      <img src="assets/portrait.jpg" alt="Portrét sopranistky Lenky Graf" fetchpriority="high" decoding="async" onerror="this.style.display='none'" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; filter:grayscale(.42) contrast(1.05) brightness(.74) sepia(.14);">
+      <img src="assets/portrait.jpg" alt="Portrét sopranistky Lenky Graf" fetchpriority="high" decoding="async" onerror="this.style.display='none'" class="hero-ken" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 22%; filter:grayscale(.42) contrast(1.05) brightness(.74) sepia(.14);">
       <video id="heroVideo" muted loop playsinline preload="none" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.07) brightness(.62); opacity:0; transition:opacity 1.2s ease;">
         <source src="assets/hero.mp4" type="video/mp4">
       </video>
@@ -283,7 +299,7 @@
   </section>
 
   <!-- JUKEBOX -->
-  <section id="hudba" style="position:relative; padding:clamp(54px,7vw,92px) 6vw; background:linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
+  <section id="hudba" style="position:relative; padding:clamp(54px,7vw,92px) 6vw; background:radial-gradient(90% 55% at 84% 12%, rgba(216,185,122,.05), transparent 55%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
     <div style="max-width:1200px; margin:0 auto;">
       <div data-reveal style="margin-bottom:14px;">
         <div style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
@@ -394,7 +410,7 @@
   </section>
 
   <!-- FEATURED KLIP -->
-  <section style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:#0a0908; border-top:1px solid rgba(255,255,255,.05);">
+  <section style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(65% 50% at 12% 18%, rgba(126,42,56,.07), transparent 55%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
     <div style="max-width:1180px; margin:0 auto;">
       <div data-reveal style="margin-bottom:clamp(32px,4vw,52px);">
         <div style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
@@ -445,7 +461,7 @@
   </section>
 
   <!-- KONCERTY -->
-  <section id="koncerty" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
+  <section id="koncerty" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(75% 50% at 18% 14%, rgba(216,185,122,.045), transparent 55%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
     <div style="max-width:1100px; margin:0 auto;">
       <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
         <div style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
@@ -810,6 +826,22 @@
     var hov=el.getAttribute('style-hover'); var base=el.getAttribute('style')||'';
     el.addEventListener('mouseenter', function(){ el.setAttribute('style', base+'; '+hov); });
     el.addEventListener('mouseleave', function(){ el.setAttribute('style', base); });
+  });
+
+  // ---- kurzorový glow (desktop, bez reduced-motion) ----
+  var cg=$('cursorGlow');
+  if(cg && !reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var cgx=0, cgy=0, cgRaf=false;
+    window.addEventListener('mousemove', function(e){
+      cgx=e.clientX; cgy=e.clientY; cg.classList.add('on');
+      if(!cgRaf){ requestAnimationFrame(function(){ cg.style.transform='translate('+cgx+'px,'+cgy+'px)'; cgRaf=false; }); cgRaf=true; }
+    }, { passive:true });
+    document.addEventListener('mouseleave', function(){ cg.classList.remove('on'); });
+  }
+
+  // ---- shimmer na čísla sekcí (01 — / 02 — / 03 —) ----
+  Array.prototype.forEach.call(document.querySelectorAll('span'), function(s){
+    if(/^0\d\s*—/.test((s.textContent||'').trim())) s.className = (s.className + ' sec-num').trim();
   });
 
   // ---- reveal + parallax ----
