@@ -23,6 +23,37 @@
   @keyframes marqueeMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes ndot { 0%,100% { transform:scaleY(.4);} 50%{transform:scaleY(1);} }
   @media (prefers-reduced-motion: reduce){ *{animation:none !important} }
+
+  /* ---- mobile menu ---- */
+  .burger{ display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px; }
+  .burger span{ display:block; width:24px; height:1.5px; background:#ece7de; transition:.3s; }
+  .mnav{ position:fixed; inset:0; z-index:80; background:rgba(10,9,8,.98); backdrop-filter:blur(6px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s; }
+  .mnav.open{ opacity:1; visibility:visible; }
+  .mnav a{ font-family:'Playfair Display',serif; font-size:34px; letter-spacing:.03em; color:#ece7de; text-decoration:none; padding:12px; }
+  .mnav a:active{ color:#d8b97a; }
+  .mnav-close{ position:absolute; top:18px; right:26px; font-size:38px; line-height:1; background:none; border:0; color:#ece7de; cursor:pointer; }
+
+  /* ---- mobile layout ---- */
+  @media (max-width:780px){
+    .site-nav{ padding:15px 22px !important; }
+    .nav-actions{ gap:16px !important; }
+    .nav-actions a{ display:none !important; }
+    #npPill{ display:none !important; }
+    .burger{ display:flex; }
+    .hero-content{ padding:0 26px !important; }
+    .hero-content h1{ font-size:clamp(46px,15vw,92px) !important; }
+    .hero-side{ display:none !important; }
+    .hero-teaser{ top:74px !important; gap:9px !important; padding:0 18px; flex-wrap:wrap; }
+    .cabinet{ padding:26px 22px !important; }
+    .tkt{ flex-direction:column !important; }
+    .tkt-perf{ display:none !important; }
+    .tkt-stub{ width:100% !important; border-top:1px dashed rgba(216,185,122,.3); }
+    .klip-cap{ flex-wrap:wrap !important; gap:12px !important; }
+  }
+  @media (max-width:420px){
+    .hero-content h1{ font-size:clamp(40px,13vw,72px) !important; }
+    .hero-teaser span:first-child, .hero-teaser span:last-child{ display:none; }
+  }
 </style>
 </head>
 <body>
@@ -32,9 +63,9 @@
   <div style="position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.04; mix-blend-mode:overlay; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
 
   <!-- NAV -->
-  <nav style="position:fixed; top:0; left:0; width:100%; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; background:linear-gradient(180deg, rgba(10,9,8,.8) 0%, rgba(10,9,8,0) 100%); backdrop-filter:blur(3px);">
+  <nav class="site-nav" style="position:fixed; top:0; left:0; width:100%; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; background:linear-gradient(180deg, rgba(10,9,8,.8) 0%, rgba(10,9,8,0) 100%); backdrop-filter:blur(3px);">
     <a href="#hero" style="font-family:'Playfair Display',serif; font-size:19px; letter-spacing:.18em; text-transform:uppercase; color:#ece7de; text-decoration:none; flex-shrink:0;">Lenka&nbsp;Graf</a>
-    <div style="display:flex; align-items:center; gap:30px;">
+    <div class="nav-actions" style="display:flex; align-items:center; gap:30px;">
       <span id="npPill" style="display:none; align-items:center; gap:8px; padding:6px 13px; border:1px solid rgba(216,185,122,.28); border-radius:40px;">
         <span style="display:flex; align-items:flex-end; gap:2px; height:11px;">
           <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .8s ease-in-out infinite;"></span>
@@ -47,8 +78,17 @@
       <a href="#koncerty" data-i18n="nav.shows" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Koncerty</a>
       <a href="#nadace" data-i18n="nav.foundation" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Nadace</a>
       <button id="langBtn" style="background:none; border:1px solid #3a352d; border-radius:40px; padding:6px 13px; color:#d8b97a; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; cursor:pointer;">CS / EN</button>
+      <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mNav" class="mnav">
+    <button id="mNavClose" class="mnav-close" aria-label="Zavřít">×</button>
+    <a href="#hudba" data-i18n="nav.music">Hudba</a>
+    <a href="#koncerty" data-i18n="nav.shows">Koncerty</a>
+    <a href="#nadace" data-i18n="nav.foundation">Nadace</a>
+  </div>
 
   <!-- HERO -->
   <section id="hero" style="position:relative; height:100vh; min-height:680px; width:100%; overflow:hidden;">
@@ -63,7 +103,7 @@
     <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,9,8,.78) 0%, rgba(10,9,8,.2) 42%, rgba(10,9,8,0) 70%);"></div>
     <div style="position:absolute; inset:0; box-shadow:inset 0 0 240px rgba(0,0,0,.7);"></div>
 
-    <div data-reveal style="position:absolute; top:92px; left:0; width:100%; z-index:4; display:flex; align-items:center; justify-content:center; gap:16px;">
+    <div data-reveal class="hero-teaser" style="position:absolute; top:92px; left:0; width:100%; z-index:4; display:flex; align-items:center; justify-content:center; gap:16px;">
       <span style="height:1px; width:clamp(20px,6vw,70px); background:rgba(216,185,122,.4);"></span>
       <span style="font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:#b89b6a;">O2 Arena · 15.05.2026</span>
       <span style="width:4px; height:4px; border-radius:50%; background:#d8b97a;"></span>
@@ -71,10 +111,10 @@
       <span style="height:1px; width:clamp(20px,6vw,70px); background:rgba(216,185,122,.4);"></span>
     </div>
 
-    <div style="position:absolute; left:32px; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; z-index:4;">
+    <div class="hero-side" style="position:absolute; left:32px; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; z-index:4;">
       <span data-i18n="hero.vtext" style="font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.42em; text-transform:uppercase; color:#8a7e64;">Soprán · Crossover</span>
     </div>
-    <div style="position:absolute; right:32px; top:50%; transform:translateY(-50%); z-index:4; display:flex; flex-direction:column; gap:16px; align-items:center;">
+    <div class="hero-side" style="position:absolute; right:32px; top:50%; transform:translateY(-50%); z-index:4; display:flex; flex-direction:column; gap:16px; align-items:center;">
       <a href="#" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">IG</a>
       <span style="width:1px; height:24px; background:rgba(216,185,122,.3);"></span>
       <a href="#" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">YT</a>
@@ -82,7 +122,7 @@
       <a href="#" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">SP</a>
     </div>
 
-    <div style="position:absolute; left:0; bottom:clamp(64px,9vh,120px); width:100%; z-index:3; padding:0 clamp(64px,8vw,120px);">
+    <div class="hero-content" style="position:absolute; left:0; bottom:clamp(64px,9vh,120px); width:100%; z-index:3; padding:0 clamp(64px,8vw,120px);">
       <div data-reveal style="display:inline-flex; align-items:center; gap:11px; margin-bottom:26px; padding:8px 18px; border:1px solid rgba(216,185,122,.42); border-radius:40px; background:rgba(216,185,122,.06); backdrop-filter:blur(4px);">
         <span style="display:flex; align-items:flex-end; gap:2.5px; height:11px;">
           <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .9s ease-in-out infinite;"></span>
@@ -137,7 +177,7 @@
         </div>
 
       <!-- CABINET -->
-      <div data-reveal style="position:relative; width:min(430px,100%); margin:0 auto; padding:28px 40px 28px; border-radius:210px 210px 20px 20px; background:linear-gradient(180deg,#3a2616 0%,#2a1a0d 42%,#1c1208 100%); box-shadow:0 70px 130px rgba(0,0,0,.78), inset 0 2px 0 rgba(236,215,166,.3), inset 0 0 60px rgba(0,0,0,.5);">
+      <div data-reveal class="cabinet" style="position:relative; width:min(430px,100%); margin:0 auto; padding:28px 40px 28px; border-radius:210px 210px 20px 20px; background:linear-gradient(180deg,#3a2616 0%,#2a1a0d 42%,#1c1208 100%); box-shadow:0 70px 130px rgba(0,0,0,.78), inset 0 2px 0 rgba(236,215,166,.3), inset 0 0 60px rgba(0,0,0,.5);">
         <div style="position:absolute; inset:0; border-radius:210px 210px 20px 20px; background:repeating-linear-gradient(90deg, rgba(0,0,0,.16) 0 2px, rgba(255,255,255,.015) 2px 6px); pointer-events:none; opacity:.5;"></div>
         <div style="position:absolute; top:13px; left:17px; right:17px; bottom:22px; border:5px solid rgba(240,220,170,.92); border-bottom:none; border-radius:185px 185px 0 0; box-shadow:0 0 22px rgba(240,220,170,.5), inset 0 0 14px rgba(240,220,170,.4); animation:glowPulse 3.6s ease-in-out infinite; pointer-events:none;"></div>
         <div style="position:absolute; top:24px; left:29px; right:29px; bottom:22px; border:3px solid rgba(150,46,63,.85); border-bottom:none; border-radius:162px 162px 0 0; box-shadow:0 0 18px rgba(150,46,63,.55), inset 0 0 10px rgba(150,46,63,.4); animation:glowPulse 3.6s ease-in-out infinite .7s; pointer-events:none;"></div>
@@ -243,7 +283,7 @@
         <button id="klipBtn" style="position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; background:rgba(10,7,6,.28); border:none; cursor:pointer; transition:background .3s;" style-hover="background:rgba(10,7,6,.12)">
           <span style="width:90px; height:90px; border-radius:50%; border:1px solid rgba(216,185,122,.6); display:flex; align-items:center; justify-content:center; color:#f0dcae; font-size:24px; background:rgba(10,8,7,.4); box-shadow:0 0 0 8px rgba(216,185,122,.06); backdrop-filter:blur(2px);"><span id="klipIcon">▶</span></span>
         </button>
-        <div style="position:absolute; left:0; bottom:calc(7% + 18px); width:100%; padding:0 24px; z-index:3; display:flex; align-items:flex-end; justify-content:space-between; gap:20px;">
+        <div class="klip-cap" style="position:absolute; left:0; bottom:calc(7% + 18px); width:100%; padding:0 24px; z-index:3; display:flex; align-items:flex-end; justify-content:space-between; gap:20px;">
           <div>
             <div style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#b89b6a;">Music video</div>
             <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(26px,3.6vw,42px); color:#f5f1ea; line-height:1; margin-top:6px; text-shadow:0 4px 24px rgba(0,0,0,.6);">Křídla&nbsp;snů</div>
@@ -281,10 +321,10 @@
 
       <div style="display:flex; flex-direction:column; gap:26px;">
         <!-- TICKET 1 -->
-        <div data-reveal style="position:relative; display:flex; flex-wrap:wrap; border-radius:14px; overflow:hidden; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18); transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s;" style-hover="transform:translateY(-5px); box-shadow:0 44px 90px rgba(0,0,0,.6), inset 0 0 0 1px rgba(216,185,122,.4)">
+        <div data-reveal class="tkt" style="position:relative; display:flex; flex-wrap:wrap; border-radius:14px; overflow:hidden; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18); transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s;" style-hover="transform:translateY(-5px); box-shadow:0 44px 90px rgba(0,0,0,.6), inset 0 0 0 1px rgba(216,185,122,.4)">
           <div style="position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(180deg,#f0dcae,#9a7c4a); z-index:2;"></div>
           <div style="position:absolute; inset:0; background-image:repeating-radial-gradient(circle at 18% 120%, rgba(216,185,122,.05) 0 1px, transparent 1px 9px); pointer-events:none;"></div>
-          <div style="flex:1; min-width:300px; padding:clamp(26px,4vw,40px); position:relative;">
+          <div class="tkt-main" style="flex:1; min-width:300px; padding:clamp(26px,4vw,40px); position:relative;">
             <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
               <span data-i18n="shows.label" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#9a7c4a;">Koncert · 2026</span>
               <span style="width:34px; height:34px; border-radius:50%; border:1px solid rgba(216,185,122,.45); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:13px; color:#d8b97a; flex-shrink:0;">LG</span>
@@ -308,11 +348,11 @@
               </div>
             </div>
           </div>
-          <div style="position:relative; width:2px; align-self:stretch; margin:16px 0; background-image:linear-gradient(180deg, rgba(216,185,122,.4) 0 6px, transparent 6px 12px); background-size:2px 12px;">
+          <div class="tkt-perf" style="position:relative; width:2px; align-self:stretch; margin:16px 0; background-image:linear-gradient(180deg, rgba(216,185,122,.4) 0 6px, transparent 6px 12px); background-size:2px 12px;">
             <span style="position:absolute; top:-26px; left:50%; transform:translate(-50%,-50%); width:24px; height:24px; border-radius:50%; background:#0a0908;"></span>
             <span style="position:absolute; bottom:-26px; left:50%; transform:translate(-50%,50%); width:24px; height:24px; border-radius:50%; background:#0a0908;"></span>
           </div>
-          <div style="width:clamp(170px,24%,220px); padding:clamp(22px,3vw,30px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px; background:rgba(216,185,122,.045);">
+          <div class="tkt-stub" style="width:clamp(170px,24%,220px); padding:clamp(22px,3vw,30px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px; background:rgba(216,185,122,.045);">
             <span data-i18n="shows.admit" style="font-family:'Space Mono',monospace; font-size:9.5px; letter-spacing:.28em; text-transform:uppercase; color:#9a7c4a;">Admit One</span>
             <div style="position:relative; width:62px; height:62px; background:#ece7de; border-radius:5px; padding:7px;">
               <div style="position:absolute; inset:7px; background-image:repeating-linear-gradient(0deg,#100c08 0 2px,transparent 2px 4px),repeating-linear-gradient(90deg,#100c08 0 2px,transparent 2px 4px); opacity:.45;"></div>
@@ -329,10 +369,10 @@
         </div>
 
         <!-- TICKET 2 -->
-        <div data-reveal style="position:relative; display:flex; flex-wrap:wrap; border-radius:14px; overflow:hidden; background:linear-gradient(120deg,#181014 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18); transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s;" style-hover="transform:translateY(-5px); box-shadow:0 44px 90px rgba(0,0,0,.6), inset 0 0 0 1px rgba(216,185,122,.4)">
+        <div data-reveal class="tkt" style="position:relative; display:flex; flex-wrap:wrap; border-radius:14px; overflow:hidden; background:linear-gradient(120deg,#181014 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18); transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s;" style-hover="transform:translateY(-5px); box-shadow:0 44px 90px rgba(0,0,0,.6), inset 0 0 0 1px rgba(216,185,122,.4)">
           <div style="position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(180deg,#c98a96,#7e2a38); z-index:2;"></div>
           <div style="position:absolute; inset:0; background-image:repeating-radial-gradient(circle at 18% 120%, rgba(201,138,150,.05) 0 1px, transparent 1px 9px); pointer-events:none;"></div>
-          <div style="flex:1; min-width:300px; padding:clamp(26px,4vw,40px); position:relative;">
+          <div class="tkt-main" style="flex:1; min-width:300px; padding:clamp(26px,4vw,40px); position:relative;">
             <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;">
               <span data-i18n="shows.label2" style="font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#c98a96;">Vánoční koncert · 2026</span>
               <span style="width:34px; height:34px; border-radius:50%; border:1px solid rgba(201,138,150,.45); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:13px; color:#c98a96; flex-shrink:0;">LG</span>
@@ -356,11 +396,11 @@
               </div>
             </div>
           </div>
-          <div style="position:relative; width:2px; align-self:stretch; margin:16px 0; background-image:linear-gradient(180deg, rgba(216,185,122,.4) 0 6px, transparent 6px 12px); background-size:2px 12px;">
+          <div class="tkt-perf" style="position:relative; width:2px; align-self:stretch; margin:16px 0; background-image:linear-gradient(180deg, rgba(216,185,122,.4) 0 6px, transparent 6px 12px); background-size:2px 12px;">
             <span style="position:absolute; top:-26px; left:50%; transform:translate(-50%,-50%); width:24px; height:24px; border-radius:50%; background:#0c0a08;"></span>
             <span style="position:absolute; bottom:-26px; left:50%; transform:translate(-50%,50%); width:24px; height:24px; border-radius:50%; background:#0c0a08;"></span>
           </div>
-          <div style="width:clamp(170px,24%,220px); padding:clamp(22px,3vw,30px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px; background:rgba(201,138,150,.045);">
+          <div class="tkt-stub" style="width:clamp(170px,24%,220px); padding:clamp(22px,3vw,30px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:13px; background:rgba(201,138,150,.045);">
             <span data-i18n="shows.admit2" style="font-family:'Space Mono',monospace; font-size:9.5px; letter-spacing:.28em; text-transform:uppercase; color:#c98a96;">Admit One</span>
             <div style="position:relative; width:62px; height:62px; background:#ece7de; border-radius:5px; padding:7px;">
               <div style="position:absolute; inset:7px; background-image:repeating-linear-gradient(0deg,#100c08 0 2px,transparent 2px 4px),repeating-linear-gradient(90deg,#100c08 0 2px,transparent 2px 4px); opacity:.45;"></div>
@@ -597,6 +637,12 @@
     $('reelLabel').textContent = state.reel ? (state.lang==='cs'?'Zastavit ukázku':'Stop reel') : (state.lang==='cs'?'Přehrát ukázku':'Watch reel');
   }
   $('langBtn').addEventListener('click', function(){ state.lang = state.lang==='cs'?'en':'cs'; applyLang(); });
+
+  // ---- mobile menu ----
+  var mnav=$('mNav');
+  $('burger').addEventListener('click', function(){ mnav.classList.add('open'); });
+  $('mNavClose').addEventListener('click', function(){ mnav.classList.remove('open'); });
+  Array.prototype.forEach.call(mnav.querySelectorAll('a'), function(a){ a.addEventListener('click', function(){ mnav.classList.remove('open'); }); });
 
   // ---- style-hover ----
   Array.prototype.forEach.call(document.querySelectorAll('[style-hover]'), function(el){
