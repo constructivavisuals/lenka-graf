@@ -665,6 +665,7 @@
     for(var i=0;i<bars.length;i++){ bars[i].style.animationPlayState = p?'running':'paused'; }
     $('playIcon').textContent = p?'❚❚':'▶';
     $('npPill').style.display = p?'inline-flex':'none';
+    $('playBtn').setAttribute('aria-pressed', p?'true':'false');
   }
 
   // plynulý 60fps progress (mezi timeupdate událostmi)
@@ -726,6 +727,7 @@
   // ---- i18n ----
   function applyLang(){
     var dict=I18N[state.lang];
+    document.documentElement.lang = state.lang;
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function(el){
       var k=el.getAttribute('data-i18n'); if(dict[k]!=null) el.textContent=dict[k];
     });
