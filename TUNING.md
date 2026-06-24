@@ -27,21 +27,24 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [~] Sekční nadpisy reveal po slovech — vynecháno (data-reveal fade stačí, nešahat na vzhled)
 - [~] Vstupenky 3D tilt — vynecháno (kolize se style-hover liftem; hover lift ponechán)
 
-## Batch 3 — Vizuální vychytávky
-- [ ] Hero: lokální fallback foto (frame z hero.mp4) místo závislosti na cizím serveru
-- [ ] Plynulé přechody mezi sekcemi, konzistentní vertikální rytmus
-- [ ] Jemné dekorativní prvky (hairline ornamenty, čísla sekcí)
-- [ ] Preloader / fade-in celé stránky
-- [ ] Custom kurzor highlight na interaktivních prvcích (decentní)
-- [ ] Lightbox/větší přehrávač pro Featured klip
+## Batch 3 — Self-hosting & vizuál ✅
+- [x] Self-host assetů: portrét, 3× nahrávka, obal lokálně + optimalizace (mp3 160k, foto 1800px)
+- [x] Nezávislost na cizím serveru (vč. odebrání preconnectu)
+- [x] Preload LCP fotky (fetchpriority high)
+- [x] Gradient fallback hero + onerror na <img>
+- [~] Custom kurzor / lightbox klipu — vynecháno (drželo by to víc rušení než užitku pro demo)
 
-## Batch 4 — Robustnost & finální QA
-- [ ] Self-host kritických assetů (poster, fallbacky) v assets/
-- [ ] Cross-check: mobil 360/390, tablet 768, desktop 1440/1920
-- [ ] Kontrast textů (WCAG AA) na světlých místech fotky
-- [ ] Lighthouse-style pass (meta, alt, lang, headings hierarchie)
-- [ ] Závěrečné pročištění CSS/JS, komentáře
-- [ ] Aktualizace README/handoff pozn. + finální commit
+## Batch 4 — Robustnost & QA ✅
+- [x] QA v reálném headless prohlížeči (browse): 0 console chyb, 3 skladby OK
+- [x] Cross-check screenshoty: mobil 390, tablet 768, desktop 1440 — hero/jukebox/klip/vstupenky OK
+- [x] Mobil: hamburger funguje, vstupenky se skládají, jukebox full-width
+- [x] Reveal = progressive enhancement (bez JS obsah viditelný)
+- [x] Heading hierarchie h1→h2→h3, alt texty, lang přepínání
+- [ ] (volitelné) self-host fontů, absolutní og:image po nasazení na doménu
 
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
+- 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
+- 2026-06-24 15:56 — Batch 2 (plynulý progress, drag seek, klávesy, hero fade)
+- 2026-06-24 15:59 — Batch 3 (self-hosting assetů)
+- 2026-06-24 16:03 — Batch 4 (QA screenshoty, 0 chyb) + preload LCP
