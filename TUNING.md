@@ -42,9 +42,16 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Heading hierarchie h1→h2→h3, alt texty, lang přepínání
 - [ ] (volitelné) self-host fontů, absolutní og:image po nasazení na doménu
 
+## Batch 5 — Self-host fontů & funkční QA ✅
+- [x] Self-host Google Fonts lokálně (assets/fonts/, 18 woff2, 368K) + přepojení @font-face
+- [x] Odebrána závislost na fonts.googleapis/gstatic — 0 externích requestů (GDPR-friendly)
+- [x] Re-QA: 0 console chyb, Playfair Display loaded lokálně, vzhled 1:1
+- [x] Funkční QA: jukebox (přepnutí skladby + play + pill), přepnutí jazyka (EN, lang=en), mobilní menu — vše OK
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
 - 2026-06-24 15:56 — Batch 2 (plynulý progress, drag seek, klávesy, hero fade)
 - 2026-06-24 15:59 — Batch 3 (self-hosting assetů)
 - 2026-06-24 16:03 — Batch 4 (QA screenshoty, 0 chyb) + preload LCP
+- 2026-06-24 16:35 — Batch 5 (self-host fontů, funkční QA) — roadmapa vyčerpána, loop ukončen
