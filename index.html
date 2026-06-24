@@ -134,6 +134,15 @@
   #cursorGlow{ position:fixed; top:0; left:0; width:360px; height:360px; margin:-180px 0 0 -180px; border-radius:50%; pointer-events:none; z-index:9997; background:radial-gradient(circle, rgba(216,185,122,.07), transparent 66%); mix-blend-mode:screen; opacity:0; transition:opacity .5s ease; will-change:transform; }
   #cursorGlow.on{ opacity:1; }
   @media (hover:none),(pointer:coarse){ #cursorGlow{ display:none; } }
+  /* klip — pulzující play affordance */
+  .klip-pulse{ animation:klipPulse 2.8s ease-in-out infinite; }
+  @keyframes klipPulse{ 0%,100%{ box-shadow:0 0 0 8px rgba(216,185,122,.06); } 50%{ box-shadow:0 0 0 15px rgba(216,185,122,.11); } }
+  /* footer marquee — pauza na hover */
+  .foot-marquee{ animation:marqueeMove 28s linear infinite; }
+  .foot-marquee:hover{ animation-play-state:paused; }
+  /* newsletter — děkovný stav */
+  #newsThanks{ display:none; font-family:'Playfair Display',serif; font-style:italic; font-size:20px; color:#d8b97a; margin-top:6px; opacity:0; transition:opacity .6s ease; }
+  #newsThanks.show{ display:block; opacity:1; }
 
   /* ---- a11y & polish ---- */
   :focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; border-radius:3px; }
@@ -433,7 +442,7 @@
         </div>
         <span style="position:absolute; top:calc(7% + 14px); right:24px; z-index:3; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.18em; color:#8a847a;">NEW WORLD · 4K</span>
         <button id="klipBtn" aria-label="Přehrát featured klip Křídla snů" style="position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; background:rgba(10,7,6,.28); border:none; cursor:pointer; transition:background .3s;" style-hover="background:rgba(10,7,6,.12)">
-          <span style="width:90px; height:90px; border-radius:50%; border:1px solid rgba(216,185,122,.6); display:flex; align-items:center; justify-content:center; color:#f0dcae; font-size:24px; background:rgba(10,8,7,.4); box-shadow:0 0 0 8px rgba(216,185,122,.06); backdrop-filter:blur(2px);"><span id="klipIcon">▶</span></span>
+          <span class="klip-pulse" style="width:90px; height:90px; border-radius:50%; border:1px solid rgba(216,185,122,.6); display:flex; align-items:center; justify-content:center; color:#f0dcae; font-size:24px; background:rgba(10,8,7,.4); box-shadow:0 0 0 8px rgba(216,185,122,.06); backdrop-filter:blur(2px);"><span id="klipIcon">▶</span></span>
         </button>
         <div class="klip-cap" style="position:absolute; left:0; bottom:calc(7% + 18px); width:100%; padding:0 24px; z-index:3; display:flex; align-items:flex-end; justify-content:space-between; gap:20px;">
           <div>
@@ -609,10 +618,11 @@
     <div data-reveal style="max-width:680px; margin:0 auto; text-align:center;">
       <h3 data-i18n="news.title" style="font-family:'Playfair Display',serif; font-weight:500; font-size:clamp(28px,4vw,44px); color:#f5f1ea;">Zůstaňte v kontaktu</h3>
       <p data-i18n="news.sub" style="font-size:14.5px; color:#8a857c; margin:14px 0 30px;">Novinky o koncertech, singlech a projektech.</p>
-      <form onsubmit="return false" style="display:flex; gap:10px; max-width:460px; margin:0 auto; flex-wrap:wrap;">
+      <form id="newsForm" onsubmit="return false" style="display:flex; gap:10px; max-width:460px; margin:0 auto; flex-wrap:wrap;">
         <input type="email" data-i18n-ph="news.ph" placeholder="Váš e-mail" style="flex:1; min-width:180px; background:rgba(255,255,255,.04); border:1px solid #2a2620; border-radius:40px; padding:15px 22px; color:#ece7de; font-family:'Hanken Grotesk',sans-serif; font-size:14px; outline:none;">
         <button data-i18n="news.btn" type="submit" style="padding:15px 28px; background:#d8b97a; color:#0a0908; border:none; border-radius:40px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; cursor:pointer; white-space:nowrap;">Odebírat</button>
       </form>
+      <div id="newsThanks" data-i18n="news.thanks">Děkujeme! Brzy se ozveme.</div>
     </div>
     <div style="max-width:1180px; margin:clamp(54px,7vw,80px) auto 0; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between; padding-top:30px; border-top:1px solid rgba(255,255,255,.07);">
       <div class="socials" style="display:flex; gap:24px; flex-wrap:wrap;">
@@ -625,7 +635,7 @@
       <span style="font-family:'Space Mono',monospace; font-size:11px; color:#5c574f;">© 2026 · Demo — Constructiva Visuals</span>
     </div>
     <div style="overflow:hidden; margin-top:30px; -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);">
-      <div style="display:flex; width:max-content; animation:marqueeMove 28s linear infinite;">
+      <div class="foot-marquee" style="display:flex; width:max-content;">
         <span style="font-family:'Playfair Display',serif; font-weight:500; font-size:clamp(70px,16vw,200px); line-height:1; color:#15110d; padding:0 .25em; white-space:nowrap;">Lenka Graf · Lenka Graf ·&nbsp;</span>
         <span style="font-family:'Playfair Display',serif; font-weight:500; font-size:clamp(70px,16vw,200px); line-height:1; color:#15110d; padding:0 .25em; white-space:nowrap;">Lenka Graf · Lenka Graf ·&nbsp;</span>
       </div>
@@ -644,8 +654,8 @@
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','klip.kicker':'Featured klip','cr.inspired':'Na motivy','cr.prod':'Produkce','cr.cello':'Sólové violoncello','klip.yt':'Sledovat na YouTube ↗','shows.title':'Nadcházející koncerty','shows.label':'Koncert · 2026','shows.label2':'Vánoční koncert · 2026','shows.dow1':'Pátek','shows.dow2':'Neděle','shows.month1':'Květen 2026','shows.month2':'Prosinec 2026','shows.hostL':'Host','shows.sectionL':'Sekce','shows.sectionL2':'Sekce','shows.seatL':'Místo','shows.seatL2':'Místo','shows.fromL':'od','shows.fromL2':'od','shows.guest1v':'Štefan Margita','shows.guest2v':'Adventní árie','shows.timeL':'Začátek','shows.timeL2':'Začátek','shows.programL':'Program','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Vstupenky','shows.cta2':'Vstupenky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','klip.kicker':'Featured film','cr.inspired':'Inspired by','cr.prod':'Production','cr.cello':'Solo cello','klip.yt':'Watch on YouTube ↗','shows.title':'Upcoming shows','shows.label':'Concert · 2026','shows.label2':'Christmas concert · 2026','shows.dow1':'Friday','shows.dow2':'Sunday','shows.month1':'May 2026','shows.month2':'December 2026','shows.hostL':'Guest','shows.sectionL':'Section','shows.sectionL2':'Section','shows.seatL':'Seat','shows.seatL2':'Seat','shows.fromL':'from','shows.fromL2':'from','shows.guest1v':'Štefan Margita','shows.guest2v':'Advent arias','shows.timeL':'Doors','shows.timeL2':'Doors','shows.programL':'Programme','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Tickets','shows.cta2':'Tickets','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail' }
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','klip.kicker':'Featured klip','cr.inspired':'Na motivy','cr.prod':'Produkce','cr.cello':'Sólové violoncello','klip.yt':'Sledovat na YouTube ↗','shows.title':'Nadcházející koncerty','shows.label':'Koncert · 2026','shows.label2':'Vánoční koncert · 2026','shows.dow1':'Pátek','shows.dow2':'Neděle','shows.month1':'Květen 2026','shows.month2':'Prosinec 2026','shows.hostL':'Host','shows.sectionL':'Sekce','shows.sectionL2':'Sekce','shows.seatL':'Místo','shows.seatL2':'Místo','shows.fromL':'od','shows.fromL2':'od','shows.guest1v':'Štefan Margita','shows.guest2v':'Adventní árie','shows.timeL':'Začátek','shows.timeL2':'Začátek','shows.programL':'Program','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Vstupenky','shows.cta2':'Vstupenky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.' },
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','klip.kicker':'Featured film','cr.inspired':'Inspired by','cr.prod':'Production','cr.cello':'Solo cello','klip.yt':'Watch on YouTube ↗','shows.title':'Upcoming shows','shows.label':'Concert · 2026','shows.label2':'Christmas concert · 2026','shows.dow1':'Friday','shows.dow2':'Sunday','shows.month1':'May 2026','shows.month2':'December 2026','shows.hostL':'Guest','shows.sectionL':'Section','shows.sectionL2':'Section','shows.seatL':'Seat','shows.seatL2':'Seat','shows.fromL':'from','shows.fromL2':'from','shows.guest1v':'Štefan Margita','shows.guest2v':'Advent arias','shows.timeL':'Doors','shows.timeL2':'Doors','shows.programL':'Programme','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Tickets','shows.cta2':'Tickets','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.' }
   };
 
   var state = { lang:'cs', current:0, playing:false, time:0, dur:0, durs:{} , reel:false, klip:false };
@@ -807,6 +817,15 @@
     $('reelLabel').textContent = state.reel ? (state.lang==='cs'?'Zastavit ukázku':'Stop reel') : (state.lang==='cs'?'Přehrát ukázku':'Watch reel');
   }
   $('langBtn').addEventListener('click', function(){ state.lang = state.lang==='cs'?'en':'cs'; applyLang(); try{ localStorage.setItem('lg_lang', state.lang); }catch(e){} });
+
+  // ---- newsletter odeslání → děkovný stav ----
+  var newsForm=$('newsForm');
+  if(newsForm){ newsForm.addEventListener('submit', function(){
+    var inp=newsForm.querySelector('input[type=email]');
+    if(!inp || !inp.value || (inp.checkValidity && !inp.checkValidity())){ if(inp) inp.focus(); return; }
+    newsForm.style.display='none';
+    var t=$('newsThanks'); if(t) t.classList.add('show');
+  }); }
 
   // ---- mobile menu ----
   var mnav=$('mNav');
