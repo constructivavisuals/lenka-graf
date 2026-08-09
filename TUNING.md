@@ -66,6 +66,20 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Tablet (1024) ověřen — dvousloupcový jukebox s halem OK
 - [~] 3D tilt vstupenek / volume / lightbox — VYNECHÁNO (riziko kolize se schváleným chováním, nejde spolehlivě QA screenshotem)
 
+## Batch 12 — Přechod na Jannon Sans ✅
+- [x] Celý web převeden z Playfair Display / Space Mono / Hanken Grotesk na **Jannon Sans Light**
+      (Storm Type Foundry, © František Štorm) — 105 deklarací sjednoceno do `var(--font)`
+- [x] JannonSans-Light.otf → podmnožina latin + latin-ext (celá česká diakritika) → WOFF2, 32 kB
+      (dřív 18 souborů Google fontů, ~350 kB → 1 soubor)
+- [x] `font-synthesis: none` — jen řez Light, prohlížeč nesmí kreslit faux-bold/kurzívu
+- [x] Tabulkové číslice (`tnum`) na čas stopy, délky a kód stopy — Jannon není monospace,
+      bez toho by čísla za běhu poskakovala
+- [x] `<link rel=preload>` na woff2
+- [ ] **Dokoupit další řezy** (Regular / Medium / Bold / Italic) na stormtype.com —
+      hierarchie teď stojí jen na velikosti, prostrkání a barvě. Po nákupu stačí přidat
+      `@font-face` bloky do `assets/fonts/fonts.css`, index.html se nemění.
+      Pozor: webfont licence je zvlášť od desktopové.
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -73,3 +87,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-06-24 15:59 — Batch 3 (self-hosting assetů)
 - 2026-06-24 16:03 — Batch 4 (QA screenshoty, 0 chyb) + preload LCP
 - 2026-06-24 16:35 — Batch 5 (self-host fontů, funkční QA) — roadmapa vyčerpána, loop ukončen
+- 2026-08-09 12:20 — Batch 12 (celý web na Jannon Sans Light, self-hosted WOFF2 32 kB)
