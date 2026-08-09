@@ -98,6 +98,22 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [ ] Aftermovies 3 a 4 — zatím placeholdery „Připravujeme"
 - [ ] Zvážit R2 storage, až přibudou další videa (viz Log)
 
+## Batch 14 — Zdobné (barokní) rámy ✅
+- [x] Původní profilované lišty nahrazeny skutečnou řezbou — akant, voluty, vejcovec,
+      prýtovec, perlovec, mušle, rozety, nárožní kartuše a středové kartuše na lištách
+- [x] Předloha se generuje skriptem `tools/genframe.py` do `assets/frames/frame-{gold,silver}.svg`
+- [x] Technika: profil lišty dělají gradienty na 4 lichoběžnících s pokosem, ŘEZBU dělá
+      SVG lighting filtr (rozostřená alfa jako výšková mapa → feSpecularLighting +
+      feDiffuseLighting) nad plochými siluetami. Filtr běží jen na ornamentech —
+      na podkladu by vymyl kov do běla.
+- [x] Nárožní kartuše symetrická podle úhlopříčky (kreslí se polovina + zrcadlo);
+      bez toho shluk voluty a akantu četl jako zvířecí hlava
+- [x] Nasazeno přes `border-image ... 168 / var(--fw) / 0 round` — nároží se nedeformují,
+      lišty se opakují; odpadly 4 rozpěry v markupu na každý rám (32 elementů pryč)
+- [x] Lišta rozšířena na clamp(26px, 3.6vw, 52px) — pod 26 px se řezba slévá
+- [x] Zlato ztlumeno do hlubšího odstínu, na skoro černém pozadí bylo křiklavé
+- [x] 129 kB SVG → 10 kB po gzipu; QA 51/51
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -107,3 +123,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-06-24 16:35 — Batch 5 (self-host fontů, funkční QA) — roadmapa vyčerpána, loop ukončen
 - 2026-08-09 12:20 — Batch 12 (celý web na Jannon Sans Light, self-hosted WOFF2 32 kB)
 - 2026-08-09 13:30 — Batch 13 (sekce Aftermovies + TV reportáže, ozdobné rámy, vlastní video přehrávač)
+- 2026-08-09 14:50 — Batch 14 (zdobné barokní rámy generované do SVG, border-image)
