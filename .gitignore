@@ -1,3 +1,7 @@
 /*.mp4
 .DS_Store
 .gstack/
+
+# Zdrojové video (stovky MB až GB) — do gitu jdou jen zkomprimované verze v assets/video/
+/Reportaze/
+/Aftermovies/

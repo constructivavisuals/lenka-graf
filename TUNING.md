@@ -80,6 +80,24 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
       `@font-face` bloky do `assets/fonts/fonts.css`, index.html se nemění.
       Pozor: webfont licence je zvlášť od desktopové.
 
+## Batch 13 — Sekce Aftermovies (03) a TV reportáže (04) ✅
+- [x] Dvě nové sekce, každá 2×2 mřížka v ozdobných rámech — zlaté aftermovies, stříbrné reportáže
+- [x] Rám = 4 lišty s pravým pokosem (clip-path trapézy), gradient napříč profilem lišty
+      (oblounek → výžlabek → plochý pás → vnitřní perlička), světlo zleva shora,
+      polodrážka a odlesk skla přes náhledovku
+- [x] Vlastní video lightbox: play/pauza, tažení po ose, čas, ztlumení, hlasitost, fullscreen,
+      buffering spinner, zámek scrollu, focus trap, návrat fokusu
+- [x] Klávesy: mezerník/K, ←/→ ±5 s, ↑/↓ hlasitost, M, F, Esc; Tab cyklí uvnitř dialogu
+- [x] Otevření videa zastaví hudbu z jukeboxu (jinak by hrály dvě stopy přes sebe)
+- [x] Tabulkové číslice v časech; `af-meta` délky odpovídají skutečné stopáži
+- [x] Videa: 6× H.264 2-pass, reportáže 960×540, aftermovies 1280×720, ~9,3 MB/kus (celkem 54 MB),
+      keyframe po 2 s kvůli plynulému přetáčení, `+faststart` kvůli okamžitému startu
+- [x] Zdrojové složky `Reportaze/` a `Aftermovies/` (7,6 GB) v .gitignore
+- [x] i18n CS/EN pro obě sekce + nav odkaz „Video"
+- [x] QA přes CDP ve skutečném prohlížeči: 49/49 (mobil 390 / tablet 768 / desktop 1440)
+- [ ] Aftermovies 3 a 4 — zatím placeholdery „Připravujeme"
+- [ ] Zvážit R2 storage, až přibudou další videa (viz Log)
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -88,3 +106,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-06-24 16:03 — Batch 4 (QA screenshoty, 0 chyb) + preload LCP
 - 2026-06-24 16:35 — Batch 5 (self-host fontů, funkční QA) — roadmapa vyčerpána, loop ukončen
 - 2026-08-09 12:20 — Batch 12 (celý web na Jannon Sans Light, self-hosted WOFF2 32 kB)
+- 2026-08-09 13:30 — Batch 13 (sekce Aftermovies + TV reportáže, ozdobné rámy, vlastní video přehrávač)

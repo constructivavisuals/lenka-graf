@@ -195,6 +195,172 @@
   .mnav a:active{ color:#d8b97a; }
   .mnav-close{ position:absolute; top:18px; right:26px; font-size:38px; line-height:1; background:none; border:0; color:#ece7de; cursor:pointer; }
 
+  /* ═══════════════ OBRAZOVÉ RÁMY (aftermovies / reportáže) ═══════════════
+     Rám je složený ze 4 lišt s pokosem (clip-path trapézy) — stejně jako
+     skutečný truhlářský rám. Každá lišta má vlastní gradient napříč profilem
+     (vnější hrana → vnitřní), takže vzniká reálný profil lišty: oblounek,
+     výžlabek, plochý pás a vnitřní perlička. Světlo jde zleva shora, proto
+     má horní a levá lišta vyšší jas než pravá a spodní. */
+  .vgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(22px,3.4vw,52px); }
+
+  .artframe{
+    --fw:clamp(15px,1.9vw,27px);      /* šířka lišty */
+    position:relative; display:block; width:100%; padding:var(--fw);
+    border:0; background:#120d07; cursor:pointer; text-align:left;
+    -webkit-tap-highlight-color:transparent;
+    box-shadow:0 34px 62px rgba(0,0,0,.62), 0 10px 22px rgba(0,0,0,.5);
+    transition:transform .5s cubic-bezier(.2,.6,.2,1), box-shadow .5s ease;
+  }
+  .artframe--gold{
+    --m1:#241905; --m2:#7d5f24; --m3:#f2dda8; --m4:#a37c33;
+    --m5:#e3c67d; --m6:#fff7de; --m7:#75551d; --m8:#c8a256; --m9:#3a2a0c;
+    --glow:rgba(216,185,122,.5);
+  }
+  .artframe--silver{
+    --m1:#15171a; --m2:#5a616a; --m3:#eaeff4; --m4:#79818b;
+    --m5:#c1c8d1; --m6:#ffffff; --m7:#565e67; --m8:#a6afb9; --m9:#23272c;
+    --glow:rgba(206,214,224,.45);
+  }
+  .af-side{ position:absolute; pointer-events:none; }
+  /* profil lišty: vnější hrana 0 % → vnitřní hrana 100 % */
+  .af-side::before{
+    content:''; position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(var(--grain,90deg), rgba(0,0,0,.045) 0 1px, rgba(255,255,255,.022) 1px 3px),
+      linear-gradient(var(--dir),
+        var(--m1) 0%, var(--m2) 7%, var(--m3) 15%, var(--m6) 20%,
+        var(--m4) 29%, var(--m5) 43%, var(--m6) 51%, var(--m5) 59%,
+        var(--m7) 73%, var(--m8) 85%, var(--m3) 92%, var(--m9) 100%);
+  }
+  .af-top   { top:0; left:0; right:0; height:var(--fw); --dir:180deg; --grain:90deg;
+              clip-path:polygon(0 0, 100% 0, calc(100% - var(--fw)) 100%, var(--fw) 100%); filter:brightness(1.07); }
+  .af-left  { left:0; top:0; bottom:0; width:var(--fw); --dir:90deg;  --grain:0deg;
+              clip-path:polygon(0 0, 100% var(--fw), 100% calc(100% - var(--fw)), 0 100%); filter:brightness(.97); }
+  .af-right { right:0; top:0; bottom:0; width:var(--fw); --dir:270deg; --grain:0deg;
+              clip-path:polygon(0 var(--fw), 100% 0, 100% 100%, 0 calc(100% - var(--fw))); filter:brightness(.8); }
+  .af-bottom{ bottom:0; left:0; right:0; height:var(--fw); --dir:0deg;  --grain:90deg;
+              clip-path:polygon(var(--fw) 0, calc(100% - var(--fw)) 0, 100% 100%, 0 100%); filter:brightness(.71); }
+
+  /* plátno = náhledovka; polodrážka (tmavý zápich) + stín vržený rámem dovnitř */
+  .af-canvas{
+    position:relative; display:block; aspect-ratio:16/9; overflow:hidden; background:#0a0706;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.85), inset 0 0 26px rgba(0,0,0,.75), inset 0 6px 16px rgba(0,0,0,.6);
+  }
+  .af-canvas img{ width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform 1.1s cubic-bezier(.2,.6,.2,1), filter .5s ease; filter:brightness(.9) saturate(.95); }
+  /* odlesk skla přes obraz */
+  .af-glass{ position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(122deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.03) 18%, transparent 34%, transparent 66%, rgba(255,255,255,.035) 88%, rgba(255,255,255,.01) 100%); }
+  .af-scrim{ position:absolute; left:0; right:0; bottom:0; height:62%; pointer-events:none;
+    background:linear-gradient(180deg, transparent, rgba(6,5,4,.5) 46%, rgba(6,5,4,.9) 100%); }
+
+  /* štítek s názvem — jako galerijní popiska na obraze */
+  .af-label{ position:absolute; left:0; right:0; bottom:0; padding:clamp(13px,1.7vw,22px); }
+  .af-kick{ display:block; font-size:9.5px; letter-spacing:.26em; text-transform:uppercase; color:var(--kick,#b89b6a); margin-bottom:7px; }
+  .af-name{ display:block; font-size:clamp(15px,1.75vw,22px); line-height:1.2; color:#f7f3ec; text-shadow:0 2px 14px rgba(0,0,0,.8); }
+  .af-meta{ display:block; margin-top:6px; font-size:10.5px; letter-spacing:.13em; color:#a9a297; font-variant-numeric:tabular-nums; }
+
+  /* přehrát */
+  .af-play{ position:absolute; top:50%; left:50%; width:clamp(46px,5vw,64px); height:clamp(46px,5vw,64px);
+    margin:-1px 0 0 -1px; transform:translate(-50%,-50%) scale(.9); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; opacity:.86;
+    background:rgba(10,8,6,.42); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+    border:1px solid var(--glow); box-shadow:0 0 26px rgba(0,0,0,.5);
+    transition:transform .45s cubic-bezier(.2,.6,.2,1), opacity .35s ease, background .35s ease; }
+  .af-play svg{ width:38%; height:38%; fill:#f7f3ec; margin-left:8%; }
+
+  .artframe:hover{ transform:translateY(-5px); box-shadow:0 44px 78px rgba(0,0,0,.7), 0 12px 26px rgba(0,0,0,.55); }
+  .artframe:hover .af-canvas img{ transform:scale(1.05); filter:brightness(1) saturate(1.03); }
+  .artframe:hover .af-play{ transform:translate(-50%,-50%) scale(1.06); opacity:1; background:rgba(216,185,122,.2); }
+  .artframe--silver:hover .af-play{ background:rgba(206,214,224,.2); }
+  .artframe:focus-visible{ outline:2px solid #d8b97a; outline-offset:5px; }
+
+  /* prázdný rám — placeholder pro chystaná videa */
+  .artframe--empty{ cursor:default; }
+  .artframe--empty:hover{ transform:none; box-shadow:0 34px 62px rgba(0,0,0,.62), 0 10px 22px rgba(0,0,0,.5); }
+  .af-empty{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    background:radial-gradient(75% 70% at 50% 42%, rgba(216,185,122,.07), transparent 70%), linear-gradient(160deg,#141009 0%,#0b0806 100%); }
+  .af-empty-mark{ font-size:clamp(26px,3.4vw,40px); color:rgba(216,185,122,.24); letter-spacing:.08em; }
+  .af-empty-txt{ font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:#6b655b; }
+
+  /* ═══════════════ VIDEO LIGHTBOX ═══════════════ */
+  .vbox{ position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+    padding:clamp(12px,3vw,44px); opacity:0; visibility:hidden; transition:opacity .35s ease, visibility .35s; }
+  .vbox.open{ opacity:1; visibility:visible; }
+  .vbox-bd{ position:absolute; inset:0; background:rgba(5,4,4,.9); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+  .vbox-inner{ position:relative; width:100%; max-width:1180px; transform:translateY(16px) scale(.98);
+    transition:transform .45s cubic-bezier(.2,.6,.2,1); }
+  .vbox.open .vbox-inner{ transform:none; }
+  .vbox-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:12px; }
+  .vbox-ttl{ font-size:clamp(15px,2vw,21px); color:#f0e8da; }
+  .vbox-kick{ display:block; font-size:9.5px; letter-spacing:.26em; text-transform:uppercase; color:#9a7c4a; margin-bottom:5px; }
+  .vbox-x{ flex-shrink:0; width:38px; height:38px; border-radius:50%; border:1px solid rgba(216,185,122,.35);
+    background:rgba(255,255,255,.03); color:#ece7de; font-size:20px; line-height:1; cursor:pointer;
+    transition:background .3s, border-color .3s; }
+  .vbox-x:hover{ background:rgba(216,185,122,.16); border-color:rgba(216,185,122,.75); }
+  .vbox-stage{ position:relative; background:#000; border-radius:4px; overflow:hidden;
+    box-shadow:0 40px 90px rgba(0,0,0,.75), inset 0 0 0 1px rgba(216,185,122,.16); }
+  .vbox-stage video{ display:block; width:100%; max-height:calc(100vh - 250px); aspect-ratio:16/9; background:#000; }
+  .vbox-big{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,.28); border:0; cursor:pointer; transition:opacity .3s ease; }
+  .vbox-big span{ width:74px; height:74px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:rgba(10,8,6,.5); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);
+    border:1px solid rgba(216,185,122,.6); box-shadow:0 0 40px rgba(216,185,122,.25); }
+  .vbox-big svg{ width:26px; height:26px; fill:#f7f3ec; margin-left:4px; }
+  .vbox.playing .vbox-big{ opacity:0; pointer-events:none; }
+  .vbox-spin{ position:absolute; top:50%; left:50%; width:44px; height:44px; margin:-22px 0 0 -22px;
+    border:2px solid rgba(216,185,122,.2); border-top-color:#d8b97a; border-radius:50%;
+    animation:spin .8s linear infinite; opacity:0; transition:opacity .25s; pointer-events:none; }
+  .vbox.buffering .vbox-spin{ opacity:1; }
+
+  /* ovládání */
+  .vbox-ctrl{ display:flex; align-items:center; gap:clamp(9px,1.3vw,15px); padding:13px clamp(11px,1.6vw,18px);
+    background:linear-gradient(180deg, rgba(16,13,10,.96), rgba(10,8,7,.98));
+    border:1px solid rgba(216,185,122,.16); border-top:0; border-radius:0 0 4px 4px; }
+  .vbtn{ flex-shrink:0; width:34px; height:34px; display:flex; align-items:center; justify-content:center;
+    background:none; border:0; cursor:pointer; border-radius:50%; transition:background .25s; }
+  .vbtn:hover{ background:rgba(216,185,122,.14); }
+  .vbtn svg{ width:17px; height:17px; fill:#e6dfd2; }
+  .vbtn:hover svg{ fill:#f0dcae; }
+  .vtime{ flex-shrink:0; font-size:11.5px; color:#a9a297; font-variant-numeric:tabular-nums; letter-spacing:.02em; }
+  .vbar{ position:relative; flex:1; height:26px; display:flex; align-items:center; cursor:pointer; touch-action:none; min-width:60px; }
+  .vbar-track{ position:relative; width:100%; height:3px; border-radius:3px; background:rgba(255,255,255,.13); overflow:hidden; }
+  .vbar-buf{ position:absolute; inset:0 auto 0 0; width:0; background:rgba(255,255,255,.16); }
+  .vbar-fill{ position:absolute; inset:0 auto 0 0; width:0; background:linear-gradient(90deg,#b8934f,#e8cd92); }
+  .vbar-knob{ position:absolute; top:50%; left:0; width:11px; height:11px; margin:-5.5px 0 0 -5.5px; border-radius:50%;
+    background:#f0e2bd; box-shadow:0 0 10px rgba(216,185,122,.7); opacity:0; transition:opacity .25s; }
+  .vbar:hover .vbar-knob, .vbar.drag .vbar-knob{ opacity:1; }
+  .vbar:focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; border-radius:4px; }
+  .vvol{ width:74px; height:26px; display:flex; align-items:center; cursor:pointer; touch-action:none; flex-shrink:0; }
+  .vvol-track{ position:relative; width:100%; height:3px; border-radius:3px; background:rgba(255,255,255,.13); }
+  .vvol-fill{ position:absolute; inset:0 auto 0 0; width:100%; background:rgba(232,205,146,.8); border-radius:3px; }
+
+  /* stříbrná varianta lightboxu — pro reportáže, ať navazuje na rám */
+  .vbox--silver .vbar-fill{ background:linear-gradient(90deg,#7f878f,#dfe5ec); }
+  .vbox--silver .vbar-knob{ background:#e9eef3; box-shadow:0 0 10px rgba(206,214,224,.7); }
+  .vbox--silver .vvol-fill{ background:rgba(223,229,236,.8); }
+  .vbox--silver .vbox-kick{ color:#8b939c; }
+  .vbox--silver .vbox-stage{ box-shadow:0 40px 90px rgba(0,0,0,.75), inset 0 0 0 1px rgba(206,214,224,.18); }
+  .vbox--silver .vbox-ctrl{ border-color:rgba(206,214,224,.18); }
+  .vbox--silver .vbox-x{ border-color:rgba(206,214,224,.34); }
+  .vbox--silver .vbox-x:hover{ background:rgba(206,214,224,.16); border-color:rgba(206,214,224,.72); }
+  .vbox--silver .vbox-big span{ border-color:rgba(206,214,224,.6); box-shadow:0 0 40px rgba(206,214,224,.22); }
+  .vbox--silver .vbtn:hover{ background:rgba(206,214,224,.14); }
+  .vbox--silver .vbtn:hover svg{ fill:#eaeff4; }
+  .vbox--silver .vbox-spin{ border-color:rgba(206,214,224,.2); border-top-color:#ced6e0; }
+
+  @media (max-width:600px){
+    .vgrid{ grid-template-columns:1fr; }
+    .vbox-stage video{ max-height:calc(100vh - 210px); }
+    .vvol{ display:none; }        /* na dotyku se hlasitost řeší tlačítky zařízení */
+    .vbox-ctrl{ gap:7px; padding:11px 9px; }
+    .vtime{ font-size:10.5px; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .artframe, .artframe:hover, .af-canvas img, .af-play, .vbox-inner{ transition:none !important; transform:none !important; }
+    .vbox-spin{ animation:none; }
+  }
+
   /* ---- mobile layout ---- */
   @media (max-width:780px){
     .site-nav{ padding:15px 22px !important; }
@@ -253,6 +419,7 @@
         <span id="npPillTitle" style="font-family:var(--font); font-size:10.5px; letter-spacing:.1em; color:#d8b97a; white-space:nowrap;">Křídla snů</span>
       </span>
       <a href="#hudba" data-i18n="nav.music" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Hudba</a>
+      <a href="#aftermovies" data-i18n="nav.video" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Video</a>
       <a href="#koncerty" data-i18n="nav.shows" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Koncerty</a>
       <a href="#nadace" data-i18n="nav.foundation" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Nadace</a>
       <button id="langBtn" aria-label="Přepnout jazyk / Switch language" style="background:none; border:1px solid #3a352d; border-radius:40px; padding:6px 13px; color:#d8b97a; font-family:var(--font); font-size:11px; letter-spacing:.1em; cursor:pointer;">CS / EN</button>
@@ -264,6 +431,7 @@
   <div id="mNav" class="mnav">
     <button id="mNavClose" class="mnav-close" aria-label="Zavřít">×</button>
     <a href="#hudba" data-i18n="nav.music">Hudba</a>
+    <a href="#aftermovies" data-i18n="nav.video">Video</a>
     <a href="#koncerty" data-i18n="nav.shows">Koncerty</a>
     <a href="#nadace" data-i18n="nav.foundation">Nadace</a>
   </div>
@@ -487,13 +655,153 @@
     </div>
   </section>
 
+  <!-- AFTERMOVIES (zlaté rámy) -->
+  <section id="aftermovies" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(70% 50% at 82% 14%, rgba(216,185,122,.06), transparent 58%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div data-reveal style="margin-bottom:clamp(14px,2vw,20px);">
+        <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
+        <div style="display:flex; align-items:baseline; gap:16px;">
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">03 —</span>
+          <h2 data-i18n="after.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Aftermovies</h2>
+        </div>
+      </div>
+      <p data-reveal data-i18n="after.sub" style="margin-bottom:clamp(34px,4.5vw,58px); font-size:15px; color:#8a857c; max-width:46ch;">Ohlédnutí za koncerty — atmosféra večera tak, jak ji zažilo publikum.</p>
+
+      <div class="vgrid">
+        <div data-reveal>
+          <button class="artframe artframe--gold" data-video="assets/video/aftermovie-decin.mp4" data-title="after.v1" data-kick="after.kick">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <img src="assets/video/aftermovie-decin.jpg" alt="Aftermovie — Děčín" loading="lazy" decoding="async">
+              <span class="af-scrim"></span><span class="af-glass"></span>
+              <span class="af-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="af-label">
+                <span class="af-kick" data-i18n="after.kick">Aftermovie</span>
+                <span class="af-name" data-i18n="after.v1">Koncert Děčín</span>
+                <span class="af-meta">1:27</span>
+              </span>
+            </span>
+          </button>
+        </div>
+        <div data-reveal>
+          <button class="artframe artframe--gold" data-video="assets/video/aftermovie-mb.mp4" data-title="after.v2" data-kick="after.kick">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <img src="assets/video/aftermovie-mb.jpg" alt="Vánoční koncert se Štefanem Margitou" loading="lazy" decoding="async">
+              <span class="af-scrim"></span><span class="af-glass"></span>
+              <span class="af-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="af-label">
+                <span class="af-kick" data-i18n="after.kick">Aftermovie</span>
+                <span class="af-name" data-i18n="after.v2">Vánoční koncert se Štefanem Margitou</span>
+                <span class="af-meta">0:58</span>
+              </span>
+            </span>
+          </button>
+        </div>
+        <div data-reveal>
+          <div class="artframe artframe--gold artframe--empty">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <span class="af-empty"><span class="af-empty-mark">LG</span><span class="af-empty-txt" data-i18n="video.soon">Připravujeme</span></span>
+            </span>
+          </div>
+        </div>
+        <div data-reveal>
+          <div class="artframe artframe--gold artframe--empty">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <span class="af-empty"><span class="af-empty-mark">LG</span><span class="af-empty-txt" data-i18n="video.soon">Připravujeme</span></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TV REPORTÁŽE (stříbrné rámy) -->
+  <section id="reportaze" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(66% 50% at 14% 16%, rgba(186,196,208,.05), transparent 56%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div data-reveal style="margin-bottom:clamp(14px,2vw,20px);">
+        <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(198,207,217,.4),rgba(198,207,217,0) 60%); margin-bottom:22px;"></div>
+        <div style="display:flex; align-items:baseline; gap:16px;">
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#8b939c;">04 —</span>
+          <h2 data-i18n="rep.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">TV reportáže</h2>
+        </div>
+      </div>
+      <p data-reveal data-i18n="rep.sub" style="margin-bottom:clamp(34px,4.5vw,58px); font-size:15px; color:#8a857c; max-width:46ch;">Výběr z televizních reportáží a rozhovorů z koncertů, křtů a natáčení.</p>
+
+      <div class="vgrid">
+        <div data-reveal>
+          <button class="artframe artframe--silver" data-video="assets/video/reportaz-zofin.mp4" data-title="rep.v1" data-kick="rep.kick">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <img src="assets/video/reportaz-zofin.jpg" alt="Reportáž — Adventní koncert na Žofíně" loading="lazy" decoding="async">
+              <span class="af-scrim"></span><span class="af-glass"></span>
+              <span class="af-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="af-label">
+                <span class="af-kick" style="--kick:#a9b2bc" data-i18n="rep.kick">Reportáž</span>
+                <span class="af-name" data-i18n="rep.v1">Adventní koncert — Žofín</span>
+                <span class="af-meta">2:55</span>
+              </span>
+            </span>
+          </button>
+        </div>
+        <div data-reveal>
+          <button class="artframe artframe--silver" data-video="assets/video/reportaz-prima.mp4" data-title="rep.v2" data-kick="rep.kick">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <img src="assets/video/reportaz-prima.jpg" alt="Rozhovor pro CNN Prima News" loading="lazy" decoding="async">
+              <span class="af-scrim"></span><span class="af-glass"></span>
+              <span class="af-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="af-label">
+                <span class="af-kick" style="--kick:#a9b2bc" data-i18n="rep.kick">Reportáž</span>
+                <span class="af-name" data-i18n="rep.v2">Rozhovor pro CNN Prima News</span>
+                <span class="af-meta">1:51</span>
+              </span>
+            </span>
+          </button>
+        </div>
+        <div data-reveal>
+          <button class="artframe artframe--silver" data-video="assets/video/reportaz-krest.mp4" data-title="rep.v3" data-kick="rep.kick">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <img src="assets/video/reportaz-krest.jpg" alt="Reportáž ze křtu" loading="lazy" decoding="async">
+              <span class="af-scrim"></span><span class="af-glass"></span>
+              <span class="af-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="af-label">
+                <span class="af-kick" style="--kick:#a9b2bc" data-i18n="rep.kick">Reportáž</span>
+                <span class="af-name" data-i18n="rep.v3">Křest — Praha</span>
+                <span class="af-meta">1:35</span>
+              </span>
+            </span>
+          </button>
+        </div>
+        <div data-reveal>
+          <button class="artframe artframe--silver" data-video="assets/video/reportaz-duet.mp4" data-title="rep.v4" data-kick="rep.kick">
+            <span class="af-side af-top"></span><span class="af-side af-left"></span><span class="af-side af-right"></span><span class="af-side af-bottom"></span>
+            <span class="af-canvas">
+              <img src="assets/video/reportaz-duet.jpg" alt="Reportáž — duet" loading="lazy" decoding="async">
+              <span class="af-scrim"></span><span class="af-glass"></span>
+              <span class="af-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="af-label">
+                <span class="af-kick" style="--kick:#a9b2bc" data-i18n="rep.kick">Reportáž</span>
+                <span class="af-name" data-i18n="rep.v4">Duet s Kolářem</span>
+                <span class="af-meta">3:23</span>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- KONCERTY -->
   <section id="koncerty" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(75% 50% at 18% 14%, rgba(216,185,122,.045), transparent 55%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
     <div style="max-width:1100px; margin:0 auto;">
       <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
         <div style="display:flex; align-items:baseline; gap:16px;">
-          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">03 —</span>
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">05 —</span>
           <h2 data-i18n="shows.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Nadcházející koncerty</h2>
         </div>
       </div>
@@ -661,6 +969,41 @@
   </footer>
 </div>
 
+<!-- VIDEO LIGHTBOX -->
+<div id="vbox" class="vbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="vboxTtl">
+  <div class="vbox-bd" data-vclose></div>
+  <div class="vbox-inner">
+    <div class="vbox-head">
+      <div>
+        <span class="vbox-kick" id="vboxKick">Aftermovie</span>
+        <span class="vbox-ttl" id="vboxTtl"></span>
+      </div>
+      <button class="vbox-x" id="vboxClose" aria-label="Zavřít video">×</button>
+    </div>
+    <div class="vbox-stage">
+      <video id="vboxVideo" playsinline preload="metadata" aria-label="Přehrávač videa"></video>
+      <div class="vbox-spin" aria-hidden="true"></div>
+      <button class="vbox-big" id="vboxBig" aria-label="Přehrát">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+    </div>
+    <div class="vbox-ctrl">
+      <button class="vbtn" id="vbPlay" aria-label="Přehrát / pozastavit"><svg id="vbPlayIco" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      <span class="vtime" id="vbCur">0:00</span>
+      <div class="vbar" id="vbBar" role="slider" tabindex="0" aria-label="Pozice ve videu" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="vbar-track"><div class="vbar-buf" id="vbBuf"></div><div class="vbar-fill" id="vbFill"></div></div>
+        <div class="vbar-knob" id="vbKnob"></div>
+      </div>
+      <span class="vtime" id="vbDur">0:00</span>
+      <button class="vbtn" id="vbMute" aria-label="Ztlumit"><svg id="vbMuteIco" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg></button>
+      <div class="vvol" id="vbVol" role="slider" tabindex="0" aria-label="Hlasitost" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+        <div class="vvol-track"><div class="vvol-fill" id="vbVolFill"></div></div>
+      </div>
+      <button class="vbtn" id="vbFs" aria-label="Celá obrazovka"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
@@ -672,8 +1015,20 @@
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','klip.kicker':'Featured klip','cr.inspired':'Na motivy','cr.prod':'Produkce','cr.cello':'Sólové violoncello','klip.yt':'Sledovat na YouTube ↗','shows.title':'Nadcházející koncerty','shows.label':'Koncert · 2026','shows.label2':'Vánoční koncert · 2026','shows.dow1':'Pátek','shows.dow2':'Neděle','shows.month1':'Květen 2026','shows.month2':'Prosinec 2026','shows.hostL':'Host','shows.sectionL':'Sekce','shows.sectionL2':'Sekce','shows.seatL':'Místo','shows.seatL2':'Místo','shows.fromL':'od','shows.fromL2':'od','shows.guest1v':'Štefan Margita','shows.guest2v':'Adventní árie','shows.timeL':'Začátek','shows.timeL2':'Začátek','shows.programL':'Program','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Vstupenky','shows.cta2':'Vstupenky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','klip.kicker':'Featured film','cr.inspired':'Inspired by','cr.prod':'Production','cr.cello':'Solo cello','klip.yt':'Watch on YouTube ↗','shows.title':'Upcoming shows','shows.label':'Concert · 2026','shows.label2':'Christmas concert · 2026','shows.dow1':'Friday','shows.dow2':'Sunday','shows.month1':'May 2026','shows.month2':'December 2026','shows.hostL':'Guest','shows.sectionL':'Section','shows.sectionL2':'Section','shows.seatL':'Seat','shows.seatL2':'Seat','shows.fromL':'from','shows.fromL2':'from','shows.guest1v':'Štefan Margita','shows.guest2v':'Advent arias','shows.timeL':'Doors','shows.timeL2':'Doors','shows.programL':'Programme','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Tickets','shows.cta2':'Tickets','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.' }
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','klip.kicker':'Featured klip','cr.inspired':'Na motivy','cr.prod':'Produkce','cr.cello':'Sólové violoncello','klip.yt':'Sledovat na YouTube ↗','shows.title':'Nadcházející koncerty','shows.label':'Koncert · 2026','shows.label2':'Vánoční koncert · 2026','shows.dow1':'Pátek','shows.dow2':'Neděle','shows.month1':'Květen 2026','shows.month2':'Prosinec 2026','shows.hostL':'Host','shows.sectionL':'Sekce','shows.sectionL2':'Sekce','shows.seatL':'Místo','shows.seatL2':'Místo','shows.fromL':'od','shows.fromL2':'od','shows.guest1v':'Štefan Margita','shows.guest2v':'Adventní árie','shows.timeL':'Začátek','shows.timeL2':'Začátek','shows.programL':'Program','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Vstupenky','shows.cta2':'Vstupenky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
+          'nav.video':'Video',
+          'after.title':'Aftermovies','after.sub':'Ohlédnutí za koncerty — atmosféra večera tak, jak ji zažilo publikum.','after.kick':'Aftermovie',
+          'after.v1':'Koncert Děčín','after.v2':'Vánoční koncert se Štefanem Margitou',
+          'rep.title':'TV reportáže','rep.sub':'Výběr z televizních reportáží a rozhovorů z koncertů, křtů a natáčení.','rep.kick':'Reportáž',
+          'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
+          'video.soon':'Připravujeme' },
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','klip.kicker':'Featured film','cr.inspired':'Inspired by','cr.prod':'Production','cr.cello':'Solo cello','klip.yt':'Watch on YouTube ↗','shows.title':'Upcoming shows','shows.label':'Concert · 2026','shows.label2':'Christmas concert · 2026','shows.dow1':'Friday','shows.dow2':'Sunday','shows.month1':'May 2026','shows.month2':'December 2026','shows.hostL':'Guest','shows.sectionL':'Section','shows.sectionL2':'Section','shows.seatL':'Seat','shows.seatL2':'Seat','shows.fromL':'from','shows.fromL2':'from','shows.guest1v':'Štefan Margita','shows.guest2v':'Advent arias','shows.timeL':'Doors','shows.timeL2':'Doors','shows.programL':'Programme','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Tickets','shows.cta2':'Tickets','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
+          'nav.video':'Video',
+          'after.title':'Aftermovies','after.sub':'Looking back at the concerts — the atmosphere of the evening as the audience lived it.','after.kick':'Aftermovie',
+          'after.v1':'Děčín concert','after.v2':'Christmas concert with Štefan Margita',
+          'rep.title':'TV features','rep.sub':'A selection of television features and interviews from concerts, launches and shoots.','rep.kick':'TV feature',
+          'rep.v1':'Advent concert — Žofín','rep.v2':'Interview for CNN Prima News','rep.v3':'Launch — Prague','rep.v4':'Duet with Kolář',
+          'video.soon':'Coming soon' }
   };
 
   var state = { lang:'cs', current:0, playing:false, time:0, dur:0, durs:{} , reel:false, klip:false };
@@ -851,9 +1206,193 @@
   $('mNavClose').addEventListener('click', function(){ mnav.classList.remove('open'); });
   Array.prototype.forEach.call(mnav.querySelectorAll('a'), function(a){ a.addEventListener('click', function(){ mnav.classList.remove('open'); }); });
 
-  // ---- klávesové zkratky 1/2/3 = výběr skladby, Esc = zavřít mobilní menu ----
+  // ═══════════════ VIDEO LIGHTBOX ═══════════════
+  var vbox=$('vbox'), vv=$('vboxVideo'), vbStage=vbox.querySelector('.vbox-stage'),
+      vbBar=$('vbBar'), vbFill=$('vbFill'), vbBuf=$('vbBuf'), vbKnob=$('vbKnob'),
+      vbCur=$('vbCur'), vbDur=$('vbDur'), vbPlayIco=$('vbPlayIco'), vbMuteIco=$('vbMuteIco'),
+      vbVol=$('vbVol'), vbVolFill=$('vbVolFill');
+  var vOpen=false, vLastFocus=null, vSeeking=false, vVolDrag=false, vScrollY=0, vKlipWas=false;
+
+  var ICO = {
+    play:'M8 5v14l11-7z',
+    pause:'M6 5h4v14H6zM14 5h4v14h-4z',
+    vol:'M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z',
+    mute:'M4.3 3L3 4.3 7.7 9H3v6h4l5 5v-6.7l4.2 4.2c-.6.5-1.4.9-2.2 1.2v2.1c1.4-.3 2.6-.9 3.7-1.8L19.7 21 21 19.7 4.3 3zM12 4L9.9 6.1 12 8.2V4zm7 8c0 .9-.2 1.8-.5 2.6l1.5 1.5c.6-1.2 1-2.6 1-4.1 0-4.3-3-7.9-7-8.8v2.1c2.9.9 5 3.5 5 6.7z'
+  };
+
+  function vSetIcons(){
+    vbPlayIco.querySelector('path').setAttribute('d', vv.paused ? ICO.play : ICO.pause);
+    $('vbPlay').setAttribute('aria-label', vv.paused ? 'Přehrát' : 'Pozastavit');
+    var m = vv.muted || vv.volume === 0;
+    vbMuteIco.querySelector('path').setAttribute('d', m ? ICO.mute : ICO.vol);
+    $('vbMute').setAttribute('aria-label', m ? 'Zrušit ztlumení' : 'Ztlumit');
+    vbVolFill.style.width = (m ? 0 : vv.volume*100) + '%';
+    vbVol.setAttribute('aria-valuenow', Math.round((m?0:vv.volume)*100));
+    vbox.classList.toggle('playing', !vv.paused);
+  }
+  function vRender(){
+    var d = vv.duration && isFinite(vv.duration) ? vv.duration : 0;
+    var p = d ? (vv.currentTime/d) : 0;
+    vbFill.style.width = (p*100)+'%';
+    vbKnob.style.left = (p*100)+'%';
+    vbCur.textContent = fmt(vv.currentTime);
+    vbDur.textContent = fmt(d);
+    vbBar.setAttribute('aria-valuenow', Math.round(p*100));
+    vbBar.setAttribute('aria-valuetext', fmt(vv.currentTime)+' z '+fmt(d));
+    try{
+      if(vv.buffered && vv.buffered.length && d){
+        vbBuf.style.width = (Math.min(1, vv.buffered.end(vv.buffered.length-1)/d)*100)+'%';
+      }
+    }catch(_){}
+  }
+
+  function openVideo(btn){
+    var src = btn.getAttribute('data-video');
+    if(!src) return;
+    vLastFocus = btn;
+    // hudba z jukeboxu a smyčka u klipu musí ustoupit zvuku videa
+    if(state.playing){ audio.pause(); state.playing=false; applyMachine(false); }
+    vKlipWas = state.klip; if(klipVideo) klipVideo.pause();
+
+    var silver = btn.classList.contains('artframe--silver');
+    vbox.classList.toggle('vbox--silver', silver);
+    $('vboxKick').textContent = btn.querySelector('.af-kick').textContent;
+    $('vboxTtl').textContent  = btn.querySelector('.af-name').textContent;
+
+    vv.src = src;
+    vv.currentTime = 0;
+    vbFill.style.width='0%'; vbBuf.style.width='0%'; vbKnob.style.left='0%';
+    vbCur.textContent='0:00'; vbDur.textContent='0:00';
+
+    // zámek scrollu bez poskočení stránky
+    vScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position='fixed';
+    document.body.style.top = (-vScrollY)+'px';
+    document.body.style.width='100%';
+
+    vbox.classList.add('open');
+    vbox.setAttribute('aria-hidden','false');
+    vOpen = true;
+    $('vboxClose').focus();
+    vv.play().catch(function(){});   // bez gesta to spadne — velké tlačítko zůstane viditelné
+    vSetIcons();
+  }
+
+  function closeVideo(){
+    if(!vOpen) return;
+    vOpen = false;
+    vv.pause();
+    vbox.classList.remove('open');
+    vbox.setAttribute('aria-hidden','true');
+    document.body.style.position=''; document.body.style.top=''; document.body.style.width='';
+    window.scrollTo(0, vScrollY);
+    if(vKlipWas && klipVideo) klipVideo.play().catch(function(){});
+    // uvolnit stažené video z paměti až po doběhnutí animace
+    setTimeout(function(){ if(!vOpen){ vv.removeAttribute('src'); vv.load(); } }, 400);
+    if(vLastFocus) vLastFocus.focus();
+  }
+
+  function vTogglePlay(){ if(vv.paused){ vv.play().catch(function(){}); } else { vv.pause(); } }
+  function vSeekBy(s){ if(!vv.duration) return; vv.currentTime = Math.min(vv.duration, Math.max(0, vv.currentTime+s)); vRender(); }
+  function vSetVol(v){ v=Math.min(1,Math.max(0,v)); vv.volume=v; vv.muted = (v===0); vSetIcons(); }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.artframe[data-video]'), function(btn){
+    btn.addEventListener('click', function(){ openVideo(btn); });
+  });
+  $('vboxClose').addEventListener('click', closeVideo);
+  Array.prototype.forEach.call(vbox.querySelectorAll('[data-vclose]'), function(el){
+    el.addEventListener('click', closeVideo);
+  });
+  $('vboxBig').addEventListener('click', vTogglePlay);
+  $('vbPlay').addEventListener('click', vTogglePlay);
+  vv.addEventListener('click', vTogglePlay);
+  $('vbMute').addEventListener('click', function(){ vv.muted = !vv.muted; if(!vv.muted && vv.volume===0) vv.volume=.6; vSetIcons(); });
+  $('vbFs').addEventListener('click', function(){
+    var d=document;
+    if(d.fullscreenElement || d.webkitFullscreenElement){
+      (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+    } else if(vbStage.requestFullscreen){ vbStage.requestFullscreen().catch(function(){}); }
+    else if(vbStage.webkitRequestFullscreen){ vbStage.webkitRequestFullscreen(); }
+    else if(vv.webkitEnterFullscreen){ vv.webkitEnterFullscreen(); }  // iPhone umí jen video na celou obrazovku
+  });
+
+  vv.addEventListener('timeupdate', vRender);
+  vv.addEventListener('progress', vRender);
+  vv.addEventListener('loadedmetadata', function(){ vRender(); vSetIcons(); });
+  vv.addEventListener('play', vSetIcons);
+  vv.addEventListener('pause', vSetIcons);
+  vv.addEventListener('volumechange', vSetIcons);
+  vv.addEventListener('waiting', function(){ vbox.classList.add('buffering'); });
+  vv.addEventListener('playing', function(){ vbox.classList.remove('buffering'); });
+  vv.addEventListener('canplay', function(){ vbox.classList.remove('buffering'); });
+  vv.addEventListener('ended', function(){ vv.currentTime=0; vSetIcons(); });
+
+  // ---- táhlo pozice a hlasitosti (pointer = myš i dotyk jedním kódem) ----
+  function vRatio(e, el){ var r=el.getBoundingClientRect(); return Math.min(1, Math.max(0, (e.clientX-r.left)/r.width)); }
+  vbBar.addEventListener('pointerdown', function(e){
+    if(!vv.duration) return;
+    vSeeking=true; vbBar.classList.add('drag');
+    try{ vbBar.setPointerCapture(e.pointerId); }catch(_){}
+    vv.currentTime = vRatio(e,vbBar)*vv.duration; vRender();
+  });
+  vbBar.addEventListener('pointermove', function(e){
+    if(!vSeeking || !vv.duration) return;
+    vv.currentTime = vRatio(e,vbBar)*vv.duration; vRender();
+  });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    vbBar.addEventListener(ev, function(e){
+      if(!vSeeking) return; vSeeking=false; vbBar.classList.remove('drag');
+      try{ vbBar.releasePointerCapture(e.pointerId); }catch(_){}
+    });
+  });
+  vbBar.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'){ vSeekBy(5); e.preventDefault(); }
+    else if(e.key==='ArrowLeft'){ vSeekBy(-5); e.preventDefault(); }
+    else if(e.key==='Home'){ vv.currentTime=0; vRender(); e.preventDefault(); }
+    else if(e.key==='End'){ if(vv.duration){ vv.currentTime=vv.duration; vRender(); } e.preventDefault(); }
+  });
+  vbVol.addEventListener('pointerdown', function(e){
+    vVolDrag=true; try{ vbVol.setPointerCapture(e.pointerId); }catch(_){}
+    vSetVol(vRatio(e,vbVol));
+  });
+  vbVol.addEventListener('pointermove', function(e){ if(vVolDrag) vSetVol(vRatio(e,vbVol)); });
+  ['pointerup','pointercancel'].forEach(function(ev){
+    vbVol.addEventListener(ev, function(e){
+      if(!vVolDrag) return; vVolDrag=false;
+      try{ vbVol.releasePointerCapture(e.pointerId); }catch(_){}
+    });
+  });
+  vbVol.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key==='ArrowUp'){ vSetVol(vv.volume+.1); e.preventDefault(); }
+    else if(e.key==='ArrowLeft'||e.key==='ArrowDown'){ vSetVol(vv.volume-.1); e.preventDefault(); }
+  });
+
+  // ---- klávesové zkratky ----
+  // Otevřený lightbox si bere klávesy pro sebe (jinak by 1/2/3 přepínalo skladby pod videem).
   document.addEventListener('keydown', function(e){
     var t=e.target; if(t && (t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable)) return;
+
+    if(vOpen){
+      if(e.key==='Escape'){ closeVideo(); }
+      // mezerník musí fungovat i s fokusem na táhlech — po kliknutí na lištu
+      // na ní fokus zůstane a uživatel by jinak přišel o pauzu
+      else if(e.key===' '||e.key==='Spacebar'||e.key==='k'){ vTogglePlay(); e.preventDefault(); }
+      else if(e.key==='ArrowRight'){ if(t===vbBar||t===vbVol) return; vSeekBy(5); e.preventDefault(); }
+      else if(e.key==='ArrowLeft'){ if(t===vbBar||t===vbVol) return; vSeekBy(-5); e.preventDefault(); }
+      else if(e.key==='ArrowUp'){ if(t===vbBar||t===vbVol) return; vSetVol(vv.volume+.1); e.preventDefault(); }
+      else if(e.key==='ArrowDown'){ if(t===vbBar||t===vbVol) return; vSetVol(vv.volume-.1); e.preventDefault(); }
+      else if(e.key==='m'||e.key==='M'){ vv.muted=!vv.muted; vSetIcons(); }
+      else if(e.key==='f'||e.key==='F'){ $('vbFs').click(); }
+      else if(e.key==='Tab'){   // fokus nesmí utéct pod dialog
+        var f=vbox.querySelectorAll('button, [tabindex="0"]');
+        if(!f.length) return;
+        var first=f[0], last=f[f.length-1];
+        if(e.shiftKey && document.activeElement===first){ last.focus(); e.preventDefault(); }
+        else if(!e.shiftKey && document.activeElement===last){ first.focus(); e.preventDefault(); }
+      }
+      return;
+    }
+
     if(e.key==='1'){ selectTrack(0); } else if(e.key==='2'){ selectTrack(1); } else if(e.key==='3'){ selectTrack(2); }
     else if(e.key==='Escape'){ mnav.classList.remove('open'); }
   });
@@ -876,7 +1415,7 @@
     document.addEventListener('mouseleave', function(){ cg.classList.remove('on'); });
   }
 
-  // ---- shimmer na čísla sekcí (01 — / 02 — / 03 —) ----
+  // ---- shimmer na čísla sekcí (01 — až 05 —) ----
   Array.prototype.forEach.call(document.querySelectorAll('span'), function(s){
     if(/^0\d\s*—/.test((s.textContent||'').trim())) s.className = (s.className + ' sec-num').trim();
   });
