@@ -114,6 +114,17 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Zlato ztlumeno do hlubšího odstínu, na skoro černém pozadí bylo křiklavé
 - [x] 129 kB SVG → 10 kB po gzipu; QA 51/51
 
+## Batch 15 — Zúžení rámů ✅
+- [x] Lišta z clamp(26px,3.6vw,52px) na **clamp(18px,2.2vw,32px)** — původní byla moc tlustá
+- [x] Nešlo jen zúžit CSS: při zmenšení předlohy by se řezba slila. Zúžena i rámová
+      zóna v předloze (B 168 → 112) a ornament přestavěn na **3 běhy místo 4**
+      (prýtovec, rozviliny, vejcovec) — vnitřní perlovec by po zmenšení zmizel
+- [x] Rozměry běhů jsou teď zlomky šířky lišty B, ne pevná čísla — na užší liště
+      musí být ornamentu MÍŇ a být VĚTŠÍ, ne jen zmenšený
+- [x] Nárožní a středová kartuše se kreslí v 168 prostoru a proporčně se zmenší
+- [x] Na mobilu spodní hranice 18 px (při 16 px už byl rám jen zlatý proužek)
+- [x] QA 52/52 (přibyl test na horní i dolní mez šířky lišty)
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -124,3 +135,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-08-09 12:20 — Batch 12 (celý web na Jannon Sans Light, self-hosted WOFF2 32 kB)
 - 2026-08-09 13:30 — Batch 13 (sekce Aftermovies + TV reportáže, ozdobné rámy, vlastní video přehrávač)
 - 2026-08-09 14:50 — Batch 14 (zdobné barokní rámy generované do SVG, border-image)
+- 2026-08-09 15:05 — Batch 15 (užší rámy, ornament přestavěn na 3 běhy)

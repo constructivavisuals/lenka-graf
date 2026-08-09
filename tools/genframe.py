@@ -14,7 +14,7 @@ import math, os
 
 OUT = "/Users/misak/Projects/lenka-graf-demo/assets/frames"
 SIZE = 600
-B = 168                 # rámová zóna = border-image slice
+B = 112                 # rámová zóna = border-image slice (užší lišta)
 RAIL = SIZE - 2 * B     # délka opakovaného pásu
 
 METALS = {
@@ -193,7 +193,9 @@ def corner():
     g.append(f'<path d="{acanthus(96, 96, 45, 46, 26, curl=0, lobes=2, flip=1)}"/>')
     g.append(f'<path d="{acanthus(96, 96, 45, 46, 26, curl=0, lobes=2, flip=-1)}"/>')
     g.append(rosette(126, 126, 12))
-    return "".join(g)
+    # kartuše je nakreslená v prostoru 168; na užší liště se celá zmenší,
+    # takže se s ní proporčně ztenčí i tahy
+    return f'<g transform="scale({B/168:.4f})">{"".join(g)}</g>' 
 
 
 def crest(w, h):
@@ -206,16 +208,21 @@ def crest(w, h):
     g.append(f'<path d="{acanthus(cx-14, 96, 108, 44, 22, curl=-30, lobes=2, flip=-1)}"/>')
     g.append(f'<path d="{acanthus(cx+14, 96, 72, 44, 22, curl=30, lobes=2, flip=1)}"/>')
     g.append(rosette(cx, 34, 17))
-    return "".join(g)
+    return f'<g transform="scale({B/168:.4f})">{"".join(g)}</g>' 
 
 
 def rail():
-    """Opakovaný pás mezi nárožími (kreslí se pro horní lištu)."""
+    """
+    Opakovaný pás mezi nárožími (kreslí se pro horní lištu).
+
+    Rozměry jsou zlomky šířky lišty B, ne pevná čísla — na užší liště se
+    ornament nesmí jen zmenšit, musí ho být MÍŇ a být VĚTŠÍ. Tři běhy jsou
+    pro tuhle šířku strop; čtvrtý se po zmenšení na ~30 px slévá do kaše.
+    """
     g = []
-    g.append(f'<g>{gadroon(B, 26, RAIL, 40, 30)}</g>')          # vnější výžlabek
-    g.append(f'<g>{rinceau(B, 82, RAIL, 93)}</g>')              # hlavní běh rozvilin
-    g.append(f'<g>{egg_dart(B, 130, RAIL, 56, 27)}</g>')        # vejcovec u polodrážky
-    g.append(f'<g>{bead_reel(B, 158, RAIL, 20, 5.0)}</g>')      # perlovec na polodrážce
+    g.append(f'<g>{gadroon(B, 0.15*B, RAIL, 0.34*B, 0.21*B)}</g>')      # vnější výžlabek
+    g.append(f'<g>{rinceau(B, 0.50*B, RAIL, 0.82*B)}</g>')              # hlavní běh rozvilin
+    g.append(f'<g>{egg_dart(B, 0.845*B, RAIL, 0.46*B, 0.23*B)}</g>')    # vejcovec u polodrážky
     return "".join(g)
 
 
@@ -254,7 +261,7 @@ def build(metal):
         t = f'rotate({rot} {SIZE/2} {SIZE/2})'
         ornaments.append(f'<g transform="{t}">{rail()}</g>')
         ornaments.append(f'<g transform="{t}">{corner()}</g>')
-        ornaments.append(f'<g transform="{t} translate({B} 0)">{crest(RAIL, B)}</g>')
+        ornaments.append(f'<g transform="{t} translate({B} 0)">{crest(RAIL*168/B, 168)}</g>')
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {SIZE} {SIZE}" width="{SIZE}" height="{SIZE}">
 <defs>
