@@ -157,9 +157,6 @@
   #cursorGlow{ position:fixed; top:0; left:0; width:360px; height:360px; margin:-180px 0 0 -180px; border-radius:50%; pointer-events:none; z-index:9997; background:radial-gradient(circle, rgba(216,185,122,.07), transparent 66%); mix-blend-mode:screen; opacity:0; transition:opacity .5s ease; will-change:transform; }
   #cursorGlow.on{ opacity:1; }
   @media (hover:none),(pointer:coarse){ #cursorGlow{ display:none; } }
-  /* klip — pulzující play affordance */
-  .klip-pulse{ animation:klipPulse 2.8s ease-in-out infinite; }
-  @keyframes klipPulse{ 0%,100%{ box-shadow:0 0 0 8px rgba(216,185,122,.06); } 50%{ box-shadow:0 0 0 15px rgba(216,185,122,.11); } }
   /* footer marquee — pauza na hover */
   .foot-marquee{ animation:marqueeMove 28s linear infinite; }
   .foot-marquee:hover{ animation-play-state:paused; }
@@ -221,6 +218,11 @@
   @keyframes vpanelIn{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:none; } }
 
   .vgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(22px,3.4vw,44px); }
+  /* šířka se odvozuje od výšky okna, aby se nadpis + 2 řady karet vešly na jednu obrazovku */
+  .vwrap{ max-width:1180px; margin:0 auto; }
+  @media (min-width:601px){
+    .vwrap{ max-width:min(1180px, max(620px, calc((100vh - 400px) * 1.7778 + 44px))); }
+  }
 
   /* svítivá linka — obrys a vnější záře jako stín prvku, vnitřní záře v ::after (přežije overflow:hidden) */
   .vglow{ border-radius:10px;
@@ -347,7 +349,6 @@
     .tkt{ flex-direction:column !important; }
     .tkt-perf{ display:none !important; }
     .tkt-stub{ width:100% !important; border-top:1px dashed rgba(216,185,122,.3); }
-    .klip-cap{ flex-wrap:wrap !important; gap:12px !important; }
   }
   @media (max-width:420px){
     .hero-content h1{ font-size:clamp(38px,12vw,64px) !important; }
@@ -576,63 +577,53 @@
   </section>
 
   <!-- VIDEO (videoklipy · aftermovies · reportáže v jedné sekci) -->
-  <section id="video" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(65% 50% at 12% 18%, rgba(126,42,56,.07), transparent 55%), radial-gradient(70% 50% at 86% 10%, rgba(216,185,122,.05), transparent 58%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
-    <div style="max-width:1180px; margin:0 auto;">
-      <div data-reveal style="margin-bottom:clamp(14px,2vw,20px);">
+  <section id="video" style="position:relative; padding:clamp(48px,8vh,96px) 6vw; background:radial-gradient(65% 50% at 12% 18%, rgba(126,42,56,.07), transparent 55%), radial-gradient(70% 50% at 86% 10%, rgba(216,185,122,.05), transparent 58%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
+    <div class="vwrap">
+      <div data-reveal style="margin-bottom:clamp(24px,3.5vh,40px);">
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
-        <div style="display:flex; align-items:baseline; gap:16px;">
-          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">02 —</span>
-          <h2 data-i18n="video.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Video</h2>
-        </div>
-      </div>
-      <div data-reveal style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:22px 40px; margin-bottom:clamp(34px,4.5vw,58px);">
-        <p data-i18n="video.sub" style="font-size:15px; color:#8a857c; max-width:46ch;">Videoklipy, ohlédnutí za koncerty a televizní reportáže — vše na jednom místě.</p>
-        <div class="vtabs" role="tablist" aria-label="Kategorie videí">
-          <button class="vtab" role="tab" id="vt-klipy" aria-controls="vp-klipy" aria-selected="true"><span data-i18n="video.tab1">Videoklipy</span><span class="vtab-n"></span></button>
-          <button class="vtab" role="tab" id="vt-after" aria-controls="vp-after" aria-selected="false" tabindex="-1"><span data-i18n="video.tab2">Aftermovies</span><span class="vtab-n"></span></button>
-          <button class="vtab" role="tab" id="vt-rep" aria-controls="vp-rep" aria-selected="false" tabindex="-1"><span data-i18n="video.tab3">Reportáže</span><span class="vtab-n"></span></button>
+        <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px 40px;">
+          <div style="display:flex; align-items:baseline; gap:16px;">
+            <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">02 —</span>
+            <h2 data-i18n="video.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Video</h2>
+          </div>
+          <div class="vtabs" role="tablist" aria-label="Kategorie videí">
+            <button class="vtab" role="tab" id="vt-klipy" aria-controls="vp-klipy" aria-selected="true"><span data-i18n="video.tab1">Videoklipy</span><span class="vtab-n"></span></button>
+            <button class="vtab" role="tab" id="vt-after" aria-controls="vp-after" aria-selected="false" tabindex="-1"><span data-i18n="video.tab2">Aftermovies</span><span class="vtab-n"></span></button>
+            <button class="vtab" role="tab" id="vt-rep" aria-controls="vp-rep" aria-selected="false" tabindex="-1"><span data-i18n="video.tab3">Reportáže</span><span class="vtab-n"></span></button>
+          </div>
         </div>
       </div>
 
       <div data-reveal>
         <!-- VIDEOKLIPY -->
         <div class="vtab-panel" role="tabpanel" id="vp-klipy" aria-labelledby="vt-klipy">
-          <div class="vglow" style="position:relative; aspect-ratio:16/9; overflow:hidden; background:#0a0706;">
-            <video id="klipVideo" muted loop playsinline preload="none" poster="assets/hero.jpg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 25%; filter:grayscale(1) contrast(1.08) brightness(.66);">
-              <source src="assets/hero.mp4" type="video/mp4">
-            </video>
-            <div style="position:absolute; inset:0; background:radial-gradient(120% 120% at 50% 40%, rgba(120,70,30,.14), rgba(0,0,0,0) 55%); pointer-events:none;"></div>
-            <div style="position:absolute; inset:0; box-shadow:inset 0 0 160px rgba(0,0,0,.7); pointer-events:none;"></div>
-            <div style="position:absolute; top:0; left:0; width:100%; height:7%; background:#0a0706; pointer-events:none;"></div>
-            <div style="position:absolute; bottom:0; left:0; width:100%; height:7%; background:#0a0706; pointer-events:none;"></div>
-            <div style="position:absolute; top:calc(7% + 16px); left:24px; display:flex; align-items:center; gap:10px; z-index:3;">
-              <span style="width:8px; height:8px; border-radius:50%; background:#c25767; box-shadow:0 0 8px #c25767; animation:glowPulse 1.8s ease-in-out infinite;"></span>
-              <span style="font-family:var(--font); font-size:10px; letter-spacing:.18em; color:#cfc8bb;">REC · 04:12</span>
-            </div>
-            <span style="position:absolute; top:calc(7% + 14px); right:24px; z-index:3; font-family:var(--font); font-size:10px; letter-spacing:.18em; color:#8a847a;">NEW WORLD · 4K</span>
-            <button id="klipBtn" aria-label="Přehrát featured klip Křídla snů" style="position:absolute; inset:0; z-index:4; display:flex; align-items:center; justify-content:center; background:rgba(10,7,6,.28); border:none; cursor:pointer; transition:background .3s;" style-hover="background:rgba(10,7,6,.12)">
-              <span class="klip-pulse" style="width:90px; height:90px; border-radius:50%; border:1px solid rgba(216,185,122,.6); display:flex; align-items:center; justify-content:center; color:#f0dcae; font-size:24px; background:rgba(10,8,7,.4); box-shadow:0 0 0 8px rgba(216,185,122,.06); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);"><span id="klipIcon">▶</span></span>
+          <div class="vgrid">
+            <button class="vcard vglow" data-video="assets/hero.mp4">
+              <span class="vc-canvas">
+                <img src="assets/hero.jpg" alt="Videoklip Křídla snů" loading="lazy" decoding="async">
+                <span class="vc-scrim"></span>
+                <span class="vc-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+                <span class="vc-label">
+                  <span class="vc-kick" data-i18n="klip.kick">Videoklip</span>
+                  <span class="vc-name">Křídla snů</span>
+                  <span class="vc-meta">0:59</span>
+                </span>
+              </span>
             </button>
-            <div class="klip-cap" style="position:absolute; left:0; bottom:calc(7% + 18px); width:100%; padding:0 24px; z-index:3; display:flex; align-items:flex-end; justify-content:space-between; gap:20px;">
-              <div>
-                <div style="font-family:var(--font); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#b89b6a;">Music video</div>
-                <div style="font-family:var(--font); font-style:italic; font-size:clamp(26px,3.6vw,42px); color:#f5f1ea; line-height:1; margin-top:6px; text-shadow:0 4px 24px rgba(0,0,0,.6);">Křídla&nbsp;snů</div>
-              </div>
-              <a href="#" data-i18n="klip.yt" style="flex-shrink:0; display:inline-flex; align-items:center; gap:8px; padding:11px 18px; border:1px solid rgba(216,185,122,.45); border-radius:40px; background:rgba(10,8,7,.4); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); color:#f0e8da; font-family:var(--font); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none;">Sledovat na YouTube ↗</a>
+            <div class="vcard vglow vcard--empty">
+              <span class="vc-canvas">
+                <span class="vc-empty"><span class="vc-empty-mark">LG</span><span class="vc-empty-txt" data-i18n="video.soon">Připravujeme</span></span>
+              </span>
             </div>
-          </div>
-          <div style="margin-top:38px; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:clamp(24px,4vw,48px); padding-top:30px; border-top:1px solid rgba(255,255,255,.08);">
-            <div>
-              <div data-i18n="cr.inspired" style="font-family:var(--font); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#9a7c4a;">Na motivy</div>
-              <div style="font-family:var(--font); font-size:19px; color:#ece7de; margin-top:8px;">Dvořákova Novosvětská</div>
+            <div class="vcard vglow vcard--empty">
+              <span class="vc-canvas">
+                <span class="vc-empty"><span class="vc-empty-mark">LG</span><span class="vc-empty-txt" data-i18n="video.soon">Připravujeme</span></span>
+              </span>
             </div>
-            <div>
-              <div data-i18n="cr.prod" style="font-family:var(--font); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#9a7c4a;">Produkce</div>
-              <div style="font-family:var(--font); font-size:19px; color:#ece7de; margin-top:8px;">Michal Dvořák <span style="font-size:14px; color:#8a857c;">(Lucie)</span></div>
-            </div>
-            <div>
-              <div data-i18n="cr.cello" style="font-family:var(--font); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#9a7c4a;">Sólové violoncello</div>
-              <div style="font-family:var(--font); font-size:19px; color:#ece7de; margin-top:8px;">Jodok Vuille</div>
+            <div class="vcard vglow vcard--empty">
+              <span class="vc-canvas">
+                <span class="vc-empty"><span class="vc-empty-mark">LG</span><span class="vc-empty-txt" data-i18n="video.soon">Připravujeme</span></span>
+              </span>
             </div>
           </div>
         </div>
@@ -954,18 +945,18 @@
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','cr.inspired':'Na motivy','cr.prod':'Produkce','cr.cello':'Sólové violoncello','klip.yt':'Sledovat na YouTube ↗','shows.title':'Nadcházející koncerty','shows.label':'Koncert · 2026','shows.label2':'Vánoční koncert · 2026','shows.dow1':'Pátek','shows.dow2':'Neděle','shows.month1':'Květen 2026','shows.month2':'Prosinec 2026','shows.hostL':'Host','shows.sectionL':'Sekce','shows.sectionL2':'Sekce','shows.seatL':'Místo','shows.seatL2':'Místo','shows.fromL':'od','shows.fromL2':'od','shows.guest1v':'Štefan Margita','shows.guest2v':'Adventní árie','shows.timeL':'Začátek','shows.timeL2':'Začátek','shows.programL':'Program','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Vstupenky','shows.cta2':'Vstupenky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','shows.title':'Nadcházející koncerty','shows.label':'Koncert · 2026','shows.label2':'Vánoční koncert · 2026','shows.dow1':'Pátek','shows.dow2':'Neděle','shows.month1':'Květen 2026','shows.month2':'Prosinec 2026','shows.hostL':'Host','shows.sectionL':'Sekce','shows.sectionL2':'Sekce','shows.seatL':'Místo','shows.seatL2':'Místo','shows.fromL':'od','shows.fromL2':'od','shows.guest1v':'Štefan Margita','shows.guest2v':'Adventní árie','shows.timeL':'Začátek','shows.timeL2':'Začátek','shows.programL':'Program','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Vstupenky','shows.cta2':'Vstupenky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
           'nav.video':'Video',
-          'video.title':'Video','video.sub':'Videoklipy, ohlédnutí za koncerty a televizní reportáže — vše na jednom místě.',
+          'video.title':'Video','klip.kick':'Videoklip',
           'video.tab1':'Videoklipy','video.tab2':'Aftermovies','video.tab3':'Reportáže',
           'after.kick':'Aftermovie',
           'after.v1':'Koncert Děčín','after.v2':'Vánoční koncert se Štefanem Margitou',
           'rep.kick':'Reportáž',
           'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
           'video.soon':'Připravujeme' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','cr.inspired':'Inspired by','cr.prod':'Production','cr.cello':'Solo cello','klip.yt':'Watch on YouTube ↗','shows.title':'Upcoming shows','shows.label':'Concert · 2026','shows.label2':'Christmas concert · 2026','shows.dow1':'Friday','shows.dow2':'Sunday','shows.month1':'May 2026','shows.month2':'December 2026','shows.hostL':'Guest','shows.sectionL':'Section','shows.sectionL2':'Section','shows.seatL':'Seat','shows.seatL2':'Seat','shows.fromL':'from','shows.fromL2':'from','shows.guest1v':'Štefan Margita','shows.guest2v':'Advent arias','shows.timeL':'Doors','shows.timeL2':'Doors','shows.programL':'Programme','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Tickets','shows.cta2':'Tickets','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','shows.title':'Upcoming shows','shows.label':'Concert · 2026','shows.label2':'Christmas concert · 2026','shows.dow1':'Friday','shows.dow2':'Sunday','shows.month1':'May 2026','shows.month2':'December 2026','shows.hostL':'Guest','shows.sectionL':'Section','shows.sectionL2':'Section','shows.seatL':'Seat','shows.seatL2':'Seat','shows.fromL':'from','shows.fromL2':'from','shows.guest1v':'Štefan Margita','shows.guest2v':'Advent arias','shows.timeL':'Doors','shows.timeL2':'Doors','shows.programL':'Programme','shows.admit':'Admit One','shows.admit2':'Admit One','shows.cta':'Tickets','shows.cta2':'Tickets','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
           'nav.video':'Video',
-          'video.title':'Video','video.sub':'Music videos, concert aftermovies and TV features — all in one place.',
+          'video.title':'Video','klip.kick':'Music video',
           'video.tab1':'Music videos','video.tab2':'Aftermovies','video.tab3':'TV features',
           'after.kick':'Aftermovie',
           'after.v1':'Děčín concert','after.v2':'Christmas concert with Štefan Margita',
@@ -974,7 +965,7 @@
           'video.soon':'Coming soon' }
   };
 
-  var state = { lang:'cs', current:0, playing:false, time:0, dur:0, durs:{} , reel:false, klip:false };
+  var state = { lang:'cs', current:0, playing:false, time:0, dur:0, durs:{} , reel:false };
 
   // ---- audio ----
   var audio = new Audio();
@@ -1111,14 +1102,6 @@
     if(state.reel){ heroVideo.play().catch(function(){}); } else { heroVideo.pause(); }
   });
 
-  // ---- featured klip ----
-  var klipVideo=$('klipVideo');
-  $('klipBtn').addEventListener('click', function(){
-    state.klip=!state.klip;
-    $('klipIcon').textContent = state.klip?'❚❚':'▶';
-    if(state.klip){ klipVideo.play().catch(function(){}); } else { klipVideo.pause(); }
-  });
-
   // ---- video: záložky videoklipy / aftermovies / reportáže ----
   var vtabs = Array.prototype.slice.call(document.querySelectorAll('.vtab'));
   function selectVTab(tab, focus){
@@ -1128,12 +1111,10 @@
       t.tabIndex = on?0:-1;
       $(t.getAttribute('aria-controls')).hidden = !on;
     });
-    // smyčka klipu nemá běžet ve skryté záložce
-    if(tab.id!=='vt-klipy' && state.klip){ state.klip=false; $('klipIcon').textContent='▶'; klipVideo.pause(); }
     if(focus) tab.focus();
   }
   vtabs.forEach(function(t, i){
-    t.querySelector('.vtab-n').textContent = $(t.getAttribute('aria-controls')).querySelectorAll('[data-video], video').length;
+    t.querySelector('.vtab-n').textContent = $(t.getAttribute('aria-controls')).querySelectorAll('[data-video]').length;
     t.addEventListener('click', function(){ selectVTab(t); });
     t.addEventListener('keydown', function(e){
       var n=vtabs.length, j = e.key==='ArrowRight' ? (i+1)%n : e.key==='ArrowLeft' ? (i-1+n)%n : e.key==='Home' ? 0 : e.key==='End' ? n-1 : -1;
@@ -1177,7 +1158,7 @@
       vbBar=$('vbBar'), vbFill=$('vbFill'), vbBuf=$('vbBuf'), vbKnob=$('vbKnob'),
       vbCur=$('vbCur'), vbDur=$('vbDur'), vbPlayIco=$('vbPlayIco'), vbMuteIco=$('vbMuteIco'),
       vbVol=$('vbVol'), vbVolFill=$('vbVolFill');
-  var vOpen=false, vLastFocus=null, vSeeking=false, vVolDrag=false, vScrollY=0, vKlipWas=false;
+  var vOpen=false, vLastFocus=null, vSeeking=false, vVolDrag=false, vScrollY=0;
 
   var ICO = {
     play:'M8 5v14l11-7z',
@@ -1216,9 +1197,8 @@
     var src = btn.getAttribute('data-video');
     if(!src) return;
     vLastFocus = btn;
-    // hudba z jukeboxu a smyčka u klipu musí ustoupit zvuku videa
+    // hudba z jukeboxu musí ustoupit zvuku videa
     if(state.playing){ audio.pause(); state.playing=false; applyMachine(false); }
-    vKlipWas = state.klip; if(klipVideo) klipVideo.pause();
 
     $('vboxKick').textContent = btn.querySelector('.vc-kick').textContent;
     $('vboxTtl').textContent  = btn.querySelector('.vc-name').textContent;
@@ -1250,7 +1230,6 @@
     vbox.setAttribute('aria-hidden','true');
     document.body.style.position=''; document.body.style.top=''; document.body.style.width='';
     window.scrollTo(0, vScrollY);
-    if(vKlipWas && klipVideo) klipVideo.play().catch(function(){});
     // uvolnit stažené video z paměti až po doběhnutí animace
     setTimeout(function(){ if(!vOpen){ vv.removeAttribute('src'); vv.load(); } }, 400);
     if(vLastFocus) vLastFocus.focus();

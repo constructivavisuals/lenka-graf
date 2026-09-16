@@ -147,3 +147,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-08-09 15:05 — Batch 15 (užší rámy, ornament přestavěn na 3 běhy)
 - 2026-09-16 — Hero: portrét oddálený na střed, studiové pozadí do stran, menší texty
 - 2026-09-16 — Batch 16 (sekce Video se záložkami, svítivá linka místo rámů)
+- 2026-09-16 — Video: sekce se vejde na jednu obrazovku (šířka podle výšky okna), Videoklipy jako 4 karty, bez credits
