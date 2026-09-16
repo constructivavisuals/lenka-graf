@@ -155,6 +155,27 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Pás se při scrollu připne: svislý scroll posouvá karty do strany (výška sekce = obrazovka + délka pásu),
       po poslední kartě stránka pokračuje; tažení, horizontální swipe, šipky i posuvník jen posouvají stránku
 
+## Batch 19 — Výkon scrollu ✅
+Měřeno scroll benchmarkem (300 snímků přes celou stránku, headless Chromium bez GPU — slouží k porovnání):
+
+| | průměr snímku | snímků > 33 ms |
+|---|---|---|
+| desktop 1440 před | 73 ms | 236 / 297 |
+| desktop 1440 po | 10,7 ms | 13 / 297 |
+| mobil 390 před | 23,5 ms | 88 / 360 |
+| mobil 390 po | 8,6 ms | 3 / 294 |
+
+- [x] Ambientní světla (`#bgAmbient`, fixed vrstva přes celou stránku, blend + blur 80px, animace) odebrána — sama stála ~40 % snímku
+- [x] Grain bez `mix-blend-mode`, na dotykových zařízeních vypnutý; kurzorový glow bez blend módu
+- [x] Pryč `backdrop-filter` z navigace, hero štítku, tlačítka ukázky a tlačítka nahoru (navigace má silnější gradient)
+- [x] Jeden scroll listener: bloky se registrují přes `onScrollJob` / `onMeasureJob`; layout se čte jen při
+      načtení, resize a změně výšky stránky (ResizeObserver) — za scrollu žádný nucený reflow
+- [x] Progress bar přes `scaleX`, parallax hera jen dokud je vidět, scrollspy a tlačítko nahoru mění třídy jen při změně
+- [x] Sekce mimo obrazovku dostanou `.anim-off` → nekonečné animace pozastavené
+- [x] Světelný sweep jukeboxu přes `transform` místo `left`; halo bez blur filtru
+- [x] Pozadí pásu videí jako předpočítané rozmazané JPG (`more-bg.jpg`, 17 kB) místo CSS blur; karty ztmavené překryvem místo filtru
+- [x] Přichytávání scrollu (`scroll-snap` na html) odebráno — na trackpadu působilo jako zasekávání
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -174,3 +195,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-09-16 — Batch 17 (přeskládání sekcí, O Lence, Nadační fond, Press, texty CS/EN)
 - 2026-09-16 — Batch 18 (Videografie: celoobrazovkové smyčky + pás dalších videí, styl adele.com)
 - 2026-09-16 — Videografie: připnutý pás dalších videí řízený svislým scrollem
+- 2026-09-16 — Batch 19 (výkon scrollu: desktop 73 → 11 ms/snímek, mobil 23 → 9 ms)

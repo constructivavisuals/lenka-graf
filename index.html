@@ -92,21 +92,12 @@
   @keyframes plRise{ from{ opacity:0; transform:translateY(9px); } to{ opacity:1; transform:none; } }
   @keyframes plBar{ to{ width:100%; } }
 
-  /* ===== ambientní struktura pozadí ===== */
-  #bgAmbient{ position:fixed; inset:0; z-index:9998; pointer-events:none; mix-blend-mode:screen; opacity:.55; }
-  #bgAmbient i{ position:absolute; display:block; border-radius:50%; filter:blur(80px); }
-  #bgAmbient .g1{ width:52vw; height:52vw; top:-14vw; right:-12vw; background:radial-gradient(circle, rgba(176,141,87,.15), transparent 66%); animation:amb1 28s ease-in-out infinite alternate; }
-  #bgAmbient .g2{ width:46vw; height:46vw; bottom:-14vw; left:-10vw; background:radial-gradient(circle, rgba(126,42,56,.13), transparent 66%); animation:amb2 34s ease-in-out infinite alternate; }
-  #bgAmbient .g3{ width:30vw; height:30vw; top:38%; left:55%; background:radial-gradient(circle, rgba(176,141,87,.06), transparent 70%); animation:amb3 40s ease-in-out infinite alternate; }
-  @keyframes amb1{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(-5vw,5vw) scale(1.18);} }
-  @keyframes amb2{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(6vw,-4vw) scale(1.22);} }
-  @keyframes amb3{ from{ transform:translate(0,0);} to{ transform:translate(-7vw,4vw);} }
 
   /* ===== jukebox — halo + světelný sweep ===== */
-  .cabinet::after{ content:''; position:absolute; inset:-16% -22%; z-index:-1; border-radius:50%; background:radial-gradient(closest-side, transparent 58%, rgba(216,185,122,.16) 74%, rgba(126,42,56,.07) 88%, transparent 100%); filter:blur(26px); pointer-events:none; animation:halo 6s ease-in-out infinite; }
+  .cabinet::after{ content:''; position:absolute; inset:-16% -22%; z-index:-1; border-radius:50%; background:radial-gradient(closest-side, transparent 58%, rgba(216,185,122,.16) 74%, rgba(126,42,56,.07) 88%, transparent 100%); pointer-events:none; animation:halo 6s ease-in-out infinite; }
   @keyframes halo{ 0%,100%{ opacity:.5; transform:scale(1);} 50%{ opacity:.95; transform:scale(1.05);} }
-  .dome-sweep{ position:absolute; top:0; bottom:0; left:-70%; width:55%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.12) 50%, transparent); transform:skewX(-14deg); pointer-events:none; animation:sweep 7s ease-in-out infinite; }
-  @keyframes sweep{ 0%,72%{ left:-70%; } 100%{ left:135%; } }
+  .dome-sweep{ position:absolute; top:0; bottom:0; left:-70%; width:55%; background:linear-gradient(100deg, transparent, rgba(255,255,255,.12) 50%, transparent); transform:translateX(0) skewX(-14deg); pointer-events:none; animation:sweep 7s ease-in-out infinite; }
+  @keyframes sweep{ 0%,72%{ transform:translateX(0) skewX(-14deg); } 100%{ transform:translateX(372.7%) skewX(-14deg); } }
 
   /* ===== footer polish ===== */
   .foot-divider{ height:1px; background:linear-gradient(90deg, transparent, rgba(216,185,122,.5) 50%, transparent); margin:0 auto; max-width:1180px; }
@@ -114,7 +105,7 @@
   .socials a::after{ content:''; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:#d8b97a; transition:width .35s cubic-bezier(.2,.6,.2,1); }
   .socials a:hover{ color:#f0dcae; }
   .socials a:hover::after{ width:100%; }
-  #toTop{ position:fixed; right:22px; bottom:64px; z-index:70; width:44px; height:44px; border-radius:50%; border:1px solid rgba(216,185,122,.35); background:rgba(10,9,8,.6); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); color:#d8b97a; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transform:translateY(10px); transition:opacity .4s ease, visibility .4s ease, transform .4s ease, border-color .3s, background .3s; }
+  #toTop{ position:fixed; right:22px; bottom:64px; z-index:70; width:44px; height:44px; border-radius:50%; border:1px solid rgba(216,185,122,.35); background:rgba(10,9,8,.82); color:#d8b97a; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transform:translateY(10px); transition:opacity .4s ease, visibility .4s ease, transform .4s ease, border-color .3s, background .3s; }
   #toTop.show{ opacity:1; visibility:visible; transform:none; }
   #toTop:hover{ border-color:#d8b97a; background:rgba(216,185,122,.14); }
 
@@ -140,7 +131,7 @@
   a[style*="background:#d8b97a"], button[style*="background:#d8b97a"]{ transition:transform .3s ease, box-shadow .3s ease, filter .3s ease; }
   a[style*="background:#d8b97a"]:hover, button[style*="background:#d8b97a"]:hover{ transform:translateY(-2px); filter:brightness(1.06); box-shadow:0 10px 28px -10px rgba(216,185,122,.6); }
   /* kurzorový glow (jen desktop) */
-  #cursorGlow{ position:fixed; top:0; left:0; width:360px; height:360px; margin:-180px 0 0 -180px; border-radius:50%; pointer-events:none; z-index:9997; background:radial-gradient(circle, rgba(216,185,122,.07), transparent 66%); mix-blend-mode:screen; opacity:0; transition:opacity .5s ease; will-change:transform; }
+  #cursorGlow{ position:fixed; top:0; left:0; width:360px; height:360px; margin:-180px 0 0 -180px; border-radius:50%; pointer-events:none; z-index:9997; background:radial-gradient(circle, rgba(216,185,122,.07), transparent 66%); opacity:0; transition:opacity .5s ease; will-change:transform; }
   #cursorGlow.on{ opacity:1; }
   @media (hover:none),(pointer:coarse){ #cursorGlow{ display:none; } }
   /* footer marquee — pauza na hover */
@@ -160,7 +151,7 @@
   section[id], footer[id]{ scroll-margin-top:84px; }
   #hero{ scroll-margin-top:0; }
   /* tenký zlatý scroll-progress nahoře */
-  #scrollProgress{ position:fixed; top:0; left:0; height:2px; width:0; z-index:90; background:linear-gradient(90deg,#9a7c4a,#f0dcae); box-shadow:0 0 10px rgba(240,220,170,.6); transition:width .08s linear; }
+  #scrollProgress{ position:fixed; top:0; left:0; height:2px; width:100%; z-index:90; background:linear-gradient(90deg,#9a7c4a,#f0dcae); box-shadow:0 0 10px rgba(240,220,170,.6); transform:scaleX(0); transform-origin:0 50%; will-change:transform; }
   /* nav odkazy — animované podtržení + aktivní stav */
   .nav-actions a{ position:relative; transition:color .35s ease; }
   .nav-actions a::after{ content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:#d8b97a; transition:width .4s cubic-bezier(.2,.6,.2,1); }
@@ -181,7 +172,7 @@
   /* ---- mobile menu ---- */
   .burger{ display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px; }
   .burger span{ display:block; width:24px; height:1.5px; background:#ece7de; transition:.3s; }
-  .mnav{ position:fixed; inset:0; z-index:80; background:rgba(10,9,8,.98); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s; }
+  .mnav{ position:fixed; inset:0; z-index:80; background:rgba(10,9,8,.98); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s; }
   .mnav.open{ opacity:1; visibility:visible; }
   .mnav a{ font-family:var(--font); font-size:34px; letter-spacing:.03em; color:#ece7de; text-decoration:none; padding:12px; }
   .mnav a:active{ color:#d8b97a; }
@@ -272,13 +263,17 @@
     .press-gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   }
 
+  /* ═══════════════ VÝKON ═══════════════
+     .anim-off dostane sekce mimo obrazovku → nekonečné animace (jukebox, shimmer čísel, ken burns,
+     marquee…) se nepočítají. Grain na dotykových zařízeních vypnutý úplně.
+     Ambientní světla (fixed vrstva přes celou stránku) odebrána — stála ~40 % času každého snímku. */
+  .anim-off *, .anim-off *::before, .anim-off *::after{ animation-play-state:paused !important; }
+  @media (hover:none),(pointer:coarse){ .grain{ display:none; } }
+
   /* ═══════════════ 05 VIDEOGRAFIE — celoobrazovkové smyčky (styl adele.com) ═══════════════
      .vg-reel je vysoký N × 100svh a drží sticky .vg-stage přes celou obrazovku. Aktivní slide
-     se přepíná podle scrollu; neviditelné kotvy .vg-snap na hranicích slidů dotáhnou scroll
-     přesně na další video (proximity — jinde na stránce se nic nepřichytává). */
-  html{ scroll-snap-type:y proximity; }
+     se přepíná podle scrollu (v polovině cesty na další video). */
   .vg-reel{ position:relative; height:calc(var(--vg-n,3) * 100vh); height:calc(var(--vg-n,3) * 100svh); background:#000; }
-  .vg-snap{ position:absolute; left:0; width:1px; height:100vh; height:100svh; scroll-snap-align:start; pointer-events:none; }
   .vg-stage{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; background:#000; }
   .vg-slide{ position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity .9s cubic-bezier(.4,0,.2,1), visibility 0s linear .9s; }
   .vg-slide.is-active{ z-index:1; opacity:1; visibility:visible; transition:opacity .9s cubic-bezier(.4,0,.2,1), visibility 0s; }
@@ -307,7 +302,7 @@
      dopočítá JS = výška obrazovky + délka pásu, takže po poslední kartě stránka plynule pokračuje. */
   .vg-more{ position:relative; background:#050404; }
   .vg-more-pin{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; display:flex; align-items:center; }
-  .vg-more-bg{ position:absolute; inset:-40px; background:url('assets/hero.jpg') center/cover no-repeat; filter:blur(5px) brightness(.26) saturate(.8); }
+  .vg-more-bg{ position:absolute; inset:0; background:#0b0907 url('assets/video/more-bg.jpg') center/cover no-repeat; }
   .vg-more-inner{ position:relative; width:100%; }
   .vg-more-head{ display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 6vw; margin-bottom:clamp(22px,3vw,34px); }
   .vg-more-ttl{ font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#e8d7ae; }
@@ -320,10 +315,13 @@
   .vg-track.is-drag .vg-card{ pointer-events:none; }
   .vg-card{ position:relative; display:block; flex:0 0 clamp(260px,36vw,540px); aspect-ratio:16/9; padding:0; border:1px solid rgba(255,255,255,.85); background:#000;
     overflow:hidden; cursor:pointer; color:#fff; font-family:var(--font); text-align:center; transition:border-color .4s, box-shadow .4s; }
-  .vg-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.6) saturate(.9); transition:transform 1.1s cubic-bezier(.2,.6,.2,1), filter .5s; -webkit-user-drag:none; user-select:none; }
+  .vg-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1.1s cubic-bezier(.2,.6,.2,1); -webkit-user-drag:none; user-select:none; }
+  .vg-card::before{ content:''; position:absolute; inset:0; z-index:1; background:rgba(0,0,0,.42); transition:opacity .5s; pointer-events:none; }
+  .vg-card--soon::before{ display:none; }
   .vg-card:hover{ border-color:#f0dcae; box-shadow:0 0 26px rgba(240,220,170,.28); }
-  .vg-card:hover img{ transform:scale(1.05); filter:brightness(.78) saturate(1); }
-  .vg-card-txt{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; padding:0 18px; }
+  .vg-card:hover img{ transform:scale(1.05); }
+  .vg-card:hover::before{ opacity:.5; }
+  .vg-card-txt{ position:absolute; z-index:2; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; padding:0 18px; }
   .vg-card .v-kick{ font-size:9.5px; letter-spacing:.3em; text-transform:uppercase; color:#e8d7ae; text-shadow:0 1px 10px rgba(0,0,0,.7); }
   .vg-card .v-title{ font-size:clamp(13px,1.15vw,16px); line-height:1.4; letter-spacing:.16em; text-transform:uppercase; color:#fff; text-shadow:0 1px 12px rgba(0,0,0,.7); }
   .vg-card--soon{ cursor:default; border-color:rgba(255,255,255,.28); background:radial-gradient(75% 70% at 50% 42%, rgba(216,185,122,.08), transparent 70%), #0b0806; }
@@ -331,7 +329,7 @@
   .vg-card--soon .v-title{ color:#8a847a; }
   .vg-bar{ position:relative; height:3px; margin:clamp(18px,2.4vw,26px) 6vw 0; background:rgba(255,255,255,.14); cursor:pointer; touch-action:none; }
   .vg-bar::before{ content:''; position:absolute; left:0; right:0; top:-10px; bottom:-10px; }
-  .vg-bar-fill{ position:absolute; top:0; bottom:0; left:0; width:30%; background:#fff; pointer-events:none; }
+  .vg-bar-fill{ position:absolute; top:0; bottom:0; left:0; width:30%; background:#fff; pointer-events:none; will-change:transform; }
   @media (max-width:600px){
     .vg-card{ flex-basis:78vw; }
     .vg-dots{ gap:11px; }
@@ -438,8 +436,6 @@
   <div class="pl-text">Lenka Graf</div>
 </div>
 
-<!-- AMBIENTNÍ POZADÍ -->
-<div id="bgAmbient" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i></div>
 <div id="cursorGlow" aria-hidden="true"></div>
 
 <button id="toTop" aria-label="Zpět nahoru">↑</button>
@@ -448,10 +444,10 @@
 <div id="root" style="position:relative; width:100%; overflow-x:hidden; overflow-x:clip; background:#0a0908;">
 
   <!-- GRAIN -->
-  <div aria-hidden="true" style="position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.04; mix-blend-mode:overlay; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
+  <div class="grain" aria-hidden="true" style="position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.03; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');"></div>
 
   <!-- NAV -->
-  <nav class="site-nav" style="position:fixed; top:0; left:0; width:100%; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; background:linear-gradient(180deg, rgba(10,9,8,.8) 0%, rgba(10,9,8,0) 100%); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);">
+  <nav class="site-nav" style="position:fixed; top:0; left:0; width:100%; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; background:linear-gradient(180deg, rgba(10,9,8,.94) 0%, rgba(10,9,8,.72) 55%, rgba(10,9,8,0) 100%);">
     <a href="#hero" style="font-family:var(--font); font-size:19px; letter-spacing:.18em; text-transform:uppercase; color:#ece7de; text-decoration:none; flex-shrink:0;">Lenka&nbsp;Graf</a>
     <div class="nav-actions" style="display:flex; align-items:center; gap:30px;">
       <span id="npPill" style="display:none; align-items:center; gap:8px; padding:6px 13px; border:1px solid rgba(216,185,122,.28); border-radius:40px;">
@@ -511,7 +507,7 @@
     </div>
 
     <div class="hero-content" style="position:absolute; left:0; bottom:clamp(64px,9vh,120px); width:100%; z-index:3; padding:0 clamp(64px,8vw,120px);">
-      <div data-reveal style="display:inline-flex; align-items:center; gap:11px; margin-bottom:20px; padding:8px 18px; border:1px solid rgba(216,185,122,.42); border-radius:40px; background:rgba(216,185,122,.06); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);">
+      <div data-reveal style="display:inline-flex; align-items:center; gap:11px; margin-bottom:20px; padding:8px 18px; border:1px solid rgba(216,185,122,.42); border-radius:40px; background:rgba(20,16,11,.45);">
         <span style="display:flex; align-items:flex-end; gap:2.5px; height:11px;">
           <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .9s ease-in-out infinite;"></span>
           <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .9s ease-in-out infinite .3s;"></span>
@@ -522,7 +518,7 @@
       <h1 data-reveal style="font-family:var(--font); font-weight:500; font-size:clamp(48px,9vw,128px); line-height:.86; letter-spacing:-.015em; color:#f7f3ec; text-shadow:0 8px 70px rgba(0,0,0,.6);">Lenka&nbsp;Graf</h1>
       <div data-reveal style="display:flex; flex-wrap:wrap; align-items:center; gap:clamp(20px,3vw,36px); margin-top:24px;">
         <p data-i18n="hero.claim" style="font-family:var(--font); font-style:italic; font-weight:400; font-size:clamp(17px,1.9vw,24px); color:#ddd5c8; letter-spacing:.01em; margin:0;">Soprán mezi operou a současností</p>
-        <button id="reelBtn" style="display:inline-flex; align-items:center; gap:12px; padding:12px 22px 12px 14px; border:1px solid rgba(216,185,122,.5); border-radius:40px; background:rgba(10,9,8,.35); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); color:#f0e8da; font-family:var(--font); font-size:11px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer; transition:background .3s, border-color .3s;" style-hover="background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.8)">
+        <button id="reelBtn" style="display:inline-flex; align-items:center; gap:12px; padding:12px 22px 12px 14px; border:1px solid rgba(216,185,122,.5); border-radius:40px; background:rgba(10,9,8,.5); color:#f0e8da; font-family:var(--font); font-size:11px; letter-spacing:.16em; text-transform:uppercase; cursor:pointer; transition:background .3s, border-color .3s;" style-hover="background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.8)">
           <span style="width:30px; height:30px; border-radius:50%; background:#d8b97a; color:#0a0908; display:flex; align-items:center; justify-content:center; font-size:11px;"><span id="reelIcon">▶</span></span>
           <span id="reelLabel">Přehrát ukázku</span>
         </button>
@@ -774,9 +770,6 @@
   <!-- 05 VIDEOGRAFIE — celoobrazovkové smyčky + pás dalších videí (styl adele.com) -->
   <section id="videografie" style="position:relative; background:#000; border-top:1px solid rgba(255,255,255,.05);">
     <div class="vg-reel" id="vgReel" style="--vg-n:3;">
-      <span class="vg-snap" style="top:0vh; top:0svh;"></span>
-      <span class="vg-snap" style="top:100vh; top:100svh;"></span>
-      <span class="vg-snap" style="top:200vh; top:200svh;"></span>
       <div class="vg-stage">
         <div class="vg-slide is-active" data-vitem aria-hidden="false">
           <video class="vg-media" muted loop playsinline preload="none" poster="assets/video/loop-klip.jpg" src="assets/video/loop-klip.mp4" aria-hidden="true"></video>
@@ -956,6 +949,14 @@
 <script>
 (function(){
   var $ = function(id){ return document.getElementById(id); };
+
+  // ---- výkon: jeden scroll handler pro celou stránku ----
+  // Bloky se registrují přes onScrollJob (dostane scrollY, jen zapisuje transformy/třídy)
+  // a onMeasureJob (čte layout — jen při načtení, resize a změně výšky stránky).
+  // Za scrollu se tak nikde nečte layout → žádný nucený reflow v každém snímku.
+  var scrollJobs=[], measureJobs=[];
+  function onScrollJob(fn){ scrollJobs.push(fn); }
+  function onMeasureJob(fn){ measureJobs.push(fn); }
 
   var TRACKS = [
     { code:'A-1', title:'Křídla snů', subtitle:'Single · 2026', src:'assets/track-kridla-snu.mp3', cover:null },
@@ -1389,19 +1390,15 @@
     vgDots.forEach(function(d, k){ if(k===i) d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); });
     vgPlay();
   }
-  function vgOnScroll(){
-    var h=vgStage.offsetHeight, top=vgReel.getBoundingClientRect().top;
-    vgSet(Math.max(0, Math.min(vgSlides.length-1, Math.round(-top/h))));
-  }
+  var vgReelTop=0, vgH=1;
   if(vgReel){
-    var vgTick=false;
-    window.addEventListener('scroll', function(){ if(!vgTick){ vgTick=true; requestAnimationFrame(function(){ vgTick=false; vgOnScroll(); }); } }, { passive:true });
+    onMeasureJob(function(){ vgReelTop = vgReel.getBoundingClientRect().top + window.scrollY; vgH = vgStage.offsetHeight || window.innerHeight; });
+    onScrollJob(function(y){ vgSet(Math.max(0, Math.min(vgSlides.length-1, Math.round((y - vgReelTop) / vgH)))); });
     new IntersectionObserver(function(ents){ vgInView = ents[0].isIntersecting; vgPlay(); }, { threshold:0.01 }).observe(vgReel);
     document.addEventListener('visibilitychange', vgPlay);
     vgDots.forEach(function(d, k){ d.addEventListener('click', function(){
-      window.scrollTo({ top: vgReel.getBoundingClientRect().top + window.scrollY + k*vgStage.offsetHeight, behavior:'smooth' });
+      window.scrollTo({ top: vgReelTop + k*vgH, behavior:'smooth' });
     }); });
-    vgOnScroll();
   }
 
   // pás dalších videí: sekce se připne a svislý scroll posouvá karty do strany
@@ -1409,26 +1406,34 @@
   var vgMore=$('vgMore'), vgPin=vgMore && vgMore.querySelector('.vg-more-pin'),
       vgTrack=$('vgTrack'), vgBar=$('vgBar'), vgFill=$('vgBarFill'), vgPrev=$('vgPrev'), vgNext=$('vgNext');
   if(vgMore && vgTrack){
-    var vgDist=0, vgX=0;
-    var vgRender=function(){
-      vgX = Math.max(0, Math.min(vgDist, -vgMore.getBoundingClientRect().top));
-      vgTrack.style.transform = 'translate3d(' + (-vgX) + 'px,0,0)';
-      var w = Math.min(1, vgPin.clientWidth / vgTrack.offsetWidth), p = vgDist>0 ? vgX/vgDist : 0;
-      vgFill.style.width = (w*100)+'%';
-      vgFill.style.left = (p*(1-w)*100)+'%';
-      vgPrev.disabled = vgX <= 2;
-      vgNext.disabled = vgX >= vgDist-2;
+    var vgDist=0, vgX=-1, vgTopAbs=0, vgBarW=0, vgFillW=0, vgPrevDis=null, vgNextDis=null;
+    var vgRender=function(y){
+      var x = Math.max(0, Math.min(vgDist, y - vgTopAbs));
+      if(x===vgX) return;               // mimo připnutý rozsah se nic nezapisuje
+      vgX = x;
+      vgTrack.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+      vgFill.style.transform = 'translate3d(' + ((vgDist>0 ? x/vgDist : 0) * (vgBarW - vgFillW)) + 'px,0,0)';
+      var pd = x <= 2, nd = x >= vgDist-2;
+      if(pd!==vgPrevDis){ vgPrev.disabled=pd; vgPrevDis=pd; }
+      if(nd!==vgNextDis){ vgNext.disabled=nd; vgNextDis=nd; }
     };
-    var vgLayout=function(){
-      vgDist = Math.max(0, vgTrack.offsetWidth - vgPin.clientWidth);
-      vgMore.style.height = (vgPin.offsetHeight + vgDist) + 'px';
-      vgRender();
-    };
+    onMeasureJob(function(){
+      var pinW=vgPin.clientWidth, trackW=vgTrack.offsetWidth, w=Math.min(1, pinW/trackW);
+      vgDist = Math.max(0, trackW - pinW);
+      var hPx = (vgPin.offsetHeight + vgDist) + 'px';
+      if(vgMore.style.height !== hPx) vgMore.style.height = hPx;
+      vgTopAbs = vgMore.getBoundingClientRect().top + window.scrollY;
+      vgBarW = vgBar.clientWidth;
+      vgFillW = vgBarW * w;
+      vgFill.style.width = (w*100) + '%';
+      vgX = -1;                          // po přeměření vynutit překreslení
+    });
+    onScrollJob(vgRender);
     // okamžitý skok bez smooth scrollu z CSS (tažení musí sedět přesně pod prstem)
     var vgJumpX=function(x){
       var h=document.documentElement, b=h.style.scrollBehavior;
       h.style.scrollBehavior='auto';
-      window.scrollTo(0, vgMore.getBoundingClientRect().top + window.scrollY + Math.max(0, Math.min(vgDist, x)));
+      window.scrollTo(0, vgTopAbs + Math.max(0, Math.min(vgDist, x)));
       h.style.scrollBehavior=b;
     };
     var vgStep=function(){
@@ -1437,15 +1442,11 @@
     };
     var vgGoCard=function(dir){
       var st=vgStep(), idx = dir>0 ? Math.floor(vgX/st + .01) + 1 : Math.ceil(vgX/st - .01) - 1;
-      window.scrollTo({ top: vgMore.getBoundingClientRect().top + window.scrollY + Math.max(0, Math.min(vgDist, idx*st)), behavior:'smooth' });
+      window.scrollTo({ top: vgTopAbs + Math.max(0, Math.min(vgDist, idx*st)), behavior:'smooth' });
     };
     vgPrev.addEventListener('click', function(){ vgGoCard(-1); });
     vgNext.addEventListener('click', function(){ vgGoCard(1); });
 
-    var vgTick2=false;
-    window.addEventListener('scroll', function(){ if(!vgTick2){ vgTick2=true; requestAnimationFrame(function(){ vgTick2=false; vgRender(); }); } }, { passive:true });
-    window.addEventListener('resize', vgLayout);
-    window.addEventListener('load', vgLayout);
 
     // tažení myší i prstem do strany (svislý swipe nechá prohlížeč scrollovat normálně)
     var vgDrag=null, vgMoved=false;
@@ -1474,8 +1475,8 @@
     // horizontální swipe na trackpadu posouvá pás, jen když je sekce připnutá
     vgPin.addEventListener('wheel', function(e){
       if(vgDist<=0 || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-      var r=vgMore.getBoundingClientRect();
-      if(r.top <= 1 && r.bottom >= vgPin.offsetHeight-1){ e.preventDefault(); vgJumpX(vgX + e.deltaX); }
+      var y=window.scrollY;
+      if(y >= vgTopAbs-1 && y <= vgTopAbs+vgDist+1){ e.preventDefault(); vgJumpX(vgX + e.deltaX); }
     }, { passive:false });
 
     // Tab na kartu mimo obraz: dorolovat stránku tak, aby byla vidět (a nenechat prohlížeč scrollovat pin)
@@ -1500,8 +1501,6 @@
     var vgBarEnd=function(){ vgBarDrag=false; };
     vgBar.addEventListener('pointerup', vgBarEnd);
     vgBar.addEventListener('pointercancel', vgBarEnd);
-
-    vgLayout();
   }
 
   // ---- style-hover ----
@@ -1548,25 +1547,53 @@
   var toTop = $('toTop');
   toTop.addEventListener('click', function(){ window.scrollTo({ top:0, behavior:'smooth' }); });
 
-  var ticking=false;
-  function onScroll(){
-    var y = window.scrollY;
+  var vh=window.innerHeight, docMax=1, spyTops=[], lastActive, lastShow, heroParked=false;
+  onMeasureJob(function(){
+    vh = window.innerHeight;
+    docMax = Math.max(1, document.documentElement.scrollHeight - vh);
+    spyTops = spy.map(function(s){ return s.sec.getBoundingClientRect().top + window.scrollY; });
+  });
+  onScrollJob(function(y){
     // scroll progress
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    progressEl.style.width = (h>0 ? (y/h*100) : 0) + '%';
-    // parallax (jen bez reduced-motion)
+    progressEl.style.transform = 'scaleX(' + Math.min(1, y/docMax) + ')';
+    // parallax hero (jen bez reduced-motion a jen dokud je hero vidět)
     if(!reduceMotion){
-      heroMedia.style.transform = 'translateY(' + (y*0.16) + 'px)';
-      if(heroContent && y < window.innerHeight){ heroContent.style.opacity = Math.max(0, 1 - y/680); heroContent.style.transform = 'translateY(' + (y*0.06) + 'px)'; }
+      if(y < vh*1.1){
+        heroMedia.style.transform = 'translate3d(0,' + (y*0.16) + 'px,0)';
+        if(heroContent){ heroContent.style.opacity = Math.max(0, 1 - y/680); heroContent.style.transform = 'translate3d(0,' + (y*0.06) + 'px,0)'; }
+        heroParked = false;
+      } else if(!heroParked){
+        heroMedia.style.transform = 'translate3d(0,' + (vh*1.1*0.16) + 'px,0)';
+        if(heroContent) heroContent.style.opacity = 0;
+        heroParked = true;
+      }
     }
-    // scrollspy
-    var mid = y + window.innerHeight*0.35, active=null;
-    spy.forEach(function(s){ if(s.sec.offsetTop <= mid) active=s.link; });
-    spy.forEach(function(s){ s.link.classList.toggle('active', s.link===active); });
-    toTop.classList.toggle('show', y > window.innerHeight*0.85);
-    ticking=false;
+    // scrollspy — třídy jen při změně
+    var mid = y + vh*0.35, active=null;
+    for(var i=0; i<spy.length; i++){ if(spyTops[i] <= mid) active=spy[i].link; }
+    if(active!==lastActive){ spy.forEach(function(s){ s.link.classList.toggle('active', s.link===active); }); lastActive=active; }
+    var show = y > vh*0.85;
+    if(show!==lastShow){ toTop.classList.toggle('show', show); lastShow=show; }
+  });
+
+  // animace mimo obrazovku pozastavit (sekce dostane .anim-off)
+  if('IntersectionObserver' in window){
+    var animIO = new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ e.target.classList.toggle('anim-off', !e.isIntersecting); });
+    }, { rootMargin:'150px 0px' });
+    Array.prototype.forEach.call(document.querySelectorAll('#root > section, #root > footer'), function(el){ animIO.observe(el); });
   }
-  window.addEventListener('scroll', function(){ if(!ticking){ requestAnimationFrame(onScroll); ticking=true; } }, { passive:true });
+
+  // jeden scroll listener + přeměření při resize, načtení a změně výšky stránky
+  var scrollQueued=false, measureQueued=false;
+  function runScroll(){ scrollQueued=false; var y=window.scrollY; for(var i=0; i<scrollJobs.length; i++) scrollJobs[i](y); }
+  function runMeasure(){ measureQueued=false; for(var i=0; i<measureJobs.length; i++) measureJobs[i](); runScroll(); }
+  function queueMeasure(){ if(!measureQueued){ measureQueued=true; requestAnimationFrame(runMeasure); } }
+  window.addEventListener('scroll', function(){ if(!scrollQueued){ scrollQueued=true; requestAnimationFrame(runScroll); } }, { passive:true });
+  window.addEventListener('resize', queueMeasure);
+  window.addEventListener('load', queueMeasure);
+  if(window.ResizeObserver) new ResizeObserver(queueMeasure).observe(document.body);
+  runMeasure();
 
   // ---- seekbar klávesnice ----
   $('seekBar').addEventListener('keydown', function(e){
