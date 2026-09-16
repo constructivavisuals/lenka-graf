@@ -143,6 +143,16 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Hero bez řádku s termíny, JSON-LD bez koncertů
 - [ ] Text sekce Hudba je provizorní (složený z dodaných faktů) — čeká na text od klienta
 
+## Batch 18 — Videografie ve stylu adele.com ✅
+- [x] 3 celoobrazovkové smyčky (Videoklip · Aftermovie · Reportáž) ve sticky „reelu“; slide se
+      přepíná podle scrollu, `html{scroll-snap-type:y proximity}` + kotvy `.vg-snap` dotáhnou na další video
+- [x] Smyčky jsou krátké výřezy bez zvuku (`assets/video/loop-*.mp4`, 7–11 s, ~1,3 MB, fade na švu)
+- [x] Hraje jen aktivní smyčka a jen když je sekce vidět; při otevření přehrávače se pauzne
+- [x] „Přehrát video“ otevře celé video ve stávajícím přehrávači, pozadí se rozmaže (blur 22px)
+- [x] Zámek scrollu přehrávače přes `overflow:hidden` na <html> (position:fixed na body odsouvalo sticky video)
+- [x] `#root` má `overflow-x:clip` — s `hidden` by byl scroll kontejner a sticky by nefungoval
+- [x] Pás dalších videí: 9 karet (3 z každé kategorie, chystaná na konci), šipky, tažení myší, posuvník
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -160,3 +170,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-09-16 — E-shop: položka v navigaci + stránka eshop.html „Připravujeme“ (footer z hlavní stránky, CS/EN, noindex)
 - 2026-09-16 — Koncerty: vstupenky odstraněny, místo nich blok „Připravujeme“ s odkazem na newsletter
 - 2026-09-16 — Batch 17 (přeskládání sekcí, O Lence, Nadační fond, Press, texty CS/EN)
+- 2026-09-16 — Batch 18 (Videografie: celoobrazovkové smyčky + pás dalších videí, styl adele.com)
