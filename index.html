@@ -302,23 +302,24 @@
   .vg-dot{ width:9px; height:9px; padding:0; border-radius:50%; border:1px solid rgba(255,255,255,.75); background:transparent; cursor:pointer; transition:background .3s, transform .3s; }
   .vg-dot[aria-current="true"]{ background:#fff; transform:scale(1.2); }
 
-  /* další videa — vodorovný pás karet přes ztlumený koncertní snímek, pod ním posuvník */
-  .vg-more{ position:relative; overflow:hidden; padding:clamp(90px,14vh,160px) 0; background:#050404; }
+  /* další videa — vodorovný pás karet přes ztlumený koncertní snímek, pod ním posuvník.
+     Sekce se připne (sticky .vg-more-pin) a svislý scroll posouvá pás do strany; výšku .vg-more
+     dopočítá JS = výška obrazovky + délka pásu, takže po poslední kartě stránka plynule pokračuje. */
+  .vg-more{ position:relative; background:#050404; }
+  .vg-more-pin{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; display:flex; align-items:center; }
   .vg-more-bg{ position:absolute; inset:-40px; background:url('assets/hero.jpg') center/cover no-repeat; filter:blur(5px) brightness(.26) saturate(.8); }
-  .vg-more-inner{ position:relative; }
+  .vg-more-inner{ position:relative; width:100%; }
   .vg-more-head{ display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 6vw; margin-bottom:clamp(22px,3vw,34px); }
   .vg-more-ttl{ font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:#e8d7ae; }
   .vg-arrows{ display:flex; gap:10px; }
   .vg-arrow{ width:44px; height:44px; padding:0; border:1px solid rgba(255,255,255,.6); background:transparent; color:#fff; font-size:16px; cursor:pointer; transition:background .3s, color .3s, opacity .3s; }
   .vg-arrow:hover{ background:#fff; color:#0a0908; }
   .vg-arrow:disabled{ opacity:.28; cursor:default; background:transparent; color:#fff; }
-  .vg-track{ display:flex; gap:clamp(18px,3.4vw,64px); overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-padding:0 6vw;
-    padding:6px 6vw 10px; scrollbar-width:none; cursor:grab; }
-  .vg-track::-webkit-scrollbar{ display:none; }
-  .vg-track.is-drag{ cursor:grabbing; scroll-snap-type:none; }
+  .vg-track{ display:flex; width:max-content; gap:clamp(18px,3.4vw,64px); padding:6px 6vw 10px; will-change:transform; touch-action:pan-y; cursor:grab; user-select:none; -webkit-user-select:none; }
+  .vg-track.is-drag{ cursor:grabbing; }
   .vg-track.is-drag .vg-card{ pointer-events:none; }
   .vg-card{ position:relative; display:block; flex:0 0 clamp(260px,36vw,540px); aspect-ratio:16/9; padding:0; border:1px solid rgba(255,255,255,.85); background:#000;
-    overflow:hidden; cursor:pointer; scroll-snap-align:start; color:#fff; font-family:var(--font); text-align:center; transition:border-color .4s, box-shadow .4s; }
+    overflow:hidden; cursor:pointer; color:#fff; font-family:var(--font); text-align:center; transition:border-color .4s, box-shadow .4s; }
   .vg-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.6) saturate(.9); transition:transform 1.1s cubic-bezier(.2,.6,.2,1), filter .5s; -webkit-user-drag:none; user-select:none; }
   .vg-card:hover{ border-color:#f0dcae; box-shadow:0 0 26px rgba(240,220,170,.28); }
   .vg-card:hover img{ transform:scale(1.05); filter:brightness(.78) saturate(1); }
@@ -809,29 +810,32 @@
       </div>
     </div>
 
-    <div class="vg-more">
-      <div class="vg-more-bg" aria-hidden="true"></div>
-      <div class="vg-more-inner">
-        <div class="vg-more-head">
-          <span class="vg-more-ttl" data-i18n="video.more">Další videa</span>
-          <div class="vg-arrows">
-            <button class="vg-arrow" id="vgPrev" aria-label="Předchozí videa">←</button>
-            <button class="vg-arrow" id="vgNext" aria-label="Další videa">→</button>
+    <!-- další videa: sekce se připne, svislý scroll posouvá pás do strany, pak stránka pokračuje -->
+    <div class="vg-more" id="vgMore">
+      <div class="vg-more-pin">
+        <div class="vg-more-bg" aria-hidden="true"></div>
+        <div class="vg-more-inner">
+          <div class="vg-more-head">
+            <span class="vg-more-ttl" data-i18n="video.more">Další videa</span>
+            <div class="vg-arrows">
+              <button class="vg-arrow" id="vgPrev" aria-label="Předchozí videa">←</button>
+              <button class="vg-arrow" id="vgNext" aria-label="Další videa">→</button>
+            </div>
           </div>
+          <div class="vg-track" id="vgTrack">
+            <!-- skutečná videa napřed (střídavě po kategoriích), chystaná na konci -->
+            <button class="vg-card" data-vitem data-video="assets/hero.mp4"><img src="assets/hero.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="klip.kick">Videoklip</span><span class="v-title">Křídla snů</span></span></button>
+            <button class="vg-card" data-vitem data-video="assets/video/aftermovie-decin.mp4"><img src="assets/video/aftermovie-decin.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="after.v1">Koncert Děčín</span></span></button>
+            <button class="vg-card" data-vitem data-video="assets/video/reportaz-zofin.mp4"><img src="assets/video/reportaz-zofin.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="rep.kick">Reportáž</span><span class="v-title" data-i18n="rep.v1">Adventní koncert — Žofín</span></span></button>
+            <button class="vg-card" data-vitem data-video="assets/video/aftermovie-mb.mp4"><img src="assets/video/aftermovie-mb.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="after.v2">Vánoční koncert se Štefanem Margitou</span></span></button>
+            <button class="vg-card" data-vitem data-video="assets/video/reportaz-prima.mp4"><img src="assets/video/reportaz-prima.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="rep.kick">Reportáž</span><span class="v-title" data-i18n="rep.v2">Rozhovor pro CNN Prima News</span></span></button>
+            <button class="vg-card" data-vitem data-video="assets/video/reportaz-krest.mp4"><img src="assets/video/reportaz-krest.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="rep.kick">Reportáž</span><span class="v-title" data-i18n="rep.v3">Křest — Praha</span></span></button>
+            <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="klip.kick">Videoklip</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
+            <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="klip.kick">Videoklip</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
+            <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
+          </div>
+          <div class="vg-bar" id="vgBar"><span class="vg-bar-fill" id="vgBarFill"></span></div>
         </div>
-        <div class="vg-track" id="vgTrack">
-          <!-- skutečná videa napřed (střídavě po kategoriích), chystaná na konci -->
-          <button class="vg-card" data-vitem data-video="assets/hero.mp4"><img src="assets/hero.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="klip.kick">Videoklip</span><span class="v-title">Křídla snů</span></span></button>
-          <button class="vg-card" data-vitem data-video="assets/video/aftermovie-decin.mp4"><img src="assets/video/aftermovie-decin.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="after.v1">Koncert Děčín</span></span></button>
-          <button class="vg-card" data-vitem data-video="assets/video/reportaz-zofin.mp4"><img src="assets/video/reportaz-zofin.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="rep.kick">Reportáž</span><span class="v-title" data-i18n="rep.v1">Adventní koncert — Žofín</span></span></button>
-          <button class="vg-card" data-vitem data-video="assets/video/aftermovie-mb.mp4"><img src="assets/video/aftermovie-mb.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="after.v2">Vánoční koncert se Štefanem Margitou</span></span></button>
-          <button class="vg-card" data-vitem data-video="assets/video/reportaz-prima.mp4"><img src="assets/video/reportaz-prima.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="rep.kick">Reportáž</span><span class="v-title" data-i18n="rep.v2">Rozhovor pro CNN Prima News</span></span></button>
-          <button class="vg-card" data-vitem data-video="assets/video/reportaz-krest.mp4"><img src="assets/video/reportaz-krest.jpg" alt="" loading="lazy" decoding="async"><span class="vg-card-txt"><span class="v-kick" data-i18n="rep.kick">Reportáž</span><span class="v-title" data-i18n="rep.v3">Křest — Praha</span></span></button>
-          <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="klip.kick">Videoklip</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
-          <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="klip.kick">Videoklip</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
-          <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
-        </div>
-        <div class="vg-bar" id="vgBar"><span class="vg-bar-fill" id="vgBarFill"></span></div>
       </div>
     </div>
   </section>
@@ -1400,58 +1404,104 @@
     vgOnScroll();
   }
 
-  // pás dalších videí: šipky, tažení myší, posuvník
-  var vgTrack=$('vgTrack'), vgBar=$('vgBar'), vgFill=$('vgBarFill'), vgPrev=$('vgPrev'), vgNext=$('vgNext');
-  if(vgTrack){
-    var vgMax=function(){ return vgTrack.scrollWidth - vgTrack.clientWidth; };
-    var vgBarRender=function(){
-      var max=vgMax(), w=Math.min(1, vgTrack.clientWidth / vgTrack.scrollWidth);
+  // pás dalších videí: sekce se připne a svislý scroll posouvá karty do strany
+  // (1 px scrollu = 1 px posunu); šipky, tažení, horizontální swipe i posuvník jen posouvají stránku
+  var vgMore=$('vgMore'), vgPin=vgMore && vgMore.querySelector('.vg-more-pin'),
+      vgTrack=$('vgTrack'), vgBar=$('vgBar'), vgFill=$('vgBarFill'), vgPrev=$('vgPrev'), vgNext=$('vgNext');
+  if(vgMore && vgTrack){
+    var vgDist=0, vgX=0;
+    var vgRender=function(){
+      vgX = Math.max(0, Math.min(vgDist, -vgMore.getBoundingClientRect().top));
+      vgTrack.style.transform = 'translate3d(' + (-vgX) + 'px,0,0)';
+      var w = Math.min(1, vgPin.clientWidth / vgTrack.offsetWidth), p = vgDist>0 ? vgX/vgDist : 0;
       vgFill.style.width = (w*100)+'%';
-      vgFill.style.left = (max>0 ? vgTrack.scrollLeft/max*(1-w)*100 : 0)+'%';
-      vgPrev.disabled = vgTrack.scrollLeft <= 2;
-      vgNext.disabled = vgTrack.scrollLeft >= max-2;
+      vgFill.style.left = (p*(1-w)*100)+'%';
+      vgPrev.disabled = vgX <= 2;
+      vgNext.disabled = vgX >= vgDist-2;
     };
-    var vgStepBy=function(dir){
+    var vgLayout=function(){
+      vgDist = Math.max(0, vgTrack.offsetWidth - vgPin.clientWidth);
+      vgMore.style.height = (vgPin.offsetHeight + vgDist) + 'px';
+      vgRender();
+    };
+    // okamžitý skok bez smooth scrollu z CSS (tažení musí sedět přesně pod prstem)
+    var vgJumpX=function(x){
+      var h=document.documentElement, b=h.style.scrollBehavior;
+      h.style.scrollBehavior='auto';
+      window.scrollTo(0, vgMore.getBoundingClientRect().top + window.scrollY + Math.max(0, Math.min(vgDist, x)));
+      h.style.scrollBehavior=b;
+    };
+    var vgStep=function(){
       var c=vgTrack.querySelector('.vg-card'), gap=parseFloat(getComputedStyle(vgTrack).columnGap)||0;
-      vgTrack.scrollBy({ left: dir*(c ? c.offsetWidth+gap : vgTrack.clientWidth*.8), behavior:'smooth' });
+      return c ? c.offsetWidth+gap : vgPin.clientWidth*.8;
     };
-    vgPrev.addEventListener('click', function(){ vgStepBy(-1); });
-    vgNext.addEventListener('click', function(){ vgStepBy(1); });
-    vgTrack.addEventListener('scroll', vgBarRender, { passive:true });
-    window.addEventListener('resize', vgBarRender);
+    var vgGoCard=function(dir){
+      var st=vgStep(), idx = dir>0 ? Math.floor(vgX/st + .01) + 1 : Math.ceil(vgX/st - .01) - 1;
+      window.scrollTo({ top: vgMore.getBoundingClientRect().top + window.scrollY + Math.max(0, Math.min(vgDist, idx*st)), behavior:'smooth' });
+    };
+    vgPrev.addEventListener('click', function(){ vgGoCard(-1); });
+    vgNext.addEventListener('click', function(){ vgGoCard(1); });
 
-    // tažení myší (dotyk a trackpad scrollují nativně); po tažení se klik na kartu neprovede
+    var vgTick2=false;
+    window.addEventListener('scroll', function(){ if(!vgTick2){ vgTick2=true; requestAnimationFrame(function(){ vgTick2=false; vgRender(); }); } }, { passive:true });
+    window.addEventListener('resize', vgLayout);
+    window.addEventListener('load', vgLayout);
+
+    // tažení myší i prstem do strany (svislý swipe nechá prohlížeč scrollovat normálně)
     var vgDrag=null, vgMoved=false;
     vgTrack.addEventListener('pointerdown', function(e){
-      if(e.pointerType!=='mouse' || e.button!==0) return;
-      vgDrag={ x:e.clientX, s:vgTrack.scrollLeft }; vgMoved=false;
+      if(e.pointerType==='mouse' && e.button!==0) return;
+      vgDrag={ x:e.clientX, y:e.clientY, s:vgX, id:e.pointerId }; vgMoved=false;
     });
     window.addEventListener('pointermove', function(e){
-      if(!vgDrag) return;
-      var dx=e.clientX-vgDrag.x;
-      if(!vgMoved && Math.abs(dx)>6){ vgMoved=true; vgTrack.classList.add('is-drag'); }
-      if(vgMoved) vgTrack.scrollLeft = vgDrag.s - dx;
+      if(!vgDrag || e.pointerId!==vgDrag.id) return;
+      var dx=e.clientX-vgDrag.x, dy=e.clientY-vgDrag.y;
+      if(!vgMoved){
+        if(Math.abs(dx)>6 && Math.abs(dx)>Math.abs(dy)){ vgMoved=true; vgTrack.classList.add('is-drag'); }
+        else if(Math.abs(dy)>10){ vgDrag=null; return; }
+      }
+      if(vgMoved) vgJumpX(vgDrag.s - dx);
     });
-    window.addEventListener('pointerup', function(){
+    var vgDragEnd=function(){
       if(!vgDrag) return;
       vgDrag=null;
       if(vgMoved){ vgTrack.classList.remove('is-drag'); setTimeout(function(){ vgMoved=false; }, 0); }
-    });
+    };
+    window.addEventListener('pointerup', vgDragEnd);
+    window.addEventListener('pointercancel', vgDragEnd);
     vgTrack.addEventListener('click', function(e){ if(vgMoved){ e.preventDefault(); e.stopPropagation(); } }, true);
+
+    // horizontální swipe na trackpadu posouvá pás, jen když je sekce připnutá
+    vgPin.addEventListener('wheel', function(e){
+      if(vgDist<=0 || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      var r=vgMore.getBoundingClientRect();
+      if(r.top <= 1 && r.bottom >= vgPin.offsetHeight-1){ e.preventDefault(); vgJumpX(vgX + e.deltaX); }
+    }, { passive:false });
+
+    // Tab na kartu mimo obraz: dorolovat stránku tak, aby byla vidět (a nenechat prohlížeč scrollovat pin)
+    vgTrack.addEventListener('focusin', function(e){
+      var c=e.target.closest('.vg-card'); if(!c) return;
+      var pad=parseFloat(getComputedStyle(vgTrack).paddingLeft)||0;
+      requestAnimationFrame(function(){
+        vgPin.scrollLeft=0;
+        if(c.offsetLeft - vgX < pad || c.offsetLeft + c.offsetWidth - vgX > vgPin.clientWidth - pad) vgJumpX(c.offsetLeft - pad);
+      });
+    });
 
     // posuvník: klik i tažení
     var vgBarDrag=false;
     var vgBarSeek=function(e){
       var r=vgBar.getBoundingClientRect(), fw=vgFill.offsetWidth, span=r.width-fw;
       var ratio = span>0 ? (e.clientX - r.left - fw/2) / span : 0;
-      vgTrack.scrollLeft = Math.max(0, Math.min(1, ratio)) * vgMax();
+      vgJumpX(Math.max(0, Math.min(1, ratio)) * vgDist);
     };
-    vgBar.addEventListener('pointerdown', function(e){ vgBarDrag=true; vgTrack.classList.add('is-drag'); try{ vgBar.setPointerCapture(e.pointerId); }catch(_){} vgBarSeek(e); });
+    vgBar.addEventListener('pointerdown', function(e){ vgBarDrag=true; try{ vgBar.setPointerCapture(e.pointerId); }catch(_){} vgBarSeek(e); });
     vgBar.addEventListener('pointermove', function(e){ if(vgBarDrag) vgBarSeek(e); });
-    var vgBarEnd=function(){ if(!vgBarDrag) return; vgBarDrag=false; vgTrack.classList.remove('is-drag'); };
+    var vgBarEnd=function(){ vgBarDrag=false; };
     vgBar.addEventListener('pointerup', vgBarEnd);
     vgBar.addEventListener('pointercancel', vgBarEnd);
-    vgBarRender();
+
+    vgLayout();
   }
 
   // ---- style-hover ----

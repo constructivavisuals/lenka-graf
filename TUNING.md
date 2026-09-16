@@ -152,6 +152,8 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Zámek scrollu přehrávače přes `overflow:hidden` na <html> (position:fixed na body odsouvalo sticky video)
 - [x] `#root` má `overflow-x:clip` — s `hidden` by byl scroll kontejner a sticky by nefungoval
 - [x] Pás dalších videí: 9 karet (3 z každé kategorie, chystaná na konci), šipky, tažení myší, posuvník
+- [x] Pás se při scrollu připne: svislý scroll posouvá karty do strany (výška sekce = obrazovka + délka pásu),
+      po poslední kartě stránka pokračuje; tažení, horizontální swipe, šipky i posuvník jen posouvají stránku
 
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
@@ -171,3 +173,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-09-16 — Koncerty: vstupenky odstraněny, místo nich blok „Připravujeme“ s odkazem na newsletter
 - 2026-09-16 — Batch 17 (přeskládání sekcí, O Lence, Nadační fond, Press, texty CS/EN)
 - 2026-09-16 — Batch 18 (Videografie: celoobrazovkové smyčky + pás dalších videí, styl adele.com)
+- 2026-09-16 — Videografie: připnutý pás dalších videí řízený svislým scrollem
