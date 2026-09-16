@@ -125,6 +125,15 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Na mobilu spodní hranice 18 px (při 16 px už byl rám jen zlatý proužek)
 - [x] QA 52/52 (přibyl test na horní i dolní mez šířky lišty)
 
+## Batch 16 — Jedna sekce Video se záložkami ✅
+- [x] Featured klip, Aftermovies a TV reportáže sloučeny do sekce **02 — Video**
+      se záložkami Videoklipy · Aftermovies · Reportáže (role=tablist, šipky/Home/End)
+- [x] Počty videí v záložkách se dopočítávají z obsahu panelu
+- [x] Zdobné rámy odstraněny (SVG předlohy i `tools/genframe.py`) — klipy ohraničuje
+      světlá svítivá linka v tónu oblouku jukeboxu (240,220,170)
+- [x] Stříbrná varianta lightboxu zrušena, vše jednotně zlaté
+- [x] Přepnutí záložky zastaví smyčku featured klipu; Koncerty přečíslovány na 03
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -136,3 +145,5 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-08-09 13:30 — Batch 13 (sekce Aftermovies + TV reportáže, ozdobné rámy, vlastní video přehrávač)
 - 2026-08-09 14:50 — Batch 14 (zdobné barokní rámy generované do SVG, border-image)
 - 2026-08-09 15:05 — Batch 15 (užší rámy, ornament přestavěn na 3 běhy)
+- 2026-09-16 — Hero: portrét oddálený na střed, studiové pozadí do stran, menší texty
+- 2026-09-16 — Batch 16 (sekce Video se záložkami, svítivá linka místo rámů)
