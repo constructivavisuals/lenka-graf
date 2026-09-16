@@ -51,20 +51,6 @@
     { "@type": "MusicRecording", "name": "Křídla snů", "datePublished": "2026" },
     { "@type": "MusicRecording", "name": "Everything Is Part Of One", "datePublished": "2024" },
     { "@type": "MusicRecording", "name": "I Dare", "datePublished": "2022" }
-  ],
-  "event": [
-    {
-      "@type": "MusicEvent",
-      "name": "Lenka Graf — O2 arena",
-      "startDate": "2026-05-15T19:30",
-      "location": { "@type": "Place", "name": "O2 arena", "address": "Praha, CZ" }
-    },
-    {
-      "@type": "MusicEvent",
-      "name": "Lenka Graf — Adventní koncert, Palác Žofín",
-      "startDate": "2026-12-13T19:00",
-      "location": { "@type": "Place", "name": "Palác Žofín", "address": "Praha, CZ" }
-    }
   ]
 }
 </script>
@@ -208,6 +194,84 @@
     box-shadow:0 0 22px rgba(240,220,170,.42), inset 0 0 14px rgba(240,220,170,.3); animation:glowPulse 3.6s ease-in-out infinite; }
   .soon-ring::after{ content:''; position:absolute; inset:-12px; border-radius:50%; border:1px dashed rgba(216,185,122,.22); animation:spin 40s linear infinite; }
 
+  /* ═══════════════ NAVIGACE — 7 položek se vejde od 1100 px, pod tím hamburger ═══════════════ */
+  @media (max-width:1320px){
+    .nav-actions{ gap:22px !important; }
+    .nav-actions a{ letter-spacing:.14em !important; }
+    #npPill{ display:none !important; }
+  }
+  @media (max-width:1100px){
+    .nav-actions a{ display:none !important; }
+    .burger{ display:flex; }
+  }
+  .mnav{ overflow-y:auto; }
+  .mnav a{ font-size:clamp(24px,4.4vh,34px); padding:clamp(6px,1.2vh,12px); }
+
+  /* ═══════════════ PLACEHOLDER FOTEK — než dodají skutečné fotografie ═══════════════ */
+  .ph{ position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; overflow:hidden; border-radius:10px;
+    background:radial-gradient(75% 70% at 50% 40%, rgba(216,185,122,.08), transparent 70%), linear-gradient(160deg,#16110b 0%,#0b0806 100%);
+    box-shadow:inset 0 0 0 1px rgba(216,185,122,.16); }
+  .ph-mark{ font-size:clamp(22px,3vw,34px); color:rgba(216,185,122,.26); letter-spacing:.08em; }
+  .ph-txt{ font-size:9.5px; letter-spacing:.24em; text-transform:uppercase; color:#6b655b; text-align:center; padding:0 12px; }
+
+  /* ═══════════════ 01 O LENCE ═══════════════ */
+  .about-grid{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(36px,6vw,88px); align-items:start; }
+  .about-role{ display:block; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#9a7c4a; }
+  .about-lead{ margin-top:20px; font-size:clamp(20px,2.3vw,26px); line-height:1.55; color:#f0e8da; }
+  .about-p{ font-size:clamp(15.5px,1.6vw,17px); line-height:1.8; color:#b3ada2; }
+  .about-p + .about-p{ margin-top:18px; }
+  .career{ margin-top:clamp(64px,8vw,110px); }
+  .career-head{ display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap; padding-bottom:22px; border-bottom:1px solid rgba(216,185,122,.22); }
+  .career-list{ list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(28px,5vw,64px); }
+  .career-item{ display:grid; grid-template-columns:104px minmax(0,1fr); gap:18px; padding:26px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+  .career-lbl{ padding-top:4px; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#d8b97a; font-variant-numeric:tabular-nums; }
+  .career-item p{ font-size:15px; line-height:1.7; color:#b3ada2; }
+  .career-item:nth-child(n+5){ display:none; }
+  .career.is-open .career-item:nth-child(n+5){ display:grid; animation:vpanelIn .6s cubic-bezier(.2,.6,.2,1) both; }
+  .career-more{ padding:12px 26px; border:1px solid rgba(216,185,122,.45); border-radius:40px; background:transparent; color:#f0e8da; font-family:var(--font);
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; transition:background .3s, border-color .3s; }
+  .career-more:hover{ background:rgba(216,185,122,.12); border-color:rgba(216,185,122,.8); }
+  .career-more:focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; }
+  .career-more [data-i18n="about.less"], .career.is-open .career-more [data-i18n="about.more"]{ display:none; }
+  .career.is-open .career-more [data-i18n="about.less"]{ display:inline; }
+
+  /* ═══════════════ 03 NADAČNÍ FOND ═══════════════ */
+  .found-grid{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(36px,6vw,80px); align-items:center; }
+  .found-lead{ margin:24px 0 20px; font-size:clamp(18px,2.1vw,22px); line-height:1.65; font-style:italic; color:#e3dbcf; }
+  .found-stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(12px,1.8vw,18px); }
+  .fstat{ padding:clamp(20px,2.4vw,28px); border-radius:14px; background:rgba(255,255,255,.025); border:1px solid rgba(201,138,150,.2); }
+  .fstat b{ display:block; font-weight:500; font-size:clamp(36px,4.4vw,54px); line-height:1; color:#f0dcae; font-variant-numeric:tabular-nums; }
+  .fstat span{ display:block; margin-top:10px; font-size:13px; line-height:1.5; color:#a09890; }
+  .found-gallery{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:clamp(130px,15vw,210px); gap:clamp(10px,1.4vw,16px); }
+  .found-gallery .ph:first-child{ grid-column:span 2; grid-row:span 2; }
+  .found-gallery .ph{ box-shadow:inset 0 0 0 1px rgba(201,138,150,.2); }
+
+  /* ═══════════════ 06 PRESS ═══════════════ */
+  .press-grid{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(32px,5vw,64px); align-items:start; }
+  .press-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+  .press-gallery{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,1.4vw,16px); }
+  .press-gallery .ph{ aspect-ratio:4/5; }
+  .press-cv{ position:relative; padding:clamp(28px,3.4vw,42px); background:linear-gradient(150deg,#17120c 0%,#0e0b08 100%); }
+  .press-facts{ list-style:none; margin-top:22px; border-top:1px solid rgba(255,255,255,.07); }
+  .press-facts li{ padding:12px 0 12px 20px; position:relative; font-size:14px; color:#cfc8bb; border-bottom:1px solid rgba(255,255,255,.07); }
+  .press-facts li::before{ content:''; position:absolute; left:2px; top:50%; width:6px; height:6px; margin-top:-3px; border-radius:50%; background:#d8b97a; box-shadow:0 0 8px rgba(216,185,122,.6); }
+  .press-btn{ position:relative; z-index:7; display:block; padding:14px 20px; border:1px solid rgba(216,185,122,.5); border-radius:40px; text-align:center; color:#f0e8da;
+    font-family:var(--font); font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; transition:background .3s, border-color .3s, transform .25s; }
+  .press-btn:hover{ background:rgba(216,185,122,.12); border-color:rgba(216,185,122,.85); }
+  .press-btn--gold{ background:#d8b97a; border-color:#d8b97a; color:#0a0908; font-weight:700; }
+  .press-btn--gold:hover{ background:#e2c68c; transform:translateY(-2px); }
+
+  @media (max-width:900px){
+    .about-grid, .found-grid, .press-grid{ grid-template-columns:1fr; }
+    .about-grid > :first-child{ max-width:440px; }
+    .career-list{ grid-template-columns:1fr; }
+  }
+  @media (max-width:600px){
+    .career-item{ grid-template-columns:1fr; gap:8px; padding:22px 0; }
+    .found-gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:120px; }
+    .press-gallery{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  }
+
   /* ═══════════════ VIDEO (videoklipy · aftermovies · reportáže) ═══════════════
      Jedna sekce s přepínačem záložek. Klipy ohraničuje světlá svítivá linka
      ve stejném tónu jako oblouk jukeboxu (240,220,170). */
@@ -343,20 +407,15 @@
   @media (max-width:780px){
     .site-nav{ padding:15px 22px !important; }
     .nav-actions{ gap:16px !important; }
-    .nav-actions a{ display:none !important; }
-    #npPill{ display:none !important; }
-    .burger{ display:flex; }
     .hero-content{ padding:0 26px !important; }
     .hero-content h1{ font-size:clamp(42px,13vw,80px) !important; }
     .hero-side{ display:none !important; }
     /* rozmazání stínu širší než polovina hero dělá v Chromiu svislý šev přes fotku */
     .hero-vignette{ box-shadow:inset 0 0 110px rgba(0,0,0,.7) !important; }
-    .hero-teaser{ top:74px !important; gap:9px !important; padding:0 18px; flex-wrap:wrap; }
     .cabinet{ padding:26px 22px !important; }
   }
   @media (max-width:420px){
     .hero-content h1{ font-size:clamp(38px,12vw,64px) !important; }
-    .hero-teaser span:first-child, .hero-teaser span:last-child{ display:none; }
   }
 </style>
 </head>
@@ -394,10 +453,12 @@
         </span>
         <span id="npPillTitle" style="font-family:var(--font); font-size:10.5px; letter-spacing:.1em; color:#d8b97a; white-space:nowrap;">Křídla snů</span>
       </span>
+      <a href="#o-lence" data-i18n="nav.about" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">O Lence</a>
       <a href="#hudba" data-i18n="nav.music" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Hudba</a>
-      <a href="#video" data-i18n="nav.video" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Video</a>
+      <a href="#nadacni-fond" data-i18n="nav.foundation" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Nadační fond</a>
       <a href="#koncerty" data-i18n="nav.shows" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Koncerty</a>
-      <a href="#nadace" data-i18n="nav.foundation" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Nadace</a>
+      <a href="#videografie" data-i18n="nav.video" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Videografie</a>
+      <a href="#press" data-i18n="nav.press" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">Press</a>
       <a href="eshop.html" data-i18n="nav.shop" style="font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#b3ada2; text-decoration:none;">E-shop</a>
       <button id="langBtn" aria-label="Přepnout jazyk / Switch language" style="background:none; border:1px solid #3a352d; border-radius:40px; padding:6px 13px; color:#d8b97a; font-family:var(--font); font-size:11px; letter-spacing:.1em; cursor:pointer;">CS / EN</button>
       <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -407,10 +468,12 @@
   <!-- MOBILE MENU -->
   <div id="mNav" class="mnav">
     <button id="mNavClose" class="mnav-close" aria-label="Zavřít">×</button>
+    <a href="#o-lence" data-i18n="nav.about">O Lence</a>
     <a href="#hudba" data-i18n="nav.music">Hudba</a>
-    <a href="#video" data-i18n="nav.video">Video</a>
+    <a href="#nadacni-fond" data-i18n="nav.foundation">Nadační fond</a>
     <a href="#koncerty" data-i18n="nav.shows">Koncerty</a>
-    <a href="#nadace" data-i18n="nav.foundation">Nadace</a>
+    <a href="#videografie" data-i18n="nav.video">Videografie</a>
+    <a href="#press" data-i18n="nav.press">Press</a>
     <a href="eshop.html" data-i18n="nav.shop">E-shop</a>
   </div>
 
@@ -426,14 +489,6 @@
     <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,9,8,.6) 0%, rgba(10,9,8,0) 26%, rgba(10,9,8,.1) 56%, rgba(10,9,8,.93) 100%);"></div>
     <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,9,8,.78) 0%, rgba(10,9,8,.2) 42%, rgba(10,9,8,0) 70%);"></div>
     <div class="hero-vignette" style="position:absolute; inset:0; box-shadow:inset 0 0 240px rgba(0,0,0,.7);"></div>
-
-    <div data-reveal class="hero-teaser" style="position:absolute; top:92px; left:0; width:100%; z-index:4; display:flex; align-items:center; justify-content:center; gap:16px;">
-      <span style="height:1px; width:clamp(20px,6vw,70px); background:rgba(216,185,122,.4);"></span>
-      <span style="font-family:var(--font); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:#b89b6a;">O2 Arena · 15.05.2026</span>
-      <span style="width:4px; height:4px; border-radius:50%; background:#d8b97a;"></span>
-      <span style="font-family:var(--font); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:#b89b6a;">Žofín · 13.12.2026</span>
-      <span style="height:1px; width:clamp(20px,6vw,70px); background:rgba(216,185,122,.4);"></span>
-    </div>
 
     <div class="hero-side" style="position:absolute; left:32px; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; z-index:4;">
       <span data-i18n="hero.vtext" style="font-family:var(--font); font-size:11px; letter-spacing:.42em; text-transform:uppercase; color:#8a7e64;">Soprán · Crossover</span>
@@ -471,14 +526,66 @@
     </a>
   </section>
 
-  <!-- JUKEBOX -->
+  <!-- 01 O LENCE -->
+  <section id="o-lence" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(70% 50% at 88% 10%, rgba(216,185,122,.05), transparent 58%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
+        <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
+        <div style="display:flex; align-items:baseline; gap:16px;">
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">01 —</span>
+          <h2 data-i18n="about.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">O Lence</h2>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div data-reveal>
+          <div class="ph" style="aspect-ratio:4/5;"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.portrait">Foto · Portrét Lenky</span></div>
+        </div>
+        <div>
+          <span data-reveal data-i18n="about.role" class="about-role">Sopranistka · Filantropka</span>
+          <p data-reveal data-i18n="about.lead" class="about-lead">Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.</p>
+          <div data-reveal style="height:1px; width:64px; background:linear-gradient(90deg,#d8b97a,rgba(216,185,122,0)); margin:30px 0;"></div>
+          <div data-reveal>
+            <p data-i18n="about.p2" class="about-p">Založila Nadační fond Energie pomáhá, který kromě podpory konkrétních dobročinných projektů vytvořil unikátní vzdělávací program Energetická Expedice zaměřený na energetickou gramotnost žáků základních škol.</p>
+            <p data-i18n="about.p3" class="about-p">Středobodem života pro Lenku vždy byla a je rodina. Je maminkou dvou dospělých dětí a její rodičovská zkušenost se přirozeně protíná s původně vystudovanou pedagogickou profesí. Mimo jiné i proto se na podporu dětí a jejich vzdělávání zaměřila ve své dlouhodobé charitativní práci.</p>
+            <p data-i18n="about.p4" class="about-p">Žije mezi Českem a Floridou. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Čerpá energii setkáváním s rodinou a přáteli, sportem, cvičením jógy a jak jinak než opět hudbou a zpěvem. Nejoblíbenější formou meditace ke zklidnění těla a mysli je relaxační hudba s křišťálovými mísami doprovázená zpěvem. Mezi její koníčky patří také móda. V nádherných róbách se nezapře vytříbený cit pro eleganci a šarm operní divy.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KARIÉRA — prvních 4 milníků, zbytek po rozbalení -->
+      <div id="career" class="career">
+        <div data-reveal class="career-head">
+          <h3 data-i18n="about.career" style="font-family:var(--font); font-weight:500; font-size:clamp(26px,3.4vw,38px); line-height:1; color:#f5f1ea;">Kariéra</h3>
+          <span data-i18n="about.careerSub" style="font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#6b665d;">Milníky</span>
+        </div>
+        <ol data-reveal class="career-list">
+          <li class="career-item"><span class="career-lbl" data-i18n="cl1">Vzdělání</span><p data-i18n="c1">Vystudovala obor bohemistika a hudba na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem. Hudební vzdělání dále rozvíjela na pražské HAMU a ve studiu zpěvu pokračovala také v USA, mimo jiné na State College of Florida pod vedením Melodie Dickerson.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl2">2017</span><p data-i18n="c2">V roce 2017 vydala debutové album Láska věčná, na němž propojila operní zpěv s popem. Na něj navázala dalšími nahrávkami včetně alba Vánoční poselství. Se zpěvákem Petrem Kolářem natočila romantický duet Nechme lásku plout.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl3">Spolupráce</span><p data-i18n="c3">Spolupracovala s mezinárodně uznávanými autory a producenty. Charlie Midnight pro ni napsal píseň You Are Not Alone, podílel se také na skladbě I Dare. Singl Everything Is Part Of One je dílo Johna Shankse, držitele Grammy a producenta řady světových hudebních hvězd.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl4">Turné</span><p data-i18n="c4">Jako host absolvovala německé turné s crossoverovým interpretem The Dark Tenor, s nímž také vystoupila s duetem své písně You Are Not Alone.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl5">2023</span><p data-i18n="c5">V prosinci 2023 vystoupila jako první česká zpěvačka na tradičním adventním koncertu v Drážďanech. S legendárním pěveckým sborem Dresdner Kreuzchor zpívala před téměř 28 tisíci diváky na vyprodaném stadionu koledu Narodil se Kristus pán v češtině a němčině.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl6">2025</span><p data-i18n="c6">V červnu 2025 byla speciálním hostem pražského koncertu slavné crossover skupiny Il Divo v O2 Universu.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl7">Benefice</span><p data-i18n="c7">Pravidelně se objevuje na adventních a benefičních koncertech po boku osobností české hudební scény, například Štefana Margity, Pavla Šporcla, Daniela Hůlky, Olgy Lounové a dalších.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl8">Každoročně</span><p data-i18n="c8">Každoročně pořádá vlastní adventní benefiční koncerty se známým dívčím smyčcovým triem Inflagranti.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl9">2025</span><p data-i18n="c9">V roce 2025 navázala výraznou spolupráci s Michalem Dvořákem ze skupiny Lucie. Aktuálně nejnovější píseň Křídla snů, inspirovaná Dvořákovou symfonií Z Nového světa, propojuje českou klasiku se současným crossoverovým aranžem a symbolicky se vrací k tématu domova. Cellové sólo k písni nahrál věhlasný švýcarský cellista Jodok Vuille, známý také jako influencer Jodok Cello s téměř 7 miliony fanoušků na sociálních sítích.</p></li>
+          <li class="career-item"><span class="career-lbl" data-i18n="cl10">2026</span><p data-i18n="c10">V květnu 2026 vystoupila v pražské O2 areně jako host jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF Prague Philharmonia.</p></li>
+        </ol>
+        <div style="text-align:center; margin-top:34px;">
+          <button id="careerMore" class="career-more" aria-expanded="false" aria-controls="career"><span data-i18n="about.more">Zobrazit celou kariéru</span><span data-i18n="about.less">Zobrazit méně</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 HUDBA (jukebox) -->
   <section id="hudba" style="position:relative; padding:clamp(54px,7vw,92px) 6vw; background:radial-gradient(90% 55% at 84% 12%, rgba(216,185,122,.05), transparent 55%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
     <div style="max-width:1200px; margin:0 auto;">
       <div data-reveal style="margin-bottom:14px;">
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
         <div style="display:flex; align-items:baseline; gap:16px;">
-          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">01 —</span>
-          <h2 data-i18n="music.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Jukebox</h2>
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">02 —</span>
+          <h2 data-i18n="music.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Hudba</h2>
         </div>
       </div>
       <p data-reveal data-i18n="music.sub" style="margin-bottom:clamp(34px,4vw,52px); font-size:15px; color:#8a857c; max-width:44ch;">Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.</p>
@@ -486,10 +593,10 @@
       <div style="display:flex; flex-wrap:wrap; gap:clamp(34px,5vw,72px); align-items:center; justify-content:center;">
         <!-- EDITORIAL -->
         <div data-reveal style="flex:1 1 300px; min-width:280px; max-width:480px;">
-          <span data-i18n="about.kicker" style="font-family:var(--font); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#9a7c4a;">O zpěvačce</span>
+          <span data-i18n="music.kicker" style="font-family:var(--font); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#9a7c4a;">Tvorba</span>
           <blockquote data-i18n="about.quote" style="margin:22px 0 0; font-family:var(--font); font-style:italic; font-weight:500; font-size:clamp(26px,3.6vw,40px); line-height:1.22; letter-spacing:-.005em; color:#f5f1ea;">„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."</blockquote>
           <div style="height:1px; width:64px; background:linear-gradient(90deg,#d8b97a,rgba(216,185,122,0)); margin:30px 0;"></div>
-          <p data-i18n="about.body" style="font-size:clamp(16px,1.9vw,18px); line-height:1.78; color:#b3ada2;">Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.</p>
+          <p data-i18n="music.body" style="font-size:clamp(16px,1.9vw,18px); line-height:1.78; color:#b3ada2;">Od debutového alba Láska věčná, které propojilo operní zpěv s popem, přes spolupráce s Charliem Midnightem a držitelem Grammy Johnem Shanksem až po nejnovější singl Křídla snů s Michalem Dvořákem — Lenčina tvorba spojuje klasiku se současností.</p>
           <div style="margin-top:34px;">
             <div data-i18n="about.listen" style="font-family:var(--font); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6b665d; margin-bottom:14px;">Poslechnout také</div>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">
@@ -582,15 +689,88 @@
     </div>
   </section>
 
-  <!-- VIDEO (videoklipy · aftermovies · reportáže v jedné sekci) -->
-  <section id="video" style="position:relative; padding:clamp(48px,8vh,96px) 6vw; background:radial-gradient(65% 50% at 12% 18%, rgba(126,42,56,.07), transparent 55%), radial-gradient(70% 50% at 86% 10%, rgba(216,185,122,.05), transparent 58%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
+  <!-- 03 NADAČNÍ FOND -->
+  <section id="nadacni-fond" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:linear-gradient(180deg,#140b0d 0%,#0d0809 100%); border-top:1px solid rgba(255,255,255,.05); overflow:hidden;">
+    <div style="position:absolute; top:-20%; right:-10%; width:50%; height:80%; background:radial-gradient(circle, rgba(150,46,63,.18), rgba(0,0,0,0) 70%); pointer-events:none;"></div>
+    <div style="max-width:1180px; margin:0 auto; position:relative;">
+      <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
+        <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(201,138,150,.45),rgba(201,138,150,0) 60%); margin-bottom:22px;"></div>
+        <div style="display:flex; align-items:baseline; gap:16px;">
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">03 —</span>
+          <h2 data-i18n="found.kicker" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Nadační fond</h2>
+        </div>
+      </div>
+
+      <div class="found-grid">
+        <div>
+          <h3 data-reveal style="font-family:var(--font); font-weight:500; font-size:clamp(34px,4.6vw,56px); line-height:1; color:#f0dcae;">Energie pomáhá</h3>
+          <p data-reveal data-i18n="found.lead" class="found-lead">Nadační fond Energie pomáhá založila Lenka Graf v roce 2017 s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad. Zaměřuje se především na děti, jejich zdravý rozvoj, vzdělávání a smysluplné kulturní a dobročinné projekty.</p>
+          <p data-reveal data-i18n="found.p2" class="about-p">Postupně se stěžejním tématem fondu stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě. Energetická Expedice, dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol, získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.</p>
+          <div data-reveal style="margin-top:34px;">
+            <a href="#" data-i18n="found.cta" style="display:inline-block; padding:15px 38px; background:#d8b97a; color:#0a0908; border-radius:40px; font-family:var(--font); font-size:12px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; font-weight:700; transition:transform .25s;" style-hover="transform:translateY(-2px)">Více o fondu</a>
+          </div>
+        </div>
+        <div data-reveal class="found-stats">
+          <div class="fstat"><b>2017</b><span data-i18n="found.s1">založení fondu</span></div>
+          <div class="fstat"><b>250</b><span data-i18n="found.s2">škol zapojených do Energetické Expedice</span></div>
+          <div class="fstat"><b>2</b><span data-i18n="found.s3">měsíce interaktivního programu</span></div>
+          <div class="fstat"><b>3</b><span data-i18n="found.s4">záštity — MŠMT, MPO a prezident ČR</span></div>
+        </div>
+      </div>
+
+      <div data-reveal style="margin-top:clamp(52px,6.5vw,88px);">
+        <div data-i18n="found.gallery" style="font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#c98a96; margin-bottom:18px;">Z projektů fondu</div>
+        <div class="found-gallery">
+          <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.kids">Foto · Lenka s dětmi</span></div>
+          <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.kids">Foto · Lenka s dětmi</span></div>
+          <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.kids">Foto · Lenka s dětmi</span></div>
+          <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.kids">Foto · Lenka s dětmi</span></div>
+          <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.kids">Foto · Lenka s dětmi</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 KONCERTY -->
+  <section id="koncerty" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(75% 50% at 18% 14%, rgba(216,185,122,.045), transparent 55%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
+        <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
+        <div style="display:flex; align-items:baseline; gap:16px;">
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">04 —</span>
+          <h2 data-i18n="shows.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Nadcházející koncerty</h2>
+        </div>
+      </div>
+
+      <!-- PŘIPRAVUJEME (místo vstupenek) -->
+      <div data-reveal class="shows-soon" style="position:relative; overflow:hidden; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:36px 56px; padding:clamp(34px,5vw,60px) clamp(28px,5.5vw,68px); border-radius:14px; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18);">
+        <div style="position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(180deg,#f0dcae,#9a7c4a);"></div>
+        <div style="position:absolute; inset:0; background-image:repeating-radial-gradient(circle at 18% 120%, rgba(216,185,122,.05) 0 1px, transparent 1px 9px); pointer-events:none;"></div>
+        <div style="position:relative; flex:1 1 360px; max-width:600px;">
+          <span style="display:inline-flex; align-items:center; gap:10px; padding:7px 15px; border:1px solid rgba(216,185,122,.35); border-radius:40px;">
+            <span style="width:7px; height:7px; border-radius:50%; background:#f0dcae; box-shadow:0 0 10px rgba(240,220,170,.8); animation:glowPulse 1.8s ease-in-out infinite;"></span>
+            <span data-i18n="shows.soon" style="font-family:var(--font); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#d8b97a;">Připravujeme</span>
+          </span>
+          <h3 data-i18n="shows.soonTitle" style="margin-top:22px; font-family:var(--font); font-weight:500; font-size:clamp(28px,3.6vw,42px); line-height:1.08; color:#f5f1ea;">Nové termíny brzy oznámíme</h3>
+          <p data-i18n="shows.soonBody" style="margin-top:16px; font-size:clamp(15px,1.7vw,17px); line-height:1.75; color:#a9a297;">Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.</p>
+        </div>
+        <div style="position:relative; flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:26px; margin:0 auto;">
+          <div class="soon-ring" aria-hidden="true">LG</div>
+          <a href="#newsForm" id="showsNewsLink" data-i18n="shows.soonCta" style="display:inline-flex; align-items:center; padding:12px 24px; border:1px solid rgba(216,185,122,.5); border-radius:40px; background:rgba(10,8,7,.35); color:#f0e8da; font-family:var(--font); font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; transition:background .3s, border-color .3s;" style-hover="background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.85)">Odebírat novinky</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 VIDEOGRAFIE (videoklipy · aftermovies · reportáže) -->
+  <section id="videografie" style="position:relative; padding:clamp(48px,8vh,96px) 6vw; background:radial-gradient(65% 50% at 12% 18%, rgba(126,42,56,.07), transparent 55%), radial-gradient(70% 50% at 86% 10%, rgba(216,185,122,.05), transparent 58%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
     <div class="vwrap">
       <div data-reveal style="margin-bottom:clamp(24px,3.5vh,40px);">
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
         <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px 40px;">
           <div style="display:flex; align-items:baseline; gap:16px;">
-            <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">02 —</span>
-            <h2 data-i18n="video.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Video</h2>
+            <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">05 —</span>
+            <h2 data-i18n="video.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Videografie</h2>
           </div>
           <div class="vtabs" role="tablist" aria-label="Kategorie videí">
             <button class="vtab" role="tab" id="vt-klipy" aria-controls="vp-klipy" aria-selected="true"><span data-i18n="video.tab1">Videoklipy</span><span class="vtab-n"></span></button>
@@ -731,65 +911,49 @@
     </div>
   </section>
 
-  <!-- KONCERTY -->
-  <section id="koncerty" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(75% 50% at 18% 14%, rgba(216,185,122,.045), transparent 55%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
-    <div style="max-width:1100px; margin:0 auto;">
-      <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
+  <!-- 06 PRESS -->
+  <section id="press" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(70% 50% at 14% 12%, rgba(216,185,122,.045), transparent 56%), linear-gradient(180deg,#0a0908 0%,#0d0a08 100%); border-top:1px solid rgba(255,255,255,.05);">
+    <div style="max-width:1180px; margin:0 auto;">
+      <div data-reveal style="margin-bottom:clamp(14px,2vw,20px);">
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
         <div style="display:flex; align-items:baseline; gap:16px;">
-          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">03 —</span>
-          <h2 data-i18n="shows.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Nadcházející koncerty</h2>
+          <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">06 —</span>
+          <h2 style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Press</h2>
         </div>
       </div>
+      <p data-reveal data-i18n="press.sub" style="margin-bottom:clamp(34px,4.5vw,58px); font-size:15px; color:#8a857c; max-width:52ch;">Materiály pro média — fotografie ve vysokém rozlišení a profesní životopis Lenky Graf.</p>
 
-      <!-- PŘIPRAVUJEME (místo vstupenek) -->
-      <div data-reveal class="shows-soon" style="position:relative; overflow:hidden; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:36px 56px; padding:clamp(34px,5vw,60px) clamp(28px,5.5vw,68px); border-radius:14px; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18);">
-        <div style="position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(180deg,#f0dcae,#9a7c4a);"></div>
-        <div style="position:absolute; inset:0; background-image:repeating-radial-gradient(circle at 18% 120%, rgba(216,185,122,.05) 0 1px, transparent 1px 9px); pointer-events:none;"></div>
-        <div style="position:relative; flex:1 1 360px; max-width:600px;">
-          <span style="display:inline-flex; align-items:center; gap:10px; padding:7px 15px; border:1px solid rgba(216,185,122,.35); border-radius:40px;">
-            <span style="width:7px; height:7px; border-radius:50%; background:#f0dcae; box-shadow:0 0 10px rgba(240,220,170,.8); animation:glowPulse 1.8s ease-in-out infinite;"></span>
-            <span data-i18n="shows.soon" style="font-family:var(--font); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#d8b97a;">Připravujeme</span>
-          </span>
-          <h3 data-i18n="shows.soonTitle" style="margin-top:22px; font-family:var(--font); font-weight:500; font-size:clamp(28px,3.6vw,42px); line-height:1.08; color:#f5f1ea;">Nové termíny brzy oznámíme</h3>
-          <p data-i18n="shows.soonBody" style="margin-top:16px; font-size:clamp(15px,1.7vw,17px); line-height:1.75; color:#a9a297;">Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.</p>
+      <div class="press-grid">
+        <div data-reveal>
+          <div class="press-head">
+            <h3 data-i18n="press.gallery" style="font-family:var(--font); font-weight:500; font-size:clamp(22px,2.6vw,30px); color:#f5f1ea;">Fotogalerie</h3>
+            <span data-i18n="press.gallerySub" style="font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:#6b665d;">Ve vysokém rozlišení</span>
+          </div>
+          <div class="press-gallery">
+            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+          </div>
         </div>
-        <div style="position:relative; flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:26px; margin:0 auto;">
-          <div class="soon-ring" aria-hidden="true">LG</div>
-          <a href="#newsForm" id="showsNewsLink" data-i18n="shows.soonCta" style="display:inline-flex; align-items:center; padding:12px 24px; border:1px solid rgba(216,185,122,.5); border-radius:40px; background:rgba(10,8,7,.35); color:#f0e8da; font-family:var(--font); font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; transition:background .3s, border-color .3s;" style-hover="background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.85)">Odebírat novinky</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- NADACE -->
-  <section id="nadace" style="position:relative; padding:clamp(90px,12vw,160px) 6vw; background:linear-gradient(180deg,#140b0d 0%,#0d0809 100%); border-top:1px solid rgba(255,255,255,.05); overflow:hidden;">
-    <div style="position:absolute; top:-20%; right:-10%; width:50%; height:80%; background:radial-gradient(circle, rgba(150,46,63,.18), rgba(0,0,0,0) 70%); pointer-events:none;"></div>
-    <div style="max-width:1000px; margin:0 auto; position:relative;">
-      <div data-reveal style="text-align:center;">
-        <span data-i18n="found.kicker" style="font-family:var(--font); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#c98a96;">Nadační fond</span>
-        <h2 style="font-family:var(--font); font-weight:500; font-size:clamp(38px,6.5vw,80px); line-height:1; color:#f5f1ea; margin:20px 0 26px;">Energie pomáhá</h2>
-        <p data-i18n="found.body" style="font-size:clamp(17px,2.2vw,21px); line-height:1.7; color:#c6bfb4; font-family:var(--font); font-style:italic; max-width:34ch; margin:0 auto;">Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.</p>
-      </div>
-      <div data-reveal style="margin-top:clamp(48px,6vw,72px); display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(20px,3vw,34px);">
-        <div style="padding:30px 26px; border-radius:14px; background:rgba(255,255,255,.025); border:1px solid rgba(216,185,122,.14); transition:transform .35s, border-color .35s, background .35s;" style-hover="transform:translateY(-4px); border-color:rgba(216,185,122,.4); background:rgba(255,255,255,.04)">
-          <div style="font-family:var(--font); font-size:30px; color:#d8b97a;">01</div>
-          <div data-i18n="found.p1t" style="font-family:var(--font); font-size:21px; color:#f0e8da; margin-top:14px;">Vzdělávání</div>
-          <p data-i18n="found.p1d" style="font-size:14px; line-height:1.65; color:#9a948a; margin-top:10px;">Stipendia a podpora talentovaných dětí na cestě za vzděláním.</p>
+        <div data-reveal class="press-cv vglow">
+          <span data-i18n="press.kick" style="font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:#9a7c4a;">Pro novináře</span>
+          <h3 data-i18n="press.cvTitle" style="margin-top:14px; font-family:var(--font); font-weight:500; font-size:clamp(28px,3.2vw,38px); line-height:1.05; color:#f5f1ea;">CV pro novináře</h3>
+          <p data-i18n="press.cvBody" style="margin-top:14px; font-size:15px; line-height:1.7; color:#a9a297;">Stručný profesní životopis — vzdělání, kariéra, významné spolupráce a nadační činnost.</p>
+          <ul class="press-facts">
+            <li data-i18n="press.f1">Sopranistka a filantropka</li>
+            <li data-i18n="press.f2">Zakladatelka NF Energie pomáhá (2017)</li>
+            <li data-i18n="press.f3">Žije mezi Českem a Floridou</li>
+          </ul>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:30px;">
+            <a href="#" data-soon class="press-btn press-btn--gold" data-i18n="press.cv">Stáhnout CV (PDF)</a>
+            <a href="#" data-soon class="press-btn" data-i18n="press.photos">Stáhnout fotografie (ZIP)</a>
+          </div>
+          <p data-i18n="press.soon" style="margin-top:14px; font-size:12px; font-style:italic; color:#6b665d; text-align:center;">Soubory ke stažení připravujeme.</p>
         </div>
-        <div style="padding:30px 26px; border-radius:14px; background:rgba(255,255,255,.025); border:1px solid rgba(216,185,122,.14); transition:transform .35s, border-color .35s, background .35s;" style-hover="transform:translateY(-4px); border-color:rgba(216,185,122,.4); background:rgba(255,255,255,.04)">
-          <div style="font-family:var(--font); font-size:30px; color:#d8b97a;">02</div>
-          <div data-i18n="found.p2t" style="font-family:var(--font); font-size:21px; color:#f0e8da; margin-top:14px;">Zdravý životní styl</div>
-          <p data-i18n="found.p2d" style="font-size:14px; line-height:1.65; color:#9a948a; margin-top:10px;">Pohyb, výživa a prevence jako základ zdravého dětství.</p>
-        </div>
-        <div style="padding:30px 26px; border-radius:14px; background:rgba(255,255,255,.025); border:1px solid rgba(216,185,122,.14); transition:transform .35s, border-color .35s, background .35s;" style-hover="transform:translateY(-4px); border-color:rgba(216,185,122,.4); background:rgba(255,255,255,.04)">
-          <div style="font-family:var(--font); font-size:30px; color:#d8b97a;">03</div>
-          <div data-i18n="found.p3t" style="font-family:var(--font); font-size:21px; color:#f0e8da; margin-top:14px;">Umělecké aktivity</div>
-          <p data-i18n="found.p3d" style="font-size:14px; line-height:1.65; color:#9a948a; margin-top:10px;">Hudba a umění dostupné každému dítěti bez rozdílu.</p>
-        </div>
-      </div>
-      <div data-reveal style="text-align:center; margin-top:clamp(40px,5vw,56px);">
-        <a href="#" data-i18n="found.cta" style="display:inline-block; padding:16px 44px; background:#d8b97a; color:#0a0908; border-radius:40px; font-family:var(--font); font-size:12px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; font-weight:700; transition:transform .25s;" style-hover="transform:translateY(-2px)">O nadaci</a>
       </div>
     </div>
   </section>
@@ -871,18 +1035,20 @@
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadace','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.kicker':'O zpěvačce','about.listen':'Poslechnout také','about.body':'Lenka Graf spojuje operní školu s citem pro současnost. Klasika i moderna, koncertní pódia i nahrávací studio — a stejně přirozeně i role filantropky.','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.title':'Jukebox','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','found.kicker':'Nadační fond','found.body':'Podporujeme vzdělávání, zdravý životní styl a umělecké aktivity dětí v České republice.','found.p1t':'Vzdělávání','found.p1d':'Stipendia a podpora talentovaných dětí na cestě za vzděláním.','found.p2t':'Zdravý životní styl','found.p2d':'Pohyb, výživa a prevence jako základ zdravého dětství.','found.p3t':'Umělecké aktivity','found.p3d':'Hudba a umění dostupné každému dítěti bez rozdílu.','found.cta':'O nadaci','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
-          'nav.video':'Video','nav.shop':'E-shop',
-          'video.title':'Video','klip.kick':'Videoklip',
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
+          'nav.video':'Videografie','nav.shop':'E-shop',
+          'nav.about':'O Lence','nav.press':'Press','about.title':'O Lence','about.role':'Sopranistka · Filantropka','about.lead':'Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.','about.p2':'Založila Nadační fond Energie pomáhá, který kromě podpory konkrétních dobročinných projektů vytvořil unikátní vzdělávací program Energetická Expedice zaměřený na energetickou gramotnost žáků základních škol.','about.p3':'Středobodem života pro Lenku vždy byla a je rodina. Je maminkou dvou dospělých dětí a její rodičovská zkušenost se přirozeně protíná s původně vystudovanou pedagogickou profesí. Mimo jiné i proto se na podporu dětí a jejich vzdělávání zaměřila ve své dlouhodobé charitativní práci.','about.p4':'Žije mezi Českem a Floridou. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Čerpá energii setkáváním s rodinou a přáteli, sportem, cvičením jógy a jak jinak než opět hudbou a zpěvem. Nejoblíbenější formou meditace ke zklidnění těla a mysli je relaxační hudba s křišťálovými mísami doprovázená zpěvem. Mezi její koníčky patří také móda. V nádherných róbách se nezapře vytříbený cit pro eleganci a šarm operní divy.','about.career':'Kariéra','about.careerSub':'Milníky','about.more':'Zobrazit celou kariéru','about.less':'Zobrazit méně','ph.portrait':'Foto · Portrét Lenky','ph.kids':'Foto · Lenka s dětmi','ph.press':'Tisková fotografie','music.title':'Hudba','music.kicker':'Tvorba','music.body':'Od debutového alba Láska věčná, které propojilo operní zpěv s popem, přes spolupráce s Charliem Midnightem a držitelem Grammy Johnem Shanksem až po nejnovější singl Křídla snů s Michalem Dvořákem — Lenčina tvorba spojuje klasiku se současností.','found.kicker':'Nadační fond','found.lead':'Nadační fond Energie pomáhá založila Lenka Graf v roce 2017 s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad. Zaměřuje se především na děti, jejich zdravý rozvoj, vzdělávání a smysluplné kulturní a dobročinné projekty.','found.p2':'Postupně se stěžejním tématem fondu stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě. Energetická Expedice, dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol, získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.','found.s1':'založení fondu','found.s2':'škol zapojených do Energetické Expedice','found.s3':'měsíce interaktivního programu','found.s4':'záštity — MŠMT, MPO a prezident ČR','found.gallery':'Z projektů fondu','found.cta':'Více o fondu','press.sub':'Materiály pro média — fotografie ve vysokém rozlišení a profesní životopis Lenky Graf.','press.gallery':'Fotogalerie','press.gallerySub':'Ve vysokém rozlišení','press.kick':'Pro novináře','press.cvTitle':'CV pro novináře','press.cvBody':'Stručný profesní životopis — vzdělání, kariéra, významné spolupráce a nadační činnost.','press.f1':'Sopranistka a filantropka','press.f2':'Zakladatelka NF Energie pomáhá (2017)','press.f3':'Žije mezi Českem a Floridou','press.cv':'Stáhnout CV (PDF)','press.photos':'Stáhnout fotografie (ZIP)','press.soon':'Soubory ke stažení připravujeme.','cl1':'Vzdělání','c1':'Vystudovala obor bohemistika a hudba na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem. Hudební vzdělání dále rozvíjela na pražské HAMU a ve studiu zpěvu pokračovala také v USA, mimo jiné na State College of Florida pod vedením Melodie Dickerson.','cl2':'2017','c2':'V roce 2017 vydala debutové album Láska věčná, na němž propojila operní zpěv s popem. Na něj navázala dalšími nahrávkami včetně alba Vánoční poselství. Se zpěvákem Petrem Kolářem natočila romantický duet Nechme lásku plout.','cl3':'Spolupráce','c3':'Spolupracovala s mezinárodně uznávanými autory a producenty. Charlie Midnight pro ni napsal píseň You Are Not Alone, podílel se také na skladbě I Dare. Singl Everything Is Part Of One je dílo Johna Shankse, držitele Grammy a producenta řady světových hudebních hvězd.','cl4':'Turné','c4':'Jako host absolvovala německé turné s crossoverovým interpretem The Dark Tenor, s nímž také vystoupila s duetem své písně You Are Not Alone.','cl5':'2023','c5':'V prosinci 2023 vystoupila jako první česká zpěvačka na tradičním adventním koncertu v Drážďanech. S legendárním pěveckým sborem Dresdner Kreuzchor zpívala před téměř 28 tisíci diváky na vyprodaném stadionu koledu Narodil se Kristus pán v češtině a němčině.','cl6':'2025','c6':'V červnu 2025 byla speciálním hostem pražského koncertu slavné crossover skupiny Il Divo v O2 Universu.','cl7':'Benefice','c7':'Pravidelně se objevuje na adventních a benefičních koncertech po boku osobností české hudební scény, například Štefana Margity, Pavla Šporcla, Daniela Hůlky, Olgy Lounové a dalších.','cl8':'Každoročně','c8':'Každoročně pořádá vlastní adventní benefiční koncerty se známým dívčím smyčcovým triem Inflagranti.','cl9':'2025','c9':'V roce 2025 navázala výraznou spolupráci s Michalem Dvořákem ze skupiny Lucie. Aktuálně nejnovější píseň Křídla snů, inspirovaná Dvořákovou symfonií Z Nového světa, propojuje českou klasiku se současným crossoverovým aranžem a symbolicky se vrací k tématu domova. Cellové sólo k písni nahrál věhlasný švýcarský cellista Jodok Vuille, známý také jako influencer Jodok Cello s téměř 7 miliony fanoušků na sociálních sítích.','cl10':'2026','c10':'V květnu 2026 vystoupila v pražské O2 areně jako host jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF Prague Philharmonia.',
+          'video.title':'Videografie','klip.kick':'Videoklip',
           'video.tab1':'Videoklipy','video.tab2':'Aftermovies','video.tab3':'Reportáže',
           'after.kick':'Aftermovie',
           'after.v1':'Koncert Děčín','after.v2':'Vánoční koncert se Štefanem Margitou',
           'rep.kick':'Reportáž',
           'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
           'video.soon':'Připravujeme' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.kicker':'About the artist','about.listen':'Listen also','about.body':'Lenka Graf unites operatic training with a feel for the present. Classical and modern, concert stages and the recording studio — and just as naturally, the role of philanthropist.','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.title':'Jukebox','music.sub':'Pick a track and play it right here — three recordings, one touch.','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','found.kicker':'Foundation','found.body':'We support education, healthy lifestyles and the artistic activities of children in the Czech Republic.','found.p1t':'Education','found.p1d':'Scholarships and support for talented children on their path to education.','found.p2t':'Healthy lifestyle','found.p2d':'Movement, nutrition and prevention as the basis of a healthy childhood.','found.p3t':'Artistic activities','found.p3d':'Music and art made available to every child without distinction.','found.cta':'About the fund','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
-          'nav.video':'Video','nav.shop':'E-shop',
-          'video.title':'Video','klip.kick':'Music video',
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.sub':'Pick a track and play it right here — three recordings, one touch.','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
+          'nav.video':'Videography','nav.shop':'E-shop',
+          'nav.about':'About Lenka','nav.press':'Press','about.title':'About Lenka','about.role':'Soprano · Philanthropist','about.lead':'Lenka Graf is a soprano and philanthropist. Over the course of her singing career she has become an icon of the Czech crossover scene, with collaborations with renowned music producers and many performances at home and abroad. Classical music has never felt “serious” to her — she has loved it since childhood and enjoys finding new ways to bring its beauty to a wider audience.','about.p2':'She founded the Energie pomáhá foundation, which, besides supporting specific charitable projects, has created Energetická Expedice (Energy Expedition), a unique educational programme focused on energy literacy for primary school pupils.','about.p3':'Family has always been at the heart of Lenka’s life. She is the mother of two grown-up children, and her experience as a parent naturally meets her original training as a teacher. That is one of the reasons why her long-term charitable work focuses on supporting children and their education.','about.p4':'She lives between the Czech Republic and Florida. Two homes mean a double source of inspiration and a valuable sense of perspective. She draws energy from time with family and friends, from sport and yoga — and, of course, from music and singing. Her favourite form of meditation to calm body and mind is relaxation music with crystal singing bowls accompanied by voice. Fashion is another of her passions: in her beautiful gowns, her refined sense of elegance and the charm of an opera diva are unmistakable.','about.career':'Career','about.careerSub':'Milestones','about.more':'Show full career','about.less':'Show less','ph.portrait':'Photo · Portrait of Lenka','ph.kids':'Photo · Lenka with children','ph.press':'Press photo','music.title':'Music','music.kicker':'The music','music.body':'From her debut album Láska věčná, which blended operatic singing with pop, through collaborations with Charlie Midnight and Grammy winner John Shanks, to her latest single Křídla snů with Michal Dvořák — Lenka’s music connects the classical with the contemporary.','found.kicker':'Foundation','found.lead':'Lenka Graf founded the Energie pomáhá foundation in 2017 with the mission of helping where support can have a lasting impact. It focuses above all on children — their healthy development, education and meaningful cultural and charitable projects.','found.p2':'Over time, energy literacy — one of the key skills for life in the modern world — has become the foundation’s central theme. Energetická Expedice (Energy Expedition), a comprehensive two-month interactive educational programme for lower secondary school pupils, has received the patronage of the Ministry of Education, Youth and Sports, the Ministry of Industry and Trade and the President of the Czech Republic. 250 schools have already taken part.','found.s1':'foundation established','found.s2':'schools in the Energy Expedition','found.s3':'months of interactive learning','found.s4':'patronages — two ministries and the President','found.gallery':'From the foundation’s projects','found.cta':'More about the foundation','press.sub':'Media resources — high-resolution photos and Lenka Graf’s professional biography.','press.gallery':'Photo gallery','press.gallerySub':'High resolution','press.kick':'For journalists','press.cvTitle':'Press CV','press.cvBody':'A concise professional biography — education, career, key collaborations and charitable work.','press.f1':'Soprano and philanthropist','press.f2':'Founder of the Energie pomáhá foundation (2017)','press.f3':'Lives between the Czech Republic and Florida','press.cv':'Download CV (PDF)','press.photos':'Download photos (ZIP)','press.soon':'Downloads coming soon.','cl1':'Education','c1':'She studied Czech studies and music at the Faculty of Education of Jan Evangelista Purkyně University in Ústí nad Labem. She went on to develop her musical education at the Academy of Performing Arts in Prague (HAMU) and continued her vocal studies in the USA, including at State College of Florida under Melodie Dickerson.','cl2':'2017','c2':'In 2017 she released her debut album Láska věčná (Eternal Love), blending operatic singing with pop. Further recordings followed, including the album Vánoční poselství (Christmas Message). With singer Petr Kolář she recorded the romantic duet Nechme lásku plout.','cl3':'Collaborations','c3':'She has worked with internationally acclaimed songwriters and producers. Charlie Midnight wrote the song You Are Not Alone for her and also contributed to I Dare. The single Everything Is Part Of One is the work of John Shanks, a Grammy winner and producer for many international stars.','cl4':'Tour','c4':'As a guest she toured Germany with crossover artist The Dark Tenor, performing her song You Are Not Alone with him as a duet.','cl5':'2023','c5':'In December 2023 she became the first Czech singer to perform at the traditional Advent concert in Dresden. With the legendary Dresdner Kreuzchor she sang the carol Narodil se Kristus pán in Czech and German to almost 28,000 people in a sold-out stadium.','cl6':'2025','c6':'In June 2025 she was a special guest at the Prague concert of the famous crossover group Il Divo at O2 Universum.','cl7':'Benefits','c7':'She regularly appears at Advent and benefit concerts alongside leading figures of the Czech music scene, such as Štefan Margita, Pavel Šporcl, Daniel Hůlka, Olga Lounová and others.','cl8':'Every year','c8':'Every year she hosts her own Advent benefit concerts with the well-known female string trio Inflagranti.','cl9':'2025','c9':'In 2025 she began a significant collaboration with Michal Dvořák of the band Lucie. Her latest song, Křídla snů (Wings of Dreams), inspired by Dvořák’s Symphony From the New World, combines Czech classical music with a contemporary crossover arrangement and symbolically returns to the theme of home. The cello solo was recorded by renowned Swiss cellist Jodok Vuille, also known as the influencer Jodok Cello with almost 7 million followers on social media.','cl10':'2026','c10':'In May 2026 she performed at Prague’s O2 arena as a guest at Štefan Margita’s gala concert celebrating his 70th birthday, accompanied by the PKF Prague Philharmonia.',
+          'video.title':'Videography','klip.kick':'Music video',
           'video.tab1':'Music videos','video.tab2':'Aftermovies','video.tab3':'TV features',
           'after.kick':'Aftermovie',
           'after.v1':'Děčín concert','after.v2':'Christmas concert with Štefan Margita',
@@ -1079,6 +1245,20 @@
     var inp=newsForm.querySelector('input[type=email]');
     if(inp) setTimeout(function(){ try{ inp.focus({ preventScroll:true }); }catch(_){ inp.focus(); } }, 900);
   }); }
+
+  // ---- O Lence: rozbalení celé kariéry ----
+  var career=$('career'), careerMore=$('careerMore');
+  if(career && careerMore){ careerMore.addEventListener('click', function(){
+    var open = career.classList.toggle('is-open');
+    careerMore.setAttribute('aria-expanded', open?'true':'false');
+    // při sbalení vrátit na začátek kariéry, jinak by uživatel skončil hluboko pod ní
+    if(!open){ window.scrollTo({ top: career.getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth' }); }
+  }); }
+
+  // ---- press: soubory ke stažení zatím nejsou ----
+  Array.prototype.forEach.call(document.querySelectorAll('[data-soon]'), function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); });
+  });
 
   // ---- mobile menu ----
   var mnav=$('mNav');

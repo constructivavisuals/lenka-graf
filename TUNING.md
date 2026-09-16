@@ -134,6 +134,15 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - [x] Stříbrná varianta lightboxu zrušena, vše jednotně zlaté
 - [x] Přepnutí záložky zastaví smyčku featured klipu; Koncerty přečíslovány na 03
 
+## Batch 17 — Nové pořadí sekcí ✅
+- [x] 01 O Lence (medailonek + kariéra, 4 milníky + rozbalení), 02 Hudba (jukebox),
+      03 Nadační fond (Energie pomáhá, čísla, galerie), 04 Koncerty, 05 Videografie, 06 Press
+- [x] Press: fotogalerie + karta „CV pro novináře“ (stahování zatím neaktivní — `data-soon`)
+- [x] Fotky zatím placeholdery `.ph` s popiskem, co tam patří (portrét, Lenka s dětmi, tisková foto)
+- [x] Navigace 7 položek: od 1320 px užší mezery, pod 1100 px hamburger (i na eshop.html)
+- [x] Hero bez řádku s termíny, JSON-LD bez koncertů
+- [ ] Text sekce Hudba je provizorní (složený z dodaných faktů) — čeká na text od klienta
+
 ## Log
 - 2026-06-24 15:50 — záloha + roadmapa
 - 2026-06-24 15:53 — Batch 1 (SEO, a11y, scrollspy, progress, perzistence)
@@ -150,3 +159,4 @@ Autonomní vylepšování (~2h loop). Záloha: `backups/index.backup-*.html` + g
 - 2026-09-16 — Video: sekce se vejde na jednu obrazovku (šířka podle výšky okna), Videoklipy jako 4 karty, bez credits
 - 2026-09-16 — E-shop: položka v navigaci + stránka eshop.html „Připravujeme“ (footer z hlavní stránky, CS/EN, noindex)
 - 2026-09-16 — Koncerty: vstupenky odstraněny, místo nich blok „Připravujeme“ s odkazem na newsletter
+- 2026-09-16 — Batch 17 (přeskládání sekcí, O Lence, Nadační fond, Press, texty CS/EN)

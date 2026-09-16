@@ -69,10 +69,26 @@
   footer input[type=email]:focus{ border-color:rgba(216,185,122,.7)!important; box-shadow:0 0 0 3px rgba(216,185,122,.1); }
   footer button[type=submit]:hover{ filter:brightness(1.08); box-shadow:0 8px 26px -8px rgba(216,185,122,.55); }
 
+  .burger{ display:none; flex-direction:column; gap:5px; background:none; border:0; cursor:pointer; padding:6px; }
+  .burger span{ display:block; width:24px; height:1.5px; background:#ece7de; }
+  .mnav{ position:fixed; inset:0; z-index:80; background:rgba(10,9,8,.98); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; overflow-y:auto; opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s; }
+  .mnav.open{ opacity:1; visibility:visible; }
+  .mnav a{ font-family:var(--font); font-size:clamp(24px,4.4vh,34px); letter-spacing:.03em; color:#ece7de; text-decoration:none; padding:clamp(6px,1.2vh,12px); }
+  .mnav a:active{ color:#d8b97a; }
+  .mnav-close{ position:absolute; top:18px; right:26px; font-size:38px; line-height:1; background:none; border:0; color:#ece7de; cursor:pointer; }
+
+  /* 7 položek se vejde od 1100 px, pod tím hamburger — stejně jako na hlavní stránce */
+  @media (max-width:1320px){
+    .nav-actions{ gap:22px !important; }
+    .nav-actions a{ letter-spacing:.14em; }
+  }
+  @media (max-width:1100px){
+    .nav-actions a{ display:none; }
+    .burger{ display:flex; }
+  }
   @media (max-width:780px){
     .site-nav{ padding:15px 22px !important; }
     .nav-actions{ gap:16px !important; }
-    .nav-actions a{ display:none; }
   }
   @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
 </style>
@@ -83,14 +99,29 @@
   <nav class="site-nav" style="position:fixed; top:0; left:0; width:100%; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:20px 6vw; background:linear-gradient(180deg, rgba(10,9,8,.8) 0%, rgba(10,9,8,0) 100%); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);">
     <a href="index.html" style="font-family:var(--font); font-size:19px; letter-spacing:.18em; text-transform:uppercase; color:#ece7de; text-decoration:none; flex-shrink:0;">Lenka&nbsp;Graf</a>
     <div class="nav-actions" style="display:flex; align-items:center; gap:30px;">
+      <a href="index.html#o-lence" data-i18n="nav.about">O Lence</a>
       <a href="index.html#hudba" data-i18n="nav.music">Hudba</a>
-      <a href="index.html#video" data-i18n="nav.video">Video</a>
+      <a href="index.html#nadacni-fond" data-i18n="nav.foundation">Nadační fond</a>
       <a href="index.html#koncerty" data-i18n="nav.shows">Koncerty</a>
-      <a href="index.html#nadace" data-i18n="nav.foundation">Nadace</a>
+      <a href="index.html#videografie" data-i18n="nav.video">Videografie</a>
+      <a href="index.html#press" data-i18n="nav.press">Press</a>
       <a href="eshop.html" class="active" aria-current="page" data-i18n="nav.shop">E-shop</a>
       <button id="langBtn" aria-label="Přepnout jazyk / Switch language" style="background:none; border:1px solid #3a352d; border-radius:40px; padding:6px 13px; color:#d8b97a; font-family:var(--font); font-size:11px; letter-spacing:.1em; cursor:pointer;">CS / EN</button>
+      <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mNav" class="mnav">
+    <button id="mNavClose" class="mnav-close" aria-label="Zavřít">×</button>
+    <a href="index.html#o-lence" data-i18n="nav.about">O Lence</a>
+    <a href="index.html#hudba" data-i18n="nav.music">Hudba</a>
+    <a href="index.html#nadacni-fond" data-i18n="nav.foundation">Nadační fond</a>
+    <a href="index.html#koncerty" data-i18n="nav.shows">Koncerty</a>
+    <a href="index.html#videografie" data-i18n="nav.video">Videografie</a>
+    <a href="index.html#press" data-i18n="nav.press">Press</a>
+    <a href="eshop.html" data-i18n="nav.shop">E-shop</a>
+  </div>
 
   <!-- PŘIPRAVUJEME -->
   <main class="soon">
@@ -140,10 +171,10 @@
 (function(){
   var $=function(id){ return document.getElementById(id); };
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.video':'Video','nav.shows':'Koncerty','nav.foundation':'Nadace','nav.shop':'E-shop',
+    cs: { 'nav.about':'O Lence','nav.music':'Hudba','nav.video':'Videografie','nav.shows':'Koncerty','nav.foundation':'Nadační fond','nav.press':'Press','nav.shop':'E-shop',
           'shop.kicker':'E-shop','shop.title':'Připravujeme','shop.body':'Oficiální e-shop Lenky Graf právě vzniká. Děkujeme za trpělivost — brzy se tu uvidíme.','shop.back':'Zpět na domovskou stránku',
           'news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.' },
-    en: { 'nav.music':'Music','nav.video':'Video','nav.shows':'Shows','nav.foundation':'Foundation','nav.shop':'E-shop',
+    en: { 'nav.about':'About Lenka','nav.music':'Music','nav.video':'Videography','nav.shows':'Shows','nav.foundation':'Foundation','nav.press':'Press','nav.shop':'E-shop',
           'shop.kicker':'E-shop','shop.title':'Coming soon','shop.body':'The official Lenka Graf e-shop is on its way. Thank you for your patience — see you soon.','shop.back':'Back to the homepage',
           'news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.' }
   };
@@ -160,6 +191,12 @@
   }
   $('langBtn').addEventListener('click', function(){ lang = lang==='cs'?'en':'cs'; applyLang(); try{ localStorage.setItem('lg_lang', lang); }catch(e){} });
   if(lang!=='cs') applyLang();
+
+  // mobilní menu
+  var mnav=$('mNav');
+  $('burger').addEventListener('click', function(){ mnav.classList.add('open'); });
+  $('mNavClose').addEventListener('click', function(){ mnav.classList.remove('open'); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') mnav.classList.remove('open'); });
 
   // newsletter odeslání → děkovný stav
   var newsForm=$('newsForm');
