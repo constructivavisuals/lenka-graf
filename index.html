@@ -199,16 +199,17 @@
      se gradientem rozlije doprava a přejde do barvy sekce. Fotka i gradient jsou v jedné vrstvě,
      takže je tónuje stejný filtr (jako měl portrét v hero) a dole se rozpustí jednou maskou. */
   .about-band{ position:relative; display:grid; grid-template-columns:minmax(0,48fr) minmax(0,52fr); margin:0 -6vw; }
-  .about-band::before{ content:''; grid-column:1; grid-row:1; aspect-ratio:1482/1390; }
+  /* rezerva výšky = výška fotky (55 % šířky pásu × 1390/1700), aby fotka nikdy nepřetekla pod pás */
+  .about-band::before{ content:''; grid-column:1; grid-row:1; aspect-ratio:48/44.97; }
   /* fotka se doprava rozpouští do bílé a bílá dál plynule slábne — pod textem už je jen jemný opar */
   .about-bg{ position:absolute; top:0; left:0; right:0; pointer-events:none;
     background:linear-gradient(90deg, #fff 0%, #fff 22%, rgba(255,255,255,.86) 30%, rgba(255,255,255,.64) 38%, rgba(255,255,255,.44) 45%, rgba(255,255,255,.29) 51%, rgba(255,255,255,.17) 60%, rgba(255,255,255,.08) 72%, rgba(255,255,255,.03) 86%, rgba(255,255,255,0) 100%);
     filter:grayscale(.42) contrast(1.05) brightness(.74) sepia(.14);
     -webkit-mask-image:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.3) 7%, rgba(0,0,0,.78) 15%, #000 24%, #000 58%, rgba(0,0,0,.45) 80%, transparent 100%);
             mask-image:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.3) 7%, rgba(0,0,0,.78) 15%, #000 24%, #000 58%, rgba(0,0,0,.45) 80%, transparent 100%); }
-  .about-bg img{ display:block; width:48%; height:auto;
-    -webkit-mask-image:linear-gradient(90deg, #000 52%, rgba(0,0,0,.72) 66%, rgba(0,0,0,.36) 82%, transparent 100%);
-            mask-image:linear-gradient(90deg, #000 52%, rgba(0,0,0,.72) 66%, rgba(0,0,0,.36) 82%, transparent 100%); }
+  .about-bg img{ display:block; width:55%; height:auto;
+    -webkit-mask-image:linear-gradient(90deg, #000 58%, rgba(0,0,0,.72) 66%, rgba(0,0,0,.36) 76%, transparent 87%);
+            mask-image:linear-gradient(90deg, #000 58%, rgba(0,0,0,.72) 66%, rgba(0,0,0,.36) 76%, transparent 87%); }
   .about-text{ position:relative; grid-column:2; grid-row:1; padding:clamp(24px,3vw,48px) max(6vw, calc(50vw - 590px)) 0 clamp(28px,3vw,56px); }
   .about-role{ display:block; font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#c4a468; }
   .about-lead{ margin-top:20px; font-size:clamp(20px,2.3vw,26px); line-height:1.55; color:#f0e8da; }
@@ -558,7 +559,7 @@
 
     <!-- portrét jako pozadí levé poloviny, bílé pozadí fotky se gradientem rozlije doprava -->
     <div class="about-band">
-      <div class="about-bg"><img src="assets/portrait-about.jpg" alt="Portrét sopranistky Lenky Graf" width="1482" height="1390" loading="lazy" decoding="async"></div>
+      <div class="about-bg"><img src="assets/portrait-about.jpg" alt="Portrét sopranistky Lenky Graf" width="1700" height="1390" loading="lazy" decoding="async"></div>
       <div class="about-text">
         <span data-reveal data-i18n="about.role" class="about-role">Sopranistka · Filantropka</span>
         <p data-reveal data-i18n="about.lead" class="about-lead">Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.</p>
