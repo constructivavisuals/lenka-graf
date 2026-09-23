@@ -1561,7 +1561,11 @@
     vgSlides.forEach(function(sl, i){
       var v=sl.querySelector('video'); if(!v) return;
       if(i===vgActive && vgInView && !vOpen && !vgReduce && !document.hidden){ var p=v.play(); if(p && p.catch) p.catch(function(){}); }
-      else if(!v.paused){ v.pause(); }
+      else {
+        if(!v.paused) v.pause();
+        // další smyčku přednačíst, ať při přepnutí rovnou hraje (soubory mají 5–6 MB)
+        if(i===vgActive+1 && vgInView && !vgReduce && v.preload==='none') v.preload='auto';
+      }
     });
   }
   function vgSet(i){
