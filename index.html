@@ -51,6 +51,12 @@
     { "@type": "MusicRecording", "name": "Křídla snů", "datePublished": "2026" },
     { "@type": "MusicRecording", "name": "Everything Is Part Of One", "datePublished": "2024" },
     { "@type": "MusicRecording", "name": "I Dare", "datePublished": "2022" }
+  ],
+  "event": [
+    { "@type": "MusicEvent", "name": "Popelčiny vánoční trhy — 2. ročník", "startDate": "2026-12-11T15:00+01:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": { "@type": "Place", "name": "Zámek Zákupy", "address": { "@type": "PostalAddress", "addressLocality": "Zákupy", "addressCountry": "CZ" } }, "performer": { "@type": "Person", "name": "Lenka Graf" } },
+    { "@type": "MusicEvent", "name": "Hvězdy Vánoc V. — vánoční galakoncert", "startDate": "2026-12-13T18:00+01:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": { "@type": "Place", "name": "Palác Žofín", "address": { "@type": "PostalAddress", "addressLocality": "Praha", "addressCountry": "CZ" } }, "performer": { "@type": "Person", "name": "Lenka Graf" } },
+    { "@type": "MusicEvent", "name": "Vánoční talkshow Pavla Trávníčka", "startDate": "2026-12-15T19:00+01:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": { "@type": "Place", "name": "Městské divadlo Jablonec nad Nisou", "address": { "@type": "PostalAddress", "addressLocality": "Jablonec nad Nisou", "addressCountry": "CZ" } }, "performer": { "@type": "Person", "name": "Lenka Graf" } },
+    { "@type": "MusicEvent", "name": "Vánoční recitál Leony Machálkové — host Lenka Graf", "startDate": "2026-12-16T19:00+01:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": { "@type": "Place", "name": "Břevnovský klášter — Tereziánský sál", "address": { "@type": "PostalAddress", "addressLocality": "Praha", "addressCountry": "CZ" } }, "performer": { "@type": "Person", "name": "Lenka Graf" } }
   ]
 }
 </script>
@@ -173,6 +179,40 @@
   .soon-ring::before{ content:''; position:absolute; inset:0; border-radius:50%; border:2px solid rgba(240,220,170,.88);
     box-shadow:0 0 22px rgba(240,220,170,.42), inset 0 0 14px rgba(240,220,170,.3); animation:glowPulse 3.6s ease-in-out infinite; }
   .soon-ring::after{ content:''; position:absolute; inset:-12px; border-radius:50%; border:1px dashed rgba(216,185,122,.22); animation:spin 40s linear infinite; }
+
+  /* ═══════════════ 04 KONCERTY — program ═══════════════ */
+  .shows-list{ list-style:none; border-top:1px solid rgba(216,185,122,.22); }
+  .gig{ position:relative; display:grid; grid-template-columns:clamp(110px,13vw,150px) minmax(0,1fr) auto; gap:clamp(20px,3.4vw,48px); align-items:center;
+    padding:clamp(26px,3.2vw,38px) clamp(8px,1.6vw,22px); border-bottom:1px solid rgba(255,255,255,.07); transition:background .5s ease; }
+  .gig::before{ content:''; position:absolute; left:0; top:-1px; bottom:-1px; width:2px; background:linear-gradient(180deg,#f0dcae,#9a7c4a);
+    transform:scaleY(0); transform-origin:top; transition:transform .6s cubic-bezier(.2,.6,.2,1); }
+  .gig:hover{ background:linear-gradient(90deg, rgba(216,185,122,.06), rgba(216,185,122,0) 70%); }
+  .gig:hover::before{ transform:scaleY(1); }
+  .gig-date{ display:flex; flex-direction:column; align-items:flex-start; }
+  .gig-date b{ margin:6px 0 8px; font-weight:500; font-size:clamp(52px,6vw,76px); line-height:.9; color:#f0dcae; text-shadow:0 0 26px rgba(216,185,122,.28); font-variant-numeric:tabular-nums; }
+  .gig-dow, .gig-mon{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8a857c; white-space:nowrap; }
+  .gig-venue{ font-weight:500; font-size:clamp(22px,2.6vw,32px); line-height:1.12; color:#f5f1ea; }
+  .gig-city{ display:block; margin-top:8px; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:#c4a468; }
+  .gig-desc{ margin-top:12px; max-width:560px; font-size:clamp(15px,1.6vw,17px); line-height:1.6; color:#a9a297; }
+  .gig-side{ display:flex; flex-direction:column; align-items:flex-end; gap:14px; text-align:right; }
+  .gig-time{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8a857c; }
+  .gig-time b{ display:block; margin-top:6px; font-weight:500; font-size:clamp(22px,2.4vw,28px); letter-spacing:.02em; color:#f0e8da; font-variant-numeric:tabular-nums; }
+  .gig-map{ display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border:1px solid rgba(216,185,122,.45); border-radius:40px; color:#f0e8da;
+    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; white-space:nowrap; transition:background .3s, border-color .3s; }
+  .gig-map:hover{ background:rgba(216,185,122,.12); border-color:rgba(216,185,122,.85); }
+  .shows-note{ margin-top:30px; text-align:center; font-size:14px; color:#8a857c; }
+  .shows-note a{ margin-left:10px; padding-bottom:2px; border-bottom:1px solid rgba(216,185,122,.4); color:#d8b97a; font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; transition:border-color .3s; }
+  .shows-note a:hover{ border-color:#d8b97a; }
+  /* mobil: datum vodorovně nahoře, pod ním místo a popis, dole čas + mapa */
+  @media (max-width:700px){
+    .gig{ grid-template-columns:minmax(0,1fr); gap:14px; align-items:start; }
+    .gig-date{ display:grid; grid-template-columns:auto 1fr; column-gap:14px; align-items:center; }
+    .gig-date b{ grid-column:1; grid-row:1 / 3; margin:0; font-size:52px; }
+    .gig-dow{ grid-column:2; grid-row:1; align-self:end; }
+    .gig-mon{ grid-column:2; grid-row:2; align-self:start; margin-top:4px; }
+    .gig-side{ flex-direction:row; align-items:center; justify-content:space-between; text-align:left; }
+    .gig-time b{ display:inline; margin:0 0 0 8px; font-size:20px; }
+  }
 
   /* ═══════════════ NAVIGACE — 7 položek se vejde od 1100 px, pod tím hamburger ═══════════════ */
   @media (max-width:1320px){
@@ -343,6 +383,9 @@
   .vg-card--soon .v-title{ color:#8a847a; }
   .vg-bar{ position:relative; height:3px; margin:clamp(18px,2.4vw,26px) 6vw 0; background:rgba(255,255,255,.14); cursor:pointer; touch-action:none; }
   .vg-bar::before{ content:''; position:absolute; left:0; right:0; top:-10px; bottom:-10px; }
+  .vg-all{ margin-top:clamp(30px,4.4vw,56px); text-align:center; }
+  .vg-all .vg-watch{ margin-top:0; text-decoration:none; }
+  .vg-all .vg-watch:focus-visible{ outline:2px solid #d8b97a; outline-offset:4px; }
   .vg-bar-fill{ position:absolute; top:0; bottom:0; left:0; width:30%; background:#fff; pointer-events:none; will-change:transform; }
   @media (max-width:600px){
     .vg-card{ flex-basis:78vw; }
@@ -762,7 +805,61 @@
         </div>
       </div>
 
-      <!-- PŘIPRAVUJEME (místo vstupenek) -->
+      <!-- PROGRAM — proběhlé termíny skryje JS (podle data-date), když nezbude žádný, ukáže se blok Připravujeme -->
+      <ol class="shows-list" id="showsList">
+        <li class="gig" data-reveal data-date="2026-12-11">
+          <div class="gig-date"><span class="gig-dow" data-i18n="shows.fri">Pátek</span><b>11</b><span class="gig-mon" data-i18n="shows.m12">Prosinec 2026</span></div>
+          <div class="gig-main">
+            <h3 class="gig-venue" data-i18n="show1.venue">Zámek Zákupy</h3>
+            <span class="gig-city" data-i18n="show1.city">Zákupy</span>
+            <p class="gig-desc" data-i18n="show1.desc">2. ročník Popelčiných vánočních trhů</p>
+          </div>
+          <div class="gig-side">
+            <span class="gig-time"><span data-i18n="shows.start">Začátek</span> <b>15:00</b></span>
+            <a class="gig-map" href="https://www.google.com/maps/search/?api=1&query=Z%C3%A1mek%20Z%C3%A1kupy" target="_blank" rel="noopener"><span data-i18n="shows.map">Mapa</span> ↗</a>
+          </div>
+        </li>
+        <li class="gig" data-reveal data-date="2026-12-13">
+          <div class="gig-date"><span class="gig-dow" data-i18n="shows.sun">Neděle</span><b>13</b><span class="gig-mon" data-i18n="shows.m12">Prosinec 2026</span></div>
+          <div class="gig-main">
+            <h3 class="gig-venue" data-i18n="show2.venue">Palác Žofín</h3>
+            <span class="gig-city" data-i18n="show2.city">Praha</span>
+            <p class="gig-desc" data-i18n="show2.desc">Hvězdy Vánoc V. — vánoční galakoncert v doprovodu Orchestru Karla Vlacha</p>
+          </div>
+          <div class="gig-side">
+            <span class="gig-time"><span data-i18n="shows.start">Začátek</span> <b>18:00</b></span>
+            <a class="gig-map" href="https://www.google.com/maps/search/?api=1&query=Pal%C3%A1c%20%C5%BDof%C3%ADn%2C%20Praha" target="_blank" rel="noopener"><span data-i18n="shows.map">Mapa</span> ↗</a>
+          </div>
+        </li>
+        <li class="gig" data-reveal data-date="2026-12-15">
+          <div class="gig-date"><span class="gig-dow" data-i18n="shows.tue">Úterý</span><b>15</b><span class="gig-mon" data-i18n="shows.m12">Prosinec 2026</span></div>
+          <div class="gig-main">
+            <h3 class="gig-venue" data-i18n="show3.venue">Městské divadlo</h3>
+            <span class="gig-city" data-i18n="show3.city">Jablonec nad Nisou</span>
+            <p class="gig-desc" data-i18n="show3.desc">Vánoční talkshow Pavla Trávníčka</p>
+          </div>
+          <div class="gig-side">
+            <span class="gig-time"><span data-i18n="shows.start">Začátek</span> <b>19:00</b></span>
+            <a class="gig-map" href="https://www.google.com/maps/search/?api=1&query=M%C4%9Bstsk%C3%A9%20divadlo%20Jablonec%20nad%20Nisou" target="_blank" rel="noopener"><span data-i18n="shows.map">Mapa</span> ↗</a>
+          </div>
+        </li>
+        <li class="gig" data-reveal data-date="2026-12-16">
+          <div class="gig-date"><span class="gig-dow" data-i18n="shows.wed">Středa</span><b>16</b><span class="gig-mon" data-i18n="shows.m12">Prosinec 2026</span></div>
+          <div class="gig-main">
+            <h3 class="gig-venue" data-i18n="show4.venue">Břevnovský klášter — Tereziánský sál</h3>
+            <span class="gig-city" data-i18n="show4.city">Praha</span>
+            <p class="gig-desc" data-i18n="show4.desc">Host vánočního recitálu Leony Machálkové v doprovodu pianisty</p>
+          </div>
+          <div class="gig-side">
+            <span class="gig-time"><span data-i18n="shows.start">Začátek</span> <b>19:00</b></span>
+            <a class="gig-map" href="https://www.google.com/maps/search/?api=1&query=B%C5%99evnovsk%C3%BD%20kl%C3%A1%C5%A1ter%2C%20Praha" target="_blank" rel="noopener"><span data-i18n="shows.map">Mapa</span> ↗</a>
+          </div>
+        </li>
+      </ol>
+      <p class="shows-note" id="showsNote"><span data-i18n="shows.note">Další termíny průběžně doplňujeme.</span> <a href="#newsForm" class="js-news-link" data-i18n="shows.soonCta">Odebírat novinky</a></p>
+
+      <!-- PŘIPRAVUJEME — jen když nejsou žádné nadcházející termíny -->
+      <div id="showsSoon" hidden>
       <div data-reveal class="shows-soon" style="position:relative; overflow:hidden; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:36px 56px; padding:clamp(34px,5vw,60px) clamp(28px,5.5vw,68px); border-radius:14px; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.5), inset 0 0 0 1px rgba(216,185,122,.18);">
         <div style="position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(180deg,#f0dcae,#9a7c4a);"></div>
         <div style="position:absolute; inset:0; background-image:repeating-radial-gradient(circle at 18% 120%, rgba(216,185,122,.05) 0 1px, transparent 1px 9px); pointer-events:none;"></div>
@@ -776,8 +873,9 @@
         </div>
         <div style="position:relative; flex:0 0 auto; display:flex; flex-direction:column; align-items:center; gap:26px; margin:0 auto;">
           <div class="soon-ring" aria-hidden="true">LG</div>
-          <a href="#newsForm" id="showsNewsLink" data-i18n="shows.soonCta" style="display:inline-flex; align-items:center; padding:12px 24px; border:1px solid rgba(216,185,122,.5); border-radius:40px; background:rgba(10,8,7,.35); color:#f0e8da; font-family:var(--font); font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; transition:background .3s, border-color .3s;" style-hover="background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.85)">Odebírat novinky</a>
+          <a href="#newsForm" class="js-news-link" data-i18n="shows.soonCta" style="display:inline-flex; align-items:center; padding:12px 24px; border:1px solid rgba(216,185,122,.5); border-radius:40px; background:rgba(10,8,7,.35); color:#f0e8da; font-family:var(--font); font-size:11px; letter-spacing:.14em; text-transform:uppercase; text-decoration:none; transition:background .3s, border-color .3s;" style-hover="background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.85)">Odebírat novinky</a>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -843,6 +941,7 @@
             <div class="vg-card vg-card--soon"><span class="vg-card-txt"><span class="v-kick" data-i18n="after.kick">Aftermovie</span><span class="v-title" data-i18n="video.soon">Připravujeme</span></span></div>
           </div>
           <div class="vg-bar" id="vgBar"><span class="vg-bar-fill" id="vgBarFill"></span></div>
+          <div class="vg-all"><a href="videografie.html" class="vg-watch"><span data-i18n="video.all">Celá videografie</span> <span aria-hidden="true">→</span></a></div>
         </div>
       </div>
     </div>
@@ -980,7 +1079,7 @@
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','shows.note':'Další termíny průběžně doplňujeme.','shows.start':'Začátek','shows.map':'Mapa','shows.m12':'Prosinec 2026','shows.fri':'Pátek','shows.sun':'Neděle','shows.tue':'Úterý','shows.wed':'Středa','show1.venue':'Zámek Zákupy','show1.city':'Zákupy','show1.desc':'2. ročník Popelčiných vánočních trhů','show2.venue':'Palác Žofín','show2.city':'Praha','show2.desc':'Hvězdy Vánoc V. — vánoční galakoncert v doprovodu Orchestru Karla Vlacha','show3.venue':'Městské divadlo','show3.city':'Jablonec nad Nisou','show3.desc':'Vánoční talkshow Pavla Trávníčka','show4.venue':'Břevnovský klášter — Tereziánský sál','show4.city':'Praha','show4.desc':'Host vánočního recitálu Leony Machálkové v doprovodu pianisty','video.all':'Celá videografie','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
           'nav.video':'Videografie','nav.shop':'E-shop',
           'nav.about':'O Lence','nav.press':'Press','about.title':'O Lence','about.role':'Sopranistka · Filantropka','about.lead':'Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.','about.p2':'Založila Nadační fond Energie pomáhá, který kromě podpory konkrétních dobročinných projektů vytvořil unikátní vzdělávací program Energetická Expedice zaměřený na energetickou gramotnost žáků základních škol.','about.p3':'Středobodem života pro Lenku vždy byla a je rodina. Je maminkou dvou dospělých dětí a její rodičovská zkušenost se přirozeně protíná s původně vystudovanou pedagogickou profesí. Mimo jiné i proto se na podporu dětí a jejich vzdělávání zaměřila ve své dlouhodobé charitativní práci.','about.p4':'Žije mezi Českem a Floridou. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Čerpá energii setkáváním s rodinou a přáteli, sportem, cvičením jógy a jak jinak než opět hudbou a zpěvem. Nejoblíbenější formou meditace ke zklidnění těla a mysli je relaxační hudba s křišťálovými mísami doprovázená zpěvem. Mezi její koníčky patří také móda. V nádherných róbách se nezapře vytříbený cit pro eleganci a šarm operní divy.','about.career':'Kariéra','about.careerSub':'Milníky','about.more':'Zobrazit celou kariéru','about.less':'Zobrazit méně','ph.kids':'Foto · Lenka s dětmi','ph.press':'Tisková fotografie','music.title':'Hudba','music.kicker':'Tvorba','music.body':'Od debutového alba Láska věčná, které propojilo operní zpěv s popem, přes spolupráce s Charliem Midnightem a držitelem Grammy Johnem Shanksem až po nejnovější singl Křídla snů s Michalem Dvořákem — Lenčina tvorba spojuje klasiku se současností.','found.kicker':'Nadační fond','found.lead':'Nadační fond Energie pomáhá založila Lenka Graf v roce 2017 s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad. Zaměřuje se především na děti, jejich zdravý rozvoj, vzdělávání a smysluplné kulturní a dobročinné projekty.','found.p2':'Postupně se stěžejním tématem fondu stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě. Energetická Expedice, dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol, získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.','found.s1':'založení fondu','found.s2':'škol zapojených do Energetické Expedice','found.s3':'měsíce interaktivního programu','found.s4':'záštity — MŠMT, MPO a prezident ČR','found.gallery':'Z projektů fondu','found.cta':'Více o fondu','press.sub':'Materiály pro média — fotografie ve vysokém rozlišení a profesní životopis Lenky Graf.','press.gallery':'Fotogalerie','press.gallerySub':'Ve vysokém rozlišení','press.kick':'Pro novináře','press.cvTitle':'CV pro novináře','press.cvBody':'Stručný profesní životopis — vzdělání, kariéra, významné spolupráce a nadační činnost.','press.f1':'Sopranistka a filantropka','press.f2':'Zakladatelka NF Energie pomáhá (2017)','press.f3':'Žije mezi Českem a Floridou','press.cv':'Stáhnout CV (PDF)','press.photos':'Stáhnout fotografie (ZIP)','press.soon':'Soubory ke stažení připravujeme.','cl1':'Vzdělání','c1':'Vystudovala obor bohemistika a hudba na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem. Hudební vzdělání dále rozvíjela na pražské HAMU a ve studiu zpěvu pokračovala také v USA, mimo jiné na State College of Florida pod vedením Melodie Dickerson.','cl2':'2017','c2':'V roce 2017 vydala debutové album Láska věčná, na němž propojila operní zpěv s popem. Na něj navázala dalšími nahrávkami včetně alba Vánoční poselství. Se zpěvákem Petrem Kolářem natočila romantický duet Nechme lásku plout.','cl3':'Spolupráce','c3':'Spolupracovala s mezinárodně uznávanými autory a producenty. Charlie Midnight pro ni napsal píseň You Are Not Alone, podílel se také na skladbě I Dare. Singl Everything Is Part Of One je dílo Johna Shankse, držitele Grammy a producenta řady světových hudebních hvězd.','cl4':'Turné','c4':'Jako host absolvovala německé turné s crossoverovým interpretem The Dark Tenor, s nímž také vystoupila s duetem své písně You Are Not Alone.','cl5':'2023','c5':'V prosinci 2023 vystoupila jako první česká zpěvačka na tradičním adventním koncertu v Drážďanech. S legendárním pěveckým sborem Dresdner Kreuzchor zpívala před téměř 28 tisíci diváky na vyprodaném stadionu koledu Narodil se Kristus pán v češtině a němčině.','cl6':'2025','c6':'V červnu 2025 byla speciálním hostem pražského koncertu slavné crossover skupiny Il Divo v O2 Universu.','cl7':'Benefice','c7':'Pravidelně se objevuje na adventních a benefičních koncertech po boku osobností české hudební scény, například Štefana Margity, Pavla Šporcla, Daniela Hůlky, Olgy Lounové a dalších.','cl8':'Každoročně','c8':'Každoročně pořádá vlastní adventní benefiční koncerty se známým dívčím smyčcovým triem Inflagranti.','cl9':'2025','c9':'V roce 2025 navázala výraznou spolupráci s Michalem Dvořákem ze skupiny Lucie. Aktuálně nejnovější píseň Křídla snů, inspirovaná Dvořákovou symfonií Z Nového světa, propojuje českou klasiku se současným crossoverovým aranžem a symbolicky se vrací k tématu domova. Cellové sólo k písni nahrál věhlasný švýcarský cellista Jodok Vuille, známý také jako influencer Jodok Cello s téměř 7 miliony fanoušků na sociálních sítích.','cl10':'2026','c10':'V květnu 2026 vystoupila v pražské O2 areně jako host jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF Prague Philharmonia.',
           'video.title':'Videografie','video.watch':'Přehrát video','video.more':'Další videa','klip.kick':'Videoklip',
@@ -990,7 +1089,7 @@
           'rep.kick':'Reportáž',
           'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
           'video.soon':'Připravujeme' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.sub':'Pick a track and play it right here — three recordings, one touch.','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.sub':'Pick a track and play it right here — three recordings, one touch.','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','shows.note':'More dates will be added as they are confirmed.','shows.start':'Starts','shows.map':'Map','shows.m12':'December 2026','shows.fri':'Friday','shows.sun':'Sunday','shows.tue':'Tuesday','shows.wed':'Wednesday','show1.venue':'Zákupy Castle','show1.city':'Zákupy','show1.desc':'Cinderella’s Christmas Market — 2nd edition','show2.venue':'Žofín Palace','show2.city':'Prague','show2.desc':'Stars of Christmas V — Christmas gala concert with the Karel Vlach Orchestra','show3.venue':'Municipal Theatre','show3.city':'Jablonec nad Nisou','show3.desc':'Pavel Trávníček’s Christmas talk show','show4.venue':'Břevnov Monastery — Theresian Hall','show4.city':'Prague','show4.desc':'Guest at Leona Machálková’s Christmas recital with piano accompaniment','video.all':'Full videography','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
           'nav.video':'Videography','nav.shop':'E-shop',
           'nav.about':'About Lenka','nav.press':'Press','about.title':'About Lenka','about.role':'Soprano · Philanthropist','about.lead':'Lenka Graf is a soprano and philanthropist. Over the course of her singing career she has become an icon of the Czech crossover scene, with collaborations with renowned music producers and many performances at home and abroad. Classical music has never felt “serious” to her — she has loved it since childhood and enjoys finding new ways to bring its beauty to a wider audience.','about.p2':'She founded the Energie pomáhá foundation, which, besides supporting specific charitable projects, has created Energetická Expedice (Energy Expedition), a unique educational programme focused on energy literacy for primary school pupils.','about.p3':'Family has always been at the heart of Lenka’s life. She is the mother of two grown-up children, and her experience as a parent naturally meets her original training as a teacher. That is one of the reasons why her long-term charitable work focuses on supporting children and their education.','about.p4':'She lives between the Czech Republic and Florida. Two homes mean a double source of inspiration and a valuable sense of perspective. She draws energy from time with family and friends, from sport and yoga — and, of course, from music and singing. Her favourite form of meditation to calm body and mind is relaxation music with crystal singing bowls accompanied by voice. Fashion is another of her passions: in her beautiful gowns, her refined sense of elegance and the charm of an opera diva are unmistakable.','about.career':'Career','about.careerSub':'Milestones','about.more':'Show full career','about.less':'Show less','ph.kids':'Photo · Lenka with children','ph.press':'Press photo','music.title':'Music','music.kicker':'The music','music.body':'From her debut album Láska věčná, which blended operatic singing with pop, through collaborations with Charlie Midnight and Grammy winner John Shanks, to her latest single Křídla snů with Michal Dvořák — Lenka’s music connects the classical with the contemporary.','found.kicker':'Foundation','found.lead':'Lenka Graf founded the Energie pomáhá foundation in 2017 with the mission of helping where support can have a lasting impact. It focuses above all on children — their healthy development, education and meaningful cultural and charitable projects.','found.p2':'Over time, energy literacy — one of the key skills for life in the modern world — has become the foundation’s central theme. Energetická Expedice (Energy Expedition), a comprehensive two-month interactive educational programme for lower secondary school pupils, has received the patronage of the Ministry of Education, Youth and Sports, the Ministry of Industry and Trade and the President of the Czech Republic. 250 schools have already taken part.','found.s1':'foundation established','found.s2':'schools in the Energy Expedition','found.s3':'months of interactive learning','found.s4':'patronages — two ministries and the President','found.gallery':'From the foundation’s projects','found.cta':'More about the foundation','press.sub':'Media resources — high-resolution photos and Lenka Graf’s professional biography.','press.gallery':'Photo gallery','press.gallerySub':'High resolution','press.kick':'For journalists','press.cvTitle':'Press CV','press.cvBody':'A concise professional biography — education, career, key collaborations and charitable work.','press.f1':'Soprano and philanthropist','press.f2':'Founder of the Energie pomáhá foundation (2017)','press.f3':'Lives between the Czech Republic and Florida','press.cv':'Download CV (PDF)','press.photos':'Download photos (ZIP)','press.soon':'Downloads coming soon.','cl1':'Education','c1':'She studied Czech studies and music at the Faculty of Education of Jan Evangelista Purkyně University in Ústí nad Labem. She went on to develop her musical education at the Academy of Performing Arts in Prague (HAMU) and continued her vocal studies in the USA, including at State College of Florida under Melodie Dickerson.','cl2':'2017','c2':'In 2017 she released her debut album Láska věčná (Eternal Love), blending operatic singing with pop. Further recordings followed, including the album Vánoční poselství (Christmas Message). With singer Petr Kolář she recorded the romantic duet Nechme lásku plout.','cl3':'Collaborations','c3':'She has worked with internationally acclaimed songwriters and producers. Charlie Midnight wrote the song You Are Not Alone for her and also contributed to I Dare. The single Everything Is Part Of One is the work of John Shanks, a Grammy winner and producer for many international stars.','cl4':'Tour','c4':'As a guest she toured Germany with crossover artist The Dark Tenor, performing her song You Are Not Alone with him as a duet.','cl5':'2023','c5':'In December 2023 she became the first Czech singer to perform at the traditional Advent concert in Dresden. With the legendary Dresdner Kreuzchor she sang the carol Narodil se Kristus pán in Czech and German to almost 28,000 people in a sold-out stadium.','cl6':'2025','c6':'In June 2025 she was a special guest at the Prague concert of the famous crossover group Il Divo at O2 Universum.','cl7':'Benefits','c7':'She regularly appears at Advent and benefit concerts alongside leading figures of the Czech music scene, such as Štefan Margita, Pavel Šporcl, Daniel Hůlka, Olga Lounová and others.','cl8':'Every year','c8':'Every year she hosts her own Advent benefit concerts with the well-known female string trio Inflagranti.','cl9':'2025','c9':'In 2025 she began a significant collaboration with Michal Dvořák of the band Lucie. Her latest song, Křídla snů (Wings of Dreams), inspired by Dvořák’s Symphony From the New World, combines Czech classical music with a contemporary crossover arrangement and symbolically returns to the theme of home. The cello solo was recorded by renowned Swiss cellist Jodok Vuille, also known as the influencer Jodok Cello with almost 7 million followers on social media.','cl10':'2026','c10':'In May 2026 she performed at Prague’s O2 arena as a guest at Štefan Margita’s gala concert celebrating his 70th birthday, accompanied by the PKF Prague Philharmonia.',
           'video.title':'Videography','video.watch':'Watch here','video.more':'More videos','klip.kick':'Music video',
@@ -1152,12 +1251,21 @@
     var t=$('newsThanks'); if(t) t.classList.add('show');
   }); }
 
-  // odkaz z koncertů → po doscrollování na newsletter rovnou zaměřit e-mail
-  var showsNewsLink=$('showsNewsLink');
-  if(showsNewsLink && newsForm){ showsNewsLink.addEventListener('click', function(){
+  // odkazy z koncertů → po doscrollování na newsletter rovnou zaměřit e-mail
+  if(newsForm){ Array.prototype.forEach.call(document.querySelectorAll('.js-news-link'), function(a){ a.addEventListener('click', function(){
     var inp=newsForm.querySelector('input[type=email]');
     if(inp) setTimeout(function(){ try{ inp.focus({ preventScroll:true }); }catch(_){ inp.focus(); } }, 900);
-  }); }
+  }); }); }
+
+  // koncerty: termín zmizí den po konání; když žádný nezbude, místo programu blok Připravujeme
+  var showsList=$('showsList');
+  if(showsList){
+    var now=new Date(), upcoming=0;
+    Array.prototype.forEach.call(showsList.querySelectorAll('[data-date]'), function(li){
+      if(new Date(li.getAttribute('data-date')+'T23:59:59') < now) li.parentNode.removeChild(li); else upcoming++;
+    });
+    if(!upcoming){ showsList.hidden=true; $('showsNote').hidden=true; $('showsSoon').hidden=false; }
+  }
 
   // ---- O Lence: rozbalení celé kariéry ----
   var career=$('career'), careerMore=$('careerMore');
