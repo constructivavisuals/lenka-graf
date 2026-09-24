@@ -173,6 +173,10 @@
   :focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; border-radius:3px; }
   :focus:not(:focus-visible){ outline:none; }
   section[id], footer[id]{ scroll-margin-top:84px; }
+  /* kotvy z navigace: horní padding sekce se odečte, nadpis pak stojí ~40 px pod navigací */
+  #o-lence, #nadacni-fond, #koncerty, #press{ scroll-margin-top:calc(104px - clamp(80px,11vw,150px)); }
+  #hudba{ scroll-margin-top:calc(104px - clamp(54px,7vw,92px)); }
+  #videografie{ scroll-margin-top:0; }   /* celoobrazovkové video od horního okraje */
   #hero{ scroll-margin-top:0; }
   /* tenký zlatý scroll-progress nahoře */
   #scrollProgress{ position:fixed; top:0; left:0; height:2px; width:100%; z-index:90; background:linear-gradient(90deg,#9a7c4a,#f0dcae); box-shadow:0 0 10px rgba(240,220,170,.6); transform:scaleX(0); transform-origin:0 50%; will-change:transform; }
@@ -838,7 +842,7 @@
 
   <!-- 03 NADAČNÍ FOND -->
   <section id="nadacni-fond" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:linear-gradient(180deg,#140b0d 0%,#0d0809 100%); border-top:1px solid rgba(255,255,255,.05); overflow:hidden;">
-    <div style="position:absolute; top:-20%; right:-10%; width:50%; height:80%; background:radial-gradient(circle, rgba(150,46,63,.18), rgba(0,0,0,0) 70%); pointer-events:none;"></div>
+    <div style="position:absolute; top:-20%; right:-10%; width:50%; height:80%; background:radial-gradient(closest-side, rgba(150,46,63,.2), rgba(150,46,63,0)); pointer-events:none;"></div>
     <div style="max-width:1180px; margin:0 auto; position:relative;">
       <div data-reveal style="margin-bottom:clamp(36px,4.5vw,58px);">
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(201,138,150,.45),rgba(201,138,150,0) 60%); margin-bottom:22px;"></div>
