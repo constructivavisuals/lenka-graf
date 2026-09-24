@@ -86,27 +86,31 @@
   .vp-cat-num{ font-size:12px; letter-spacing:.1em; color:#9a7c4a; }
   .vp-cat-head h2{ font-weight:500; font-size:clamp(30px,4.2vw,50px); line-height:1; color:#f5f1ea; }
   .vp-cat-count{ margin-left:auto; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#6b665d; white-space:nowrap; }
+  /* svislá videa ze sítí: poster na výšku se v kartě 16:9 vycentruje na tmavém pozadí */
+  .vcard--svisle .vcard-media{ background:#0b0806; }
+  .vcard--svisle .vcard-media img{ object-fit:contain; }
   .vp-grid{ max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(30px,3.4vw,46px) clamp(16px,2.2vw,30px); }
 
   /* ---- karta videa (odkaz na YouTube) ---- */
-  .vcard{ display:block; color:inherit; text-decoration:none; }
+  .vcard{ display:block; width:100%; padding:0; border:0; background:none; font:inherit; text-align:left; color:inherit; text-decoration:none; cursor:pointer; }
   .vcard-media{ position:relative; display:block; aspect-ratio:16/9; overflow:hidden; background:#000; border:1px solid rgba(255,255,255,.16); transition:border-color .45s, box-shadow .45s; }
   .vcard-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.8); transition:transform 1.1s cubic-bezier(.2,.6,.2,1), filter .6s; }
   .vcard-media::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.5) 100%); pointer-events:none; }
   .vcard-play{ position:absolute; z-index:1; left:50%; top:50%; width:62px; height:62px; margin:-31px 0 0 -31px; border-radius:50%; border:1px solid rgba(255,255,255,.85);
     background:rgba(10,9,8,.32); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px); transition:transform .45s cubic-bezier(.2,.6,.2,1), background .35s, border-color .35s; }
   .vcard-play::before{ content:''; position:absolute; left:50%; top:50%; margin:-8px 0 0 -4px; border-style:solid; border-width:8px 0 8px 13px; border-color:transparent transparent transparent #fff; transition:border-color .35s; }
+  .vcard-dur{ position:absolute; z-index:1; right:10px; bottom:9px; padding:3px 7px; border-radius:4px; background:rgba(10,9,8,.7); font-size:11px; letter-spacing:.06em; color:#ece7de; font-variant-numeric:tabular-nums; }
+  .vcard:focus-visible{ outline:2px solid #d8b97a; outline-offset:4px; }
   .vcard-txt{ display:block; margin-top:18px; }
   .vcard-kick{ display:block; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:#9a7c4a; }
   .vcard-title{ display:block; margin-top:9px; font-size:clamp(17px,1.6vw,20px); line-height:1.35; color:#f0e8da; }
   .vcard-yt{ display:inline-block; margin-top:12px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6b665d; transition:color .3s; }
-  a.vcard:hover .vcard-media{ border-color:#f0dcae; box-shadow:0 0 28px rgba(240,220,170,.22); }
-  a.vcard:hover .vcard-media img{ transform:scale(1.05); filter:brightness(.92); }
-  a.vcard:hover .vcard-play{ transform:scale(1.08); background:#d8b97a; border-color:#d8b97a; }
-  a.vcard:hover .vcard-play::before{ border-color:transparent transparent transparent #0a0908; }
-  a.vcard:hover .vcard-yt{ color:#d8b97a; }
+  .vcard:hover .vcard-media{ border-color:#f0dcae; box-shadow:0 0 28px rgba(240,220,170,.22); }
+  .vcard:hover .vcard-media img{ transform:scale(1.05); filter:brightness(.92); }
+  .vcard:hover .vcard-play{ transform:scale(1.08); background:#d8b97a; border-color:#d8b97a; }
+  .vcard:hover .vcard-play::before{ border-color:transparent transparent transparent #0a0908; }
+  .vcard:hover .vcard-yt{ color:#d8b97a; }
   /* odkaz zatím chybí (href="#") — karta vypadá stejně, jen nikam nevede */
-  a.vcard.is-pending{ cursor:default; }
   .vcard--soon .vcard-media{ display:flex; align-items:center; justify-content:center; border-color:rgba(255,255,255,.1);
     background:radial-gradient(75% 70% at 50% 42%, rgba(216,185,122,.08), transparent 70%), #0b0806; }
   .vcard--soon .vcard-media::after{ display:none; }
@@ -116,6 +120,19 @@
   /* jemný nájezd karet při scrollu (jen s JS — bez něj je vše vidět hned) */
   .js .vcard{ opacity:0; transform:translateY(26px); transition:opacity 1s cubic-bezier(.2,.6,.2,1), transform 1s cubic-bezier(.2,.6,.2,1); }
   .js .vcard.in{ opacity:1; transform:none; }
+
+  /* ---- přehrávač v okně ---- */
+  .vp-player{ position:fixed; inset:0; z-index:90; display:flex; align-items:center; justify-content:center; padding:clamp(12px,3vw,40px);
+    background:rgba(5,4,3,.9); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); animation:rise .35s ease both; }
+  .vp-player[hidden]{ display:none; }
+  .vp-player-inner{ display:flex; flex-direction:column; width:min(1200px,100%); }
+  .vp-player.is-vertical .vp-player-inner{ width:auto; align-items:center; }
+  .vp-player-bar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px; width:100%; }
+  .vp-player-title{ font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:#e8d7ae; }
+  .vp-player-close{ width:40px; height:40px; flex-shrink:0; border:1px solid rgba(255,255,255,.4); border-radius:50%; background:transparent; color:#fff; font-size:22px; line-height:1; cursor:pointer; transition:background .3s, color .3s; }
+  .vp-player-close:hover{ background:#fff; color:#0a0908; }
+  #vpVideo{ display:block; width:100%; max-height:calc(100vh - 120px); max-height:calc(100svh - 120px); background:#000; }
+  .vp-player.is-vertical #vpVideo{ width:auto; height:calc(100vh - 120px); height:calc(100svh - 120px); aspect-ratio:9/16; max-width:100%; }
 
   /* ---- odkaz na celý YouTube kanál ---- */
   .vp-channel{ padding:clamp(80px,10vw,130px) 6vw clamp(90px,11vw,140px); text-align:center; }
@@ -212,86 +229,249 @@
         <nav class="vp-crumbs" aria-label="Drobečková navigace"><a href="index.html">Lenka Graf</a><span aria-hidden="true">/</span><span data-i18n="video.title">Videografie</span></nav>
         <div class="vp-line"></div>
         <div class="vp-title"><span class="vp-num">05 —</span><h1 data-i18n="video.title">Videografie</h1></div>
-        <p class="vp-lead" data-i18n="vp.lead">Videoklipy, aftermovies z koncertů a televizní reportáže. Každé video se otevře na YouTube kanálu Lenky Graf.</p>
+        <p class="vp-lead" data-i18n="vp.lead">Videoklipy, aftermovies z koncertů, televizní reportáže a krátká videa — všechno si přehrajete přímo tady.</p>
       </div>
     </header>
 
     <div id="tabsSentinel" aria-hidden="true"></div>
     <div class="vp-tabs" id="vpTabs">
       <div class="vp-tabs-inner">
-        <a href="#videoklipy" class="vp-tab active"><span data-i18n="vp.klipy">Videoklipy</span> <b data-count="videoklipy"></b></a>
-        <a href="#aftermovies" class="vp-tab"><span data-i18n="vp.after">Aftermovies</span> <b data-count="aftermovies"></b></a>
-        <a href="#reportaze" class="vp-tab"><span data-i18n="vp.rep">Reportáže</span> <b data-count="reportaze"></b></a>
+        <!-- TABS:START -->
+        <a href="#videoklipy" class="vp-tab active"><span data-cs="Videoklipy" data-en="Music videos">Videoklipy</span> <b data-count="videoklipy"></b></a>
+        <a href="#aftermovies" class="vp-tab"><span data-cs="Aftermovies" data-en="Aftermovies">Aftermovies</span> <b data-count="aftermovies"></b></a>
+        <a href="#reportaze" class="vp-tab"><span data-cs="Reportáže" data-en="TV features">Reportáže</span> <b data-count="reportaze"></b></a>
+        <!-- TABS:END -->
       </div>
     </div>
 
     <!--
-      JAK PŘIDAT VIDEO: zkopíruj jeden <a class="vcard"> v dané kategorii a do href dej odkaz na YouTube
-      (youtube.com/watch?v=…, youtu.be/…). Když u <img> místo src napíšeš jen data-yt-thumb
-      (<img data-yt-thumb alt="" loading="lazy">), náhled se doplní sám z YouTube.
-      Dokud je href="#", karta nikam nevede. Kartu „Připravujeme“ (div.vcard--soon) pak smaž.
+      JAK PŘIDAT VIDEO: přidej řádek do tools/videa.json a spusť
+        python3 tools/videografie.py encode && python3 tools/videografie.py upload && python3 tools/videografie.py html
+      Videa i náhledy leží na Cloudflare R2 (bucket lenka-graf-media), karty níže jsou generované — ručně je neupravuj.
     -->
-
-    <!-- 01 VIDEOKLIPY -->
+    <!-- VIDEA:START (generuje tools/videografie.py html) -->
     <section id="videoklipy" class="vp-cat">
-      <div class="vp-cat-head"><span class="vp-cat-num">01</span><h2 data-i18n="vp.klipy">Videoklipy</h2><span class="vp-cat-count" data-count-label="videoklipy"></span></div>
+      <div class="vp-cat-head"><span class="vp-cat-num">01</span><h2 data-cs="Videoklipy" data-en="Music videos">Videoklipy</h2><span class="vp-cat-count" data-count-label="videoklipy"></span></div>
       <div class="vp-grid">
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/hero.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="klip.kick">Videoklip</span><span class="vcard-title">Křídla snů</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
-        <div class="vcard vcard--soon">
-          <span class="vcard-media"><span class="vcard-mark" aria-hidden="true">LG</span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="klip.kick">Videoklip</span><span class="vcard-title" data-i18n="video.soon">Připravujeme</span></span>
-        </div>
-        <div class="vcard vcard--soon">
-          <span class="vcard-media"><span class="vcard-mark" aria-hidden="true">LG</span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="klip.kick">Videoklip</span><span class="vcard-title" data-i18n="video.soon">Připravujeme</span></span>
-        </div>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/kridla-snu.mp4?v=1790230807" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/kridla-snu.jpg?v=1790232900">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/kridla-snu.jpg?v=1790232900" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:12</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2026" data-en="Music video · 2026">Videoklip · 2026</span><span class="vcard-title" data-cs="Křídla snů" data-en="Křídla snů (Wings of Dreams)">Křídla snů</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/nechme-lasku-plout.mp4?v=1790230794" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/nechme-lasku-plout.jpg?v=1790232901">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/nechme-lasku-plout.jpg?v=1790232901" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:02</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2023" data-en="Music video · 2023">Videoklip · 2023</span><span class="vcard-title" data-cs="Nechme lásku plout — s Petrem Kolářem" data-en="Nechme lásku plout — with Petr Kolář">Nechme lásku plout — s Petrem Kolářem</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/you-are-not-alone.mp4?v=1790230781" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/you-are-not-alone.jpg?v=1790232903">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/you-are-not-alone.jpg?v=1790232903" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:07</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2022" data-en="Music video · 2022">Videoklip · 2022</span><span class="vcard-title" data-cs="You Are Not Alone — s The Dark Tenor a Eklipse" data-en="You Are Not Alone — with The Dark Tenor &amp; Eklipse">You Are Not Alone — s The Dark Tenor a Eklipse</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare-making-of.mp4?v=1790230900" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare-making-of.jpg?v=1790232905">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare-making-of.jpg?v=1790232905" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:13</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2022" data-en="Music video · 2022">Videoklip · 2022</span><span class="vcard-title" data-cs="I Dare — making of" data-en="I Dare — making of">I Dare — making of</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare.mp4?v=1790230959" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare.jpg?v=1790232907">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare.jpg?v=1790232907" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:38</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2022" data-en="Music video · 2022">Videoklip · 2022</span><span class="vcard-title" data-cs="I Dare" data-en="I Dare">I Dare</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/ave-maria.mp4?v=1790230916" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/ave-maria.jpg?v=1790232908">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/ave-maria.jpg?v=1790232908" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:05</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2021" data-en="Music video · 2021">Videoklip · 2021</span><span class="vcard-title" data-cs="Ave Maria — s Jaroslavem Svěceným" data-en="Ave Maria — with Jaroslav Svěcený">Ave Maria — s Jaroslavem Svěceným</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/panis-angelicus.mp4?v=1790231058" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/panis-angelicus.jpg?v=1790232911">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/panis-angelicus.jpg?v=1790232911" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:37</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2021" data-en="Music video · 2021">Videoklip · 2021</span><span class="vcard-title" data-cs="Panis Angelicus — se Štefanem Margitou" data-en="Panis Angelicus — with Štefan Margita">Panis Angelicus — se Štefanem Margitou</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/laska-pouha.mp4?v=1790231066" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/laska-pouha.jpg?v=1790232913">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/laska-pouha.jpg?v=1790232913" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:33</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2021" data-en="Music video · 2021">Videoklip · 2021</span><span class="vcard-title" data-cs="Láska pouhá" data-en="Láska pouhá">Láska pouhá</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/vanocni-prani.mp4?v=1790231090" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/vanocni-prani.jpg?v=1790232915">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/vanocni-prani.jpg?v=1790232915" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:11</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2019" data-en="Music video · 2019">Videoklip · 2019</span><span class="vcard-title" data-cs="Vánoční přání" data-en="Vánoční přání (Christmas Wish)">Vánoční přání</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/vanocni-poselstvi.mp4?v=1790231069" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/vanocni-poselstvi.jpg?v=1790232916">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/vanocni-poselstvi.jpg?v=1790232916" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:07</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2018" data-en="Music video · 2018">Videoklip · 2018</span><span class="vcard-title" data-cs="Vánoční poselství — s Vašo Patejdlem" data-en="Vánoční poselství — with Vašo Patejdl">Vánoční poselství — s Vašo Patejdlem</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/viru-dej.mp4?v=1790231167" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/viru-dej.jpg?v=1790232918">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/viru-dej.jpg?v=1790232918" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:25</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2017" data-en="Music video · 2017">Videoklip · 2017</span><span class="vcard-title" data-cs="Víru dej" data-en="Víru dej">Víru dej</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/mne-silu-das.mp4?v=1790231238" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/mne-silu-das.jpg?v=1790232920">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/mne-silu-das.jpg?v=1790232920" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:57</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2017" data-en="Music video · 2017">Videoklip · 2017</span><span class="vcard-title" data-cs="Mně sílu dáš" data-en="Mně sílu dáš">Mně sílu dáš</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/noc-lasky-me.mp4?v=1790231225" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/noc-lasky-me.jpg?v=1790232921">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/noc-lasky-me.jpg?v=1790232921" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:19</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2017" data-en="Music video · 2017">Videoklip · 2017</span><span class="vcard-title" data-cs="Noc lásky mé" data-en="Noc lásky mé">Noc lásky mé</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/laska-vecna.mp4?v=1790231350" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/laska-vecna.jpg?v=1790232923">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/laska-vecna.jpg?v=1790232923" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:34</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2017" data-en="Music video · 2017">Videoklip · 2017</span><span class="vcard-title" data-cs="Láska věčná" data-en="Láska věčná (Eternal Love)">Láska věčná</span></span>
+        </button>
+        <button type="button" class="vcard vcard--svisle" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare-2-roky.mp4?v=1790232874" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare-2-roky.jpg?v=1790232924" data-vertical>
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/videoklipy/i-dare-2-roky.jpg?v=1790232924" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">0:38</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Videoklip · 2024" data-en="Music video · 2024">Videoklip · 2024</span><span class="vcard-title" data-cs="Dva roky singlu I Dare" data-en="Two years of I Dare">Dva roky singlu I Dare</span></span>
+        </button>
       </div>
     </section>
 
-    <!-- 02 AFTERMOVIES -->
     <section id="aftermovies" class="vp-cat">
-      <div class="vp-cat-head"><span class="vp-cat-num">02</span><h2 data-i18n="vp.after">Aftermovies</h2><span class="vp-cat-count" data-count-label="aftermovies"></span></div>
+      <div class="vp-cat-head"><span class="vp-cat-num">02</span><h2 data-cs="Aftermovies" data-en="Aftermovies">Aftermovies</h2><span class="vp-cat-count" data-count-label="aftermovies"></span></div>
       <div class="vp-grid">
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/video/aftermovie-decin.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="after.kick">Aftermovie</span><span class="vcard-title" data-i18n="after.v1">Koncert Děčín</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/video/aftermovie-mb.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="after.kick">Aftermovie</span><span class="vcard-title" data-i18n="after.v2">Vánoční koncert se Štefanem Margitou</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
-        <div class="vcard vcard--soon">
-          <span class="vcard-media"><span class="vcard-mark" aria-hidden="true">LG</span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="after.kick">Aftermovie</span><span class="vcard-title" data-i18n="video.soon">Připravujeme</span></span>
-        </div>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kviff-2026.mp4?v=1790231454" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kviff-2026.jpg?v=1790232926">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kviff-2026.jpg?v=1790232926" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">5:16</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2026" data-en="Aftermovie · 2026">Aftermovie · 2026</span><span class="vcard-title" data-cs="KVIFF 2026" data-en="Karlovy Vary IFF 2026">KVIFF 2026</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/trebivlice-2026.mp4?v=1790231313" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/trebivlice-2026.jpg?v=1790232928">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/trebivlice-2026.jpg?v=1790232928" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:30</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2026" data-en="Aftermovie · 2026">Aftermovie · 2026</span><span class="vcard-title" data-cs="Třebívlice 2026" data-en="Třebívlice 2026">Třebívlice 2026</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/margita-o2-2026.mp4?v=1790231526" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/margita-o2-2026.jpg?v=1790232930">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/margita-o2-2026.jpg?v=1790232930" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">2:05</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2026" data-en="Aftermovie · 2026">Aftermovie · 2026</span><span class="vcard-title" data-cs="Galakoncert Štefana Margity — O2 arena" data-en="Štefan Margita gala concert — O2 arena">Galakoncert Štefana Margity — O2 arena</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/litomerice.mp4?v=1790231461" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/litomerice.jpg?v=1790232931">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/litomerice.jpg?v=1790232931" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:15</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie" data-en="Aftermovie">Aftermovie</span><span class="vcard-title" data-cs="Koncert Litoměřice" data-en="Litoměřice concert">Koncert Litoměřice</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/zofin-advent.mp4?v=1790231600" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/zofin-advent.jpg?v=1790232933">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/zofin-advent.jpg?v=1790232933" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:39</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie" data-en="Aftermovie">Aftermovie</span><span class="vcard-title" data-cs="Adventní koncert — Žofín" data-en="Advent concert — Žofín Palace">Adventní koncert — Žofín</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/broadway-2025.mp4?v=1790231567" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/broadway-2025.jpg?v=1790232934">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/broadway-2025.jpg?v=1790232934" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:24</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2025" data-en="Aftermovie · 2025">Aftermovie · 2025</span><span class="vcard-title" data-cs="Vánoční koncert — Broadway 2025" data-en="Christmas concert — Broadway 2025">Vánoční koncert — Broadway 2025</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/vanoce-margita-2025.mp4?v=1790231580" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/vanoce-margita-2025.jpg?v=1790232936">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/vanoce-margita-2025.jpg?v=1790232936" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">0:56</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2025" data-en="Aftermovie · 2025">Aftermovie · 2025</span><span class="vcard-title" data-cs="Vánoční koncert se Štefanem Margitou" data-en="Christmas concert with Štefan Margita">Vánoční koncert se Štefanem Margitou</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kviff-2025.mp4?v=1790231667" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kviff-2025.jpg?v=1790232938">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kviff-2025.jpg?v=1790232938" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:47</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2025" data-en="Aftermovie · 2025">Aftermovie · 2025</span><span class="vcard-title" data-cs="KVIFF 2025" data-en="Karlovy Vary IFF 2025">KVIFF 2025</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/il-divo-o2.mp4?v=1790231743" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/il-divo-o2.jpg?v=1790232939">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/il-divo-o2.jpg?v=1790232939" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">2:32</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2025" data-en="Aftermovie · 2025">Aftermovie · 2025</span><span class="vcard-title" data-cs="Host koncertu Il Divo — O2 universum" data-en="Guest of Il Divo — O2 universum">Host koncertu Il Divo — O2 universum</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/narozeniny-50.mp4?v=1790231809" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/narozeniny-50.jpg?v=1790232941">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/narozeniny-50.jpg?v=1790232941" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:18</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2025" data-en="Aftermovie · 2025">Aftermovie · 2025</span><span class="vcard-title" data-cs="Oslava 50. narozenin" data-en="50th birthday celebration">Oslava 50. narozenin</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/narozeniny-50-uvod.mp4?v=1790231869" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/narozeniny-50-uvod.jpg?v=1790232943">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/narozeniny-50-uvod.jpg?v=1790232943" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">4:07</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2025" data-en="Aftermovie · 2025">Aftermovie · 2025</span><span class="vcard-title" data-cs="Oslava 50. narozenin — úvodní video" data-en="50th birthday — opening film">Oslava 50. narozenin — úvodní video</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/nataceni-kridla-snu.mp4?v=1790231838" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/nataceni-kridla-snu.jpg?v=1790232944">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/nataceni-kridla-snu.jpg?v=1790232944" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:26</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie" data-en="Aftermovie">Aftermovie</span><span class="vcard-title" data-cs="Natáčení klipu Křídla snů" data-en="Behind the scenes — Křídla snů video">Natáčení klipu Křídla snů</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/usti-2024.mp4?v=1790231882" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/usti-2024.jpg?v=1790232945">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/usti-2024.jpg?v=1790232945" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:13</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2024" data-en="Aftermovie · 2024">Aftermovie · 2024</span><span class="vcard-title" data-cs="Vánoční koncert — Ústí nad Labem 2024" data-en="Christmas concert — Ústí nad Labem 2024">Vánoční koncert — Ústí nad Labem 2024</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/usti-2024-ii.mp4?v=1790231913" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/usti-2024-ii.jpg?v=1790232947">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/usti-2024-ii.jpg?v=1790232947" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:15</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2024" data-en="Aftermovie · 2024">Aftermovie · 2024</span><span class="vcard-title" data-cs="Vánoční koncert — Ústí nad Labem 2024 (II)" data-en="Christmas concert — Ústí nad Labem 2024 (II)">Vánoční koncert — Ústí nad Labem 2024 (II)</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/euro-2024-hamburk.mp4?v=1790231941" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/euro-2024-hamburk.jpg?v=1790232948">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/euro-2024-hamburk.jpg?v=1790232948" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:12</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2024" data-en="Aftermovie · 2024">Aftermovie · 2024</span><span class="vcard-title" data-cs="EURO 2024 — Hamburk s Michalem Dvořákem" data-en="EURO 2024 — Hamburg with Michal Dvořák">EURO 2024 — Hamburk s Michalem Dvořákem</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/decin.mp4?v=1790231982" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/decin.jpg?v=1790232950">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/decin.jpg?v=1790232950" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:28</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie" data-en="Aftermovie">Aftermovie</span><span class="vcard-title" data-cs="Koncert Děčín" data-en="Děčín concert">Koncert Děčín</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/vanoce-nemecko.mp4?v=1790232044" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/vanoce-nemecko.jpg?v=1790232952">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/vanoce-nemecko.jpg?v=1790232952" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">2:22</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2023" data-en="Aftermovie · 2023">Aftermovie · 2023</span><span class="vcard-title" data-cs="Vánoční koncert v Německu" data-en="Christmas concert in Germany">Vánoční koncert v Německu</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/dark-tenor-extended.mp4?v=1790232025" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/dark-tenor-extended.jpg?v=1790232953">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/dark-tenor-extended.jpg?v=1790232953" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:40</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2023" data-en="Aftermovie · 2023">Aftermovie · 2023</span><span class="vcard-title" data-cs="Turné s The Dark Tenor" data-en="Touring with The Dark Tenor">Turné s The Dark Tenor</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/dark-tenor.mp4?v=1790232013" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/dark-tenor.jpg?v=1790232954">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/dark-tenor.jpg?v=1790232954" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:27</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2023" data-en="Aftermovie · 2023">Aftermovie · 2023</span><span class="vcard-title" data-cs="The Dark Tenor — sestřih" data-en="The Dark Tenor — highlights">The Dark Tenor — sestřih</span></span>
+        </button>
+        <button type="button" class="vcard vcard--svisle" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/teaser-2026.mp4?v=1790232799" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/teaser-2026.jpg?v=1790232955" data-vertical>
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/teaser-2026.jpg?v=1790232955" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">0:26</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2026" data-en="Aftermovie · 2026">Aftermovie · 2026</span><span class="vcard-title" data-cs="Teaser 2026" data-en="Teaser 2026">Teaser 2026</span></span>
+        </button>
+        <button type="button" class="vcard vcard--svisle" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kridla-snu-euro-2024.mp4?v=1790232881" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kridla-snu-euro-2024.jpg?v=1790232956" data-vertical>
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/kridla-snu-euro-2024.jpg?v=1790232956" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">0:51</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2024" data-en="Aftermovie · 2024">Aftermovie · 2024</span><span class="vcard-title" data-cs="Křídla snů na EURO 2024" data-en="Křídla snů at EURO 2024">Křídla snů na EURO 2024</span></span>
+        </button>
+        <button type="button" class="vcard vcard--svisle" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/fotbalista-roku-everything.mp4?v=1790232882" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/fotbalista-roku-everything.jpg?v=1790232958" data-vertical>
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/aftermovies/fotbalista-roku-everything.jpg?v=1790232958" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">0:30</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Aftermovie · 2024" data-en="Aftermovie · 2024">Aftermovie · 2024</span><span class="vcard-title" data-cs="Everything Is Part Of One na Fotbalistovi roku" data-en="Everything Is Part Of One at Footballer of the Year">Everything Is Part Of One na Fotbalistovi roku</span></span>
+        </button>
       </div>
     </section>
 
-    <!-- 03 REPORTÁŽE -->
     <section id="reportaze" class="vp-cat">
-      <div class="vp-cat-head"><span class="vp-cat-num">03</span><h2 data-i18n="vp.rep">Reportáže</h2><span class="vp-cat-count" data-count-label="reportaze"></span></div>
+      <div class="vp-cat-head"><span class="vp-cat-num">03</span><h2 data-cs="Reportáže" data-en="TV features">Reportáže</h2><span class="vp-cat-count" data-count-label="reportaze"></span></div>
       <div class="vp-grid">
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/video/reportaz-zofin.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="rep.kick">Reportáž</span><span class="vcard-title" data-i18n="rep.v1">Adventní koncert — Žofín</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/video/reportaz-prima.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="rep.kick">Reportáž</span><span class="vcard-title" data-i18n="rep.v2">Rozhovor pro CNN Prima News</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/video/reportaz-krest.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="rep.kick">Reportáž</span><span class="vcard-title" data-i18n="rep.v3">Křest — Praha</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
-        <a class="vcard" href="#" target="_blank" rel="noopener">
-          <span class="vcard-media"><img src="assets/video/reportaz-duet.jpg" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span></span>
-          <span class="vcard-txt"><span class="vcard-kick" data-i18n="rep.kick">Reportáž</span><span class="vcard-title" data-i18n="rep.v4">Duet s Kolářem</span><span class="vcard-yt">YouTube ↗</span></span>
-        </a>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/margita-o2-prima.mp4?v=1790232163" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/margita-o2-prima.jpg?v=1790232960">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/margita-o2-prima.jpg?v=1790232960" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:00</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2026" data-en="TV feature · 2026">Reportáž · 2026</span><span class="vcard-title" data-cs="Galakoncert Štefana Margity v O2 areně" data-en="Štefan Margita gala at O2 arena">Galakoncert Štefana Margity v O2 areně</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/zofin-reportaz.mp4?v=1790232190" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/zofin-reportaz.jpg?v=1790232961">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/zofin-reportaz.jpg?v=1790232961" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">2:55</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž" data-en="TV feature">Reportáž</span><span class="vcard-title" data-cs="Adventní koncert — Žofín" data-en="Advent concert — Žofín Palace">Adventní koncert — Žofín</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/rozhovor-cnn-prima.mp4?v=1790232151" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/rozhovor-cnn-prima.jpg?v=1790232963">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/rozhovor-cnn-prima.jpg?v=1790232963" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:52</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž" data-en="TV feature">Reportáž</span><span class="vcard-title" data-cs="Rozhovor pro CNN Prima News" data-en="Interview for CNN Prima News">Rozhovor pro CNN Prima News</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/angelo-kelly-2025.mp4?v=1790232364" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/angelo-kelly-2025.jpg?v=1790232964">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/angelo-kelly-2025.jpg?v=1790232964" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:03</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2025" data-en="TV feature · 2025">Reportáž · 2025</span><span class="vcard-title" data-cs="S Angelem Kellym v Německu" data-en="With Angelo Kelly in Germany">S Angelem Kellym v Německu</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/il-divo-prima.mp4?v=1790232363" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/il-divo-prima.jpg?v=1790232966">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/il-divo-prima.jpg?v=1790232966" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:06</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2025" data-en="TV feature · 2025">Reportáž · 2025</span><span class="vcard-title" data-cs="Host koncertu Il Divo" data-en="Guest of Il Divo">Host koncertu Il Divo</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/sportovec-roku-2024.mp4?v=1790232426" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/sportovec-roku-2024.jpg?v=1790232968">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/sportovec-roku-2024.jpg?v=1790232968" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:14</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2024" data-en="TV feature · 2024">Reportáž · 2024</span><span class="vcard-title" data-cs="Sportovec roku 2024 s Kabáty" data-en="Sportsperson of the Year 2024 with Kabát">Sportovec roku 2024 s Kabáty</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/broadway-2024-prima.mp4?v=1790232611" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/broadway-2024-prima.jpg?v=1790232970">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/broadway-2024-prima.jpg?v=1790232970" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:30</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2024" data-en="TV feature · 2024">Reportáž · 2024</span><span class="vcard-title" data-cs="Vánoční koncert v divadle Broadway" data-en="Christmas concert at Broadway Theatre">Vánoční koncert v divadle Broadway</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/travnicek-nemecko-vanoce-2024.mp4?v=1790232563" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/travnicek-nemecko-vanoce-2024.jpg?v=1790232972">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/travnicek-nemecko-vanoce-2024.jpg?v=1790232972" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">2:38</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2024" data-en="TV feature · 2024">Reportáž · 2024</span><span class="vcard-title" data-cs="S Pavlem Trávníčkem v Německu" data-en="With Pavel Trávníček in Germany">S Pavlem Trávníčkem v Německu</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/travnicek-novy-den.mp4?v=1790232524" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/travnicek-novy-den.jpg?v=1790232973">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/travnicek-novy-den.jpg?v=1790232973" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:08</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž" data-en="TV feature">Reportáž</span><span class="vcard-title" data-cs="S Pavlem Trávníčkem — Nový den" data-en="With Pavel Trávníček — Nový den">S Pavlem Trávníčkem — Nový den</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/dvorak-euro-2024.mp4?v=1790232768" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/dvorak-euro-2024.jpg?v=1790232975">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/dvorak-euro-2024.jpg?v=1790232975" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:00</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2024" data-en="TV feature · 2024">Reportáž · 2024</span><span class="vcard-title" data-cs="S Michalem Dvořákem na EURO 2024" data-en="With Michal Dvořák at EURO 2024">S Michalem Dvořákem na EURO 2024</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/dvorak-kridla-snu.mp4?v=1790232777" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/dvorak-kridla-snu.jpg?v=1790232977">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/dvorak-kridla-snu.jpg?v=1790232977" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">2:55</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž" data-en="TV feature">Reportáž</span><span class="vcard-title" data-cs="Michal Dvořák a Křídla snů" data-en="Michal Dvořák and Křídla snů">Michal Dvořák a Křídla snů</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/duet-kolar.mp4?v=1790232859" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/duet-kolar.jpg?v=1790232978">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/duet-kolar.jpg?v=1790232978" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">3:23</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž" data-en="TV feature">Reportáž</span><span class="vcard-title" data-cs="Duet s Petrem Kolářem" data-en="Duet with Petr Kolář">Duet s Petrem Kolářem</span></span>
+        </button>
+        <button type="button" class="vcard" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/krest-alba.mp4?v=1790232864" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/krest-alba.jpg?v=1790232980">
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/krest-alba.jpg?v=1790232980" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">1:35</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž" data-en="TV feature">Reportáž</span><span class="vcard-title" data-cs="Křest alba" data-en="Album launch">Křest alba</span></span>
+        </button>
+        <button type="button" class="vcard vcard--svisle" data-src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/extra-rozhovor-upoutavka.mp4?v=1790232842" data-poster="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/extra-rozhovor-upoutavka.jpg?v=1790232981" data-vertical>
+          <span class="vcard-media"><img src="https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev/reportaze/extra-rozhovor-upoutavka.jpg?v=1790232981" alt="" loading="lazy" decoding="async"><span class="vcard-play" aria-hidden="true"></span><span class="vcard-dur">0:21</span></span>
+          <span class="vcard-txt"><span class="vcard-kick" data-cs="Reportáž · 2024" data-en="TV feature · 2024">Reportáž · 2024</span><span class="vcard-title" data-cs="Rozhovor pro Extra.cz — upoutávka" data-en="Extra.cz interview — teaser">Rozhovor pro Extra.cz — upoutávka</span></span>
+        </button>
       </div>
     </section>
+    <!-- VIDEA:END -->
 
     <!-- CELÝ KANÁL -->
     <section class="vp-channel">
@@ -301,6 +481,14 @@
       <div><a href="index.html#videografie" class="vp-back">← <span data-i18n="vp.back">Zpět na hlavní stránku</span></a></div>
     </section>
   </main>
+
+  <!-- PŘEHRÁVAČ -->
+  <div class="vp-player" id="vpPlayer" role="dialog" aria-modal="true" aria-label="Přehrávač videa" hidden>
+    <div class="vp-player-inner" id="vpPlayerInner">
+      <div class="vp-player-bar"><span class="vp-player-title" id="vpPlayerTitle"></span><button type="button" class="vp-player-close" id="vpPlayerClose" aria-label="Zavřít">×</button></div>
+      <video id="vpVideo" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
 
   <!-- NEWSLETTER + FOOTER -->
   <footer style="position:relative; padding:clamp(70px,9vw,120px) 6vw 0; background:#0a0908; border-top:1px solid rgba(255,255,255,.07);">
@@ -343,7 +531,7 @@
           'video.title':'Videografie','video.soon':'Připravujeme','klip.kick':'Videoklip','after.kick':'Aftermovie','rep.kick':'Reportáž',
           'after.v1':'Koncert Děčín','after.v2':'Vánoční koncert se Štefanem Margitou',
           'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
-          'vp.lead':'Videoklipy, aftermovies z koncertů a televizní reportáže. Každé video se otevře na YouTube kanálu Lenky Graf.',
+          'vp.lead':'Videoklipy, aftermovies z koncertů, televizní reportáže a krátká videa — všechno si přehrajete přímo tady.',
           'vp.klipy':'Videoklipy','vp.after':'Aftermovies','vp.rep':'Reportáže',
           'vp.channelBody':'Další vystoupení, rozhovory a zákulisí najdete na YouTube kanálu Lenky Graf.','vp.channel':'YouTube kanál','vp.back':'Zpět na hlavní stránku',
           'news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.' },
@@ -351,7 +539,7 @@
           'video.title':'Videography','video.soon':'Coming soon','klip.kick':'Music video','after.kick':'Aftermovie','rep.kick':'TV feature',
           'after.v1':'Děčín concert','after.v2':'Christmas concert with Štefan Margita',
           'rep.v1':'Advent concert — Žofín','rep.v2':'Interview for CNN Prima News','rep.v3':'Launch — Prague','rep.v4':'Duet with Kolář',
-          'vp.lead':'Music videos, concert aftermovies and TV features. Every video opens on Lenka Graf’s YouTube channel.',
+          'vp.lead':'Music videos, concert aftermovies, TV features and shorts — all playable right here.',
           'vp.klipy':'Music videos','vp.after':'Aftermovies','vp.rep':'TV features',
           'vp.channelBody':'More performances, interviews and behind-the-scenes footage on Lenka Graf’s YouTube channel.','vp.channel':'YouTube channel','vp.back':'Back to the homepage',
           'news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.' }
@@ -359,7 +547,7 @@
 
   // počty videí v kategoriích (karty „Připravujeme“ se nepočítají)
   var counts={};
-  each('.vp-cat', function(sec){ counts[sec.id]=sec.querySelectorAll('.vcard:not(.vcard--soon)').length; });
+  each('.vp-cat', function(sec){ counts[sec.id]=sec.querySelectorAll('.vcard').length; });
   function countLabel(n){
     if(lang==='en') return n + (n===1 ? ' video' : ' videos');
     return n + (n===1 ? ' video' : (n>=2 && n<=4 ? ' videa' : ' videí'));
@@ -375,23 +563,35 @@
     each('[data-i18n]', function(el){ var k=el.getAttribute('data-i18n'); if(dict[k]!=null) el.textContent=dict[k]; });
     each('[data-i18n-ph]', function(el){ var k=el.getAttribute('data-i18n-ph'); if(dict[k]!=null) el.placeholder=dict[k]; });
     each('[data-count]', function(el){ el.textContent=counts[el.getAttribute('data-count')]; });
+    each('[data-cs]', function(el){ el.textContent=el.getAttribute('data-'+lang); });
     each('[data-count-label]', function(el){ el.textContent=countLabel(counts[el.getAttribute('data-count-label')]); });
     $('langBtn').textContent = lang==='cs' ? 'CS / EN' : 'EN / CS';
   }
   $('langBtn').addEventListener('click', function(){ lang = lang==='cs'?'en':'cs'; applyLang(); try{ localStorage.setItem('lg_lang', lang); }catch(e){} });
   applyLang();
 
-  // odkazy na YouTube: s href="#" karta nikam nevede; chybí-li obrázek, náhled se vezme z YouTube podle ID videa
-  each('a.vcard, a.js-yt', function(a){
-    var href=a.getAttribute('href')||'';
-    if(href==='#' || href===''){
-      a.classList.add('is-pending'); a.removeAttribute('target');
-      a.addEventListener('click', function(e){ e.preventDefault(); });
-      return;
-    }
-    var img=a.querySelector('img[data-yt-thumb]'), m=href.match(/(?:youtu\.be\/|[?&]v=|\/shorts\/|\/embed\/)([\w-]{11})/);
-    if(img && m) img.src='https://i.ytimg.com/vi/'+m[1]+'/hqdefault.jpg';
-  });
+  // přehrávač: karta otevře video z R2 v okně; Esc, křížek nebo klik vedle zavře
+  var player=$('vpPlayer'), pv=$('vpVideo'), lastCard=null;
+  function openPlayer(card){
+    lastCard=card;
+    var vertical=card.hasAttribute('data-vertical');
+    player.classList.toggle('is-vertical', vertical);
+    $('vpPlayerTitle').textContent=card.querySelector('.vcard-title').textContent;
+    pv.poster=card.getAttribute('data-poster'); pv.src=card.getAttribute('data-src');
+    player.hidden=false; document.documentElement.style.overflow='hidden';
+    var p=pv.play(); if(p && p.catch) p.catch(function(){});
+    $('vpPlayerClose').focus();
+  }
+  function closePlayer(){
+    if(player.hidden) return;
+    pv.pause(); pv.removeAttribute('src'); pv.load();
+    player.hidden=true; document.documentElement.style.overflow='';
+    if(lastCard) lastCard.focus();
+  }
+  each('.vcard', function(c){ c.addEventListener('click', function(){ openPlayer(c); }); });
+  $('vpPlayerClose').addEventListener('click', closePlayer);
+  player.addEventListener('click', function(e){ if(e.target===player) closePlayer(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePlayer(); });
 
   // přepínač kategorií — zvýraznit kategorii, která je právě uprostřed obrazovky
   var tabs={};

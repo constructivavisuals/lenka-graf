@@ -1,0 +1,443 @@
+{
+  "_popis": "Seznam videí pro videografie.html. Zdroj = cesta na disku LENKA GRAF (nebo absolutní). Převod a nahrání: python3 tools/videografie.py encode|upload|html",
+  "base_url": "https://pub-7b7a18ac5da64d2982584642c463b64a.r2.dev",
+  "disk": "/Volumes/LENKA GRAF",
+  "kategorie": [
+    {
+      "id": "videoklipy",
+      "cs": "Videoklipy",
+      "en": "Music videos",
+      "kick_cs": "Videoklip",
+      "kick_en": "Music video"
+    },
+    {
+      "id": "aftermovies",
+      "cs": "Aftermovies",
+      "en": "Aftermovies",
+      "kick_cs": "Aftermovie",
+      "kick_en": "Aftermovie"
+    },
+    {
+      "id": "reportaze",
+      "cs": "Reportáže",
+      "en": "TV features",
+      "kick_cs": "Reportáž",
+      "kick_en": "TV feature"
+    }
+  ],
+  "videa": [
+    {
+      "kat": "videoklipy",
+      "id": "kridla-snu",
+      "cs": "Křídla snů",
+      "en": "Křídla snů (Wings of Dreams)",
+      "rok": 2026,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mov/Lenka Graf - Křídla snů .mov"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "nechme-lasku-plout",
+      "cs": "Nechme lásku plout — s Petrem Kolářem",
+      "en": "Nechme lásku plout — with Petr Kolář",
+      "rok": 2023,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2023-12-01 - Lenka Graf a Petr Kolář - Nechme lásku plout (oficiální videoklip) [1rPV5I153M0].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "you-are-not-alone",
+      "cs": "You Are Not Alone — s The Dark Tenor a Eklipse",
+      "en": "You Are Not Alone — with The Dark Tenor & Eklipse",
+      "rok": 2022,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2022-11-13 - Lenka Graf, Dark Tenor, Eklipse - You Are Not Alone (official lyric video) [J8c2xtnJa7c].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "i-dare-making-of",
+      "cs": "I Dare — making of",
+      "en": "I Dare — making of",
+      "rok": 2022,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/Lenka Graf - I Dare (making of).mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "i-dare",
+      "cs": "I Dare",
+      "en": "I Dare",
+      "rok": 2022,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2022-08-07 - Lenka Graf - I Dare (official video) [nGIrcBLmduA].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "ave-maria",
+      "cs": "Ave Maria — s Jaroslavem Svěceným",
+      "en": "Ave Maria — with Jaroslav Svěcený",
+      "rok": 2021,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2021-11-28 - Lenka Graf, Jaroslav Svěcený, Ave Maria [EXX_98ZkUAo].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "panis-angelicus",
+      "cs": "Panis Angelicus — se Štefanem Margitou",
+      "en": "Panis Angelicus — with Štefan Margita",
+      "rok": 2021,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2021-05-17 - ŠTEFAN MARGITA, LENKA GRAF, PANIS ANGELICUS [3k8OEwUmrLo].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "laska-pouha",
+      "cs": "Láska pouhá",
+      "en": "Láska pouhá",
+      "rok": 2021,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2021-03-13 - Lenka Graf, Láska pouhá [5ejQ_Sb2pVc].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "vanocni-prani",
+      "cs": "Vánoční přání",
+      "en": "Vánoční přání (Christmas Wish)",
+      "rok": 2019,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2019-12-02 - Lenka Graf - Vánoční přání [N2i-s-7Qhks].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "vanocni-poselstvi",
+      "cs": "Vánoční poselství — s Vašo Patejdlem",
+      "en": "Vánoční poselství — with Vašo Patejdl",
+      "rok": 2018,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2018-11-28 - LENKA GRAF a VAŠO PATEJDL - VÁNOČNÍ POSELSTVÍ [zA4MNucalq0].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "viru-dej",
+      "cs": "Víru dej",
+      "en": "Víru dej",
+      "rok": 2017,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/Lenka Graf, Víru Dej.mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "mne-silu-das",
+      "cs": "Mně sílu dáš",
+      "en": "Mně sílu dáš",
+      "rok": 2017,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2017-07-30 - Lenka Graf- Mně sílu dáš [m70D2DQZaMc].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "noc-lasky-me",
+      "cs": "Noc lásky mé",
+      "en": "Noc lásky mé",
+      "rok": 2017,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2017-07-21 - Lenka Graf, Noc lásky mé [CrR69uidTiU].mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "laska-vecna",
+      "cs": "Láska věčná",
+      "en": "Láska věčná (Eternal Love)",
+      "rok": 2017,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/Lenka Graf, Láska věčná.mp4"
+    },
+    {
+      "kat": "videoklipy",
+      "id": "i-dare-2-roky",
+      "cs": "Dva roky singlu I Dare",
+      "en": "Two years of I Dare",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2024-08-13 - Je to přesně dva roky, co vyšel můj singl I Dare. 🌟 #idare #lenkagraf #crossover #soprano #vyroci [DvuaD_l8H8s].mp4",
+      "svisle": true
+    },
+    {
+      "kat": "aftermovies",
+      "id": "kviff-2026",
+      "cs": "KVIFF 2026",
+      "en": "Karlovy Vary IFF 2026",
+      "rok": 2026,
+      "zdroj": "LENKA GRAF AFTERMOVIE /lLENKA_GRAF_KVIFF2026_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "trebivlice-2026",
+      "cs": "Třebívlice 2026",
+      "en": "Třebívlice 2026",
+      "rok": 2026,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_TRIBIVLICE_2026.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "margita-o2-2026",
+      "cs": "Galakoncert Štefana Margity — O2 arena",
+      "en": "Štefan Margita gala concert — O2 arena",
+      "rok": 2026,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA GRAF_MARGITA O2.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "litomerice",
+      "cs": "Koncert Litoměřice",
+      "en": "Litoměřice concert",
+      "rok": null,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_LITOMERICE_AFTER_FINAL.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "zofin-advent",
+      "cs": "Adventní koncert — Žofín",
+      "en": "Advent concert — Žofín Palace",
+      "rok": null,
+      "zdroj": "LENKA GRAF AFTERMOVIE /FACEBOOK LENKA GRAF ZOFIN.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "broadway-2025",
+      "cs": "Vánoční koncert — Broadway 2025",
+      "en": "Christmas concert — Broadway 2025",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_BROADWAY2025_VANOCNIKONCERT.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "vanoce-margita-2025",
+      "cs": "Vánoční koncert se Štefanem Margitou",
+      "en": "Christmas concert with Štefan Margita",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_MB_AFTER_FINAL.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "kviff-2025",
+      "cs": "KVIFF 2025",
+      "en": "Karlovy Vary IFF 2025",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_KVIFF2025_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "il-divo-o2",
+      "cs": "Host koncertu Il Divo — O2 universum",
+      "en": "Guest of Il Divo — O2 universum",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_ILDIVO_O2_AFTERMOVIE.mov"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "narozeniny-50",
+      "cs": "Oslava 50. narozenin",
+      "en": "50th birthday celebration",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_NAROZENINY_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "narozeniny-50-uvod",
+      "cs": "Oslava 50. narozenin — úvodní video",
+      "en": "50th birthday — opening film",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_NAROZENINY_UVODNIVIDEO.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "nataceni-kridla-snu",
+      "cs": "Natáčení klipu Křídla snů",
+      "en": "Behind the scenes — Křídla snů video",
+      "rok": null,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_NATACENI_VIDEOKLIPU_KRIDLASNU_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "usti-2024",
+      "cs": "Vánoční koncert — Ústí nad Labem 2024",
+      "en": "Christmas concert — Ústí nad Labem 2024",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_VANOCNIKONCERT_USTINADLABEM_AFTERMOVIE2024.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "usti-2024-ii",
+      "cs": "Vánoční koncert — Ústí nad Labem 2024 (II)",
+      "en": "Christmas concert — Ústí nad Labem 2024 (II)",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF AFTERMOVIE /Lenka Graf_Vanocni koncert_Usti.2024_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "euro-2024-hamburk",
+      "cs": "EURO 2024 — Hamburk s Michalem Dvořákem",
+      "en": "EURO 2024 — Hamburg with Michal Dvořák",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_HAMBURG_FOTBAL_DVORAK_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "decin",
+      "cs": "Koncert Děčín",
+      "en": "Děčín concert",
+      "rok": null,
+      "zdroj": "/Users/misak/Desktop/zasilka-WICK3ZK62ENC5X6N/Aftermovies/lenka _graf_aftermovie_decin.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "vanoce-nemecko",
+      "cs": "Vánoční koncert v Německu",
+      "en": "Christmas concert in Germany",
+      "rok": 2023,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_VANOCNIKONCERT_NEMECKO_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "dark-tenor-extended",
+      "cs": "Turné s The Dark Tenor",
+      "en": "Touring with The Dark Tenor",
+      "rok": 2023,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_DARK_TENOR_EXTENDED_AFTERMOVIE.mp4"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "dark-tenor",
+      "cs": "The Dark Tenor — sestřih",
+      "en": "The Dark Tenor — highlights",
+      "rok": 2023,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_DARK_TENOR_AFTERMOVIEMOV.MOV"
+    },
+    {
+      "kat": "aftermovies",
+      "id": "teaser-2026",
+      "cs": "Teaser 2026",
+      "en": "Teaser 2026",
+      "rok": 2026,
+      "zdroj": "LENKA GRAF AFTERMOVIE /LENKA_GRAF_TEASER_2026_FINAL.mp4",
+      "svisle": true
+    },
+    {
+      "kat": "aftermovies",
+      "id": "kridla-snu-euro-2024",
+      "cs": "Křídla snů na EURO 2024",
+      "en": "Křídla snů at EURO 2024",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2024-08-19 - Mou novou píseň Křídla snů jsem představila uprostřed atmosféry fotbalového mistrovství Evropy 2024! [g3d1T1-qijk].mp4",
+      "svisle": true
+    },
+    {
+      "kat": "aftermovies",
+      "id": "fotbalista-roku-everything",
+      "cs": "Everything Is Part Of One na Fotbalistovi roku",
+      "en": "Everything Is Part Of One at Footballer of the Year",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2024-08-12 - Vystoupení na akci Fotbalista roku 2023 s představením singlu Everything Is Part Of One. #lenkagraf [WiJB8xAdJow].mp4",
+      "svisle": true
+    },
+    {
+      "kat": "reportaze",
+      "id": "margita-o2-prima",
+      "cs": "Galakoncert Štefana Margity v O2 areně",
+      "en": "Štefan Margita gala at O2 arena",
+      "rok": 2026,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_MARGITAO2_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "zofin-reportaz",
+      "cs": "Adventní koncert — Žofín",
+      "en": "Advent concert — Žofín Palace",
+      "rok": null,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_ZOFIN_REPORTAZ.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "rozhovor-cnn-prima",
+      "cs": "Rozhovor pro CNN Prima News",
+      "en": "Interview for CNN Prima News",
+      "rok": null,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA _GRAF_REPORTÁŽ_PRIMA 2export.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "angelo-kelly-2025",
+      "cs": "S Angelem Kellym v Německu",
+      "en": "With Angelo Kelly in Germany",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_ANGELO_KELLY_NEMECKO2025..mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "il-divo-prima",
+      "cs": "Host koncertu Il Divo",
+      "en": "Guest of Il Divo",
+      "rok": 2025,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_ILDIVO_PRIMATV.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "sportovec-roku-2024",
+      "cs": "Sportovec roku 2024 s Kabáty",
+      "en": "Sportsperson of the Year 2024 with Kabát",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_SPORTOVEC_ROKU2024_KABAT_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "broadway-2024-prima",
+      "cs": "Vánoční koncert v divadle Broadway",
+      "en": "Christmas concert at Broadway Theatre",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_BROADWAY_KONCERT_2024_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "travnicek-nemecko-vanoce-2024",
+      "cs": "S Pavlem Trávníčkem v Německu",
+      "en": "With Pavel Trávníček in Germany",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_PAVEL_TRAVNICEK_VYSTOUPENIVNEMECKU_VANOCE2024_TVPRIMAmp4.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "travnicek-novy-den",
+      "cs": "S Pavlem Trávníčkem — Nový den",
+      "en": "With Pavel Trávníček — Nový den",
+      "rok": null,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_PAVEL TRAVNICEK_NEMECKO_FLASH NOVY DEN .mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "dvorak-euro-2024",
+      "cs": "S Michalem Dvořákem na EURO 2024",
+      "en": "With Michal Dvořák at EURO 2024",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_MICHAL_DVORAK_KONCERTNA EURO 2024_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "dvorak-kridla-snu",
+      "cs": "Michal Dvořák a Křídla snů",
+      "en": "Michal Dvořák and Křídla snů",
+      "rok": null,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_MICHALDVORAK_KRIDLASNU_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "duet-kolar",
+      "cs": "Duet s Petrem Kolářem",
+      "en": "Duet with Petr Kolář",
+      "rok": null,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_DUET_PETR_KOLAR_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "krest-alba",
+      "cs": "Křest alba",
+      "en": "Album launch",
+      "rok": null,
+      "zdroj": "LENKA GRAF REPORTÁŽE : ROZHOVORY/LENKA_GRAF_KREST_ALBA_TVPRIMA.mp4"
+    },
+    {
+      "kat": "reportaze",
+      "id": "extra-rozhovor-upoutavka",
+      "cs": "Rozhovor pro Extra.cz — upoutávka",
+      "en": "Extra.cz interview — teaser",
+      "rok": 2024,
+      "zdroj": "LENKA GRAF VIDEOKLIPY KOMPLET/videa mp4/2024-08-30 - Brzy se můžete těšit na můj rozhovor na @extra.cz, ve kterém jsme si povídali o životě v Americe.😎 [E2IL6G-851Y].mp4",
+      "svisle": true
+    }
+  ]
+}
