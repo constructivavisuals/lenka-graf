@@ -40,6 +40,7 @@
   "name": "Lenka Graf",
   "genre": ["Classical", "Crossover", "Opera"],
   "url": "https://lenkagraf.com/",
+  "sameAs": ["https://open.spotify.com/artist/7uiOdCDp8aOhCtjvSpaGuh", "https://music.apple.com/us/artist/lenka-graf/1300065549", "https://www.youtube.com/channel/UCkkjptIeEP-hgV7sv9nQdVg", "https://www.instagram.com/lenkagraf/", "https://www.facebook.com/lenka.graf.14"],
   "description": "Sopranistka, filantropka a zakladatelka nadace Energie pomáhá. Klasická opera × současný crossover.",
   "member": {
     "@type": "Person",
@@ -50,7 +51,16 @@
   "track": [
     { "@type": "MusicRecording", "name": "Křídla snů", "datePublished": "2026" },
     { "@type": "MusicRecording", "name": "Everything Is Part Of One", "datePublished": "2024" },
-    { "@type": "MusicRecording", "name": "I Dare", "datePublished": "2022" }
+    { "@type": "MusicRecording", "name": "You Are Not Alone", "datePublished": "2022" },
+    { "@type": "MusicRecording", "name": "I Dare", "datePublished": "2022" },
+    { "@type": "MusicRecording", "name": "Ave Maria", "datePublished": "2021" },
+    { "@type": "MusicRecording", "name": "Láska pouhá", "datePublished": "2021" },
+    { "@type": "MusicRecording", "name": "Vánoční přání", "datePublished": "2019" },
+    { "@type": "MusicRecording", "name": "Vánoční poselství", "datePublished": "2018" },
+    { "@type": "MusicRecording", "name": "Víru dej", "datePublished": "2017" },
+    { "@type": "MusicRecording", "name": "Mně sílu dáš", "datePublished": "2017" },
+    { "@type": "MusicRecording", "name": "Láska věčná", "datePublished": "2017" },
+    { "@type": "MusicRecording", "name": "Noc lásky mé", "datePublished": "2017" }
   ],
   "event": [
     { "@type": "MusicEvent", "name": "Popelčiny vánoční trhy — 2. ročník", "startDate": "2026-12-11T15:00+01:00", "eventStatus": "https://schema.org/EventScheduled", "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "location": { "@type": "Place", "name": "Zámek Zákupy", "address": { "@type": "PostalAddress", "addressLocality": "Zákupy", "addressCountry": "CZ" } }, "performer": { "@type": "Person", "name": "Lenka Graf" } },
@@ -205,6 +215,22 @@
   .mnav a{ font-family:var(--font); font-size:34px; letter-spacing:.03em; color:#ece7de; text-decoration:none; padding:12px; }
   .mnav a:active{ color:#d8b97a; }
   .mnav-close{ position:absolute; top:18px; right:26px; font-size:38px; line-height:1; background:none; border:0; color:#ece7de; cursor:pointer; }
+
+  /* jukebox: 12 skladeb v rolovacím okně (~4,5 řádku), dole jemně mizí */
+  .track-keys{ position:relative; max-height:236px; overflow-y:auto; padding-right:4px; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:rgba(216,185,122,.45) transparent;
+    -webkit-mask-image:linear-gradient(180deg,#000 82%,transparent); mask-image:linear-gradient(180deg,#000 82%,transparent); }
+  .track-keys::-webkit-scrollbar{ width:4px; }
+  .track-keys::-webkit-scrollbar-thumb{ background:rgba(216,185,122,.45); border-radius:4px; }
+  /* po 30s ukázce: ekvalizér se schová, odkaz na Spotify se rozsvítí */
+  .np-end{ display:none; margin-top:10px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#8a857c; }
+  .np-readout.is-ended #eq{ display:none !important; }   /* #eq má inline display:flex */
+  .np-readout.is-ended .np-end{ display:block; }
+  .np-spotify{ display:inline-flex; align-items:center; gap:7px; margin-top:9px; padding:5px 11px 5px 8px; border:1px solid rgba(29,185,84,.35); border-radius:40px;
+    font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#cfc8bb; text-decoration:none; transition:background .3s, border-color .3s, color .3s; }
+  .np-spotify svg{ width:14px; height:14px; fill:#1db954; flex-shrink:0; }
+  .np-spotify:hover{ border-color:#1db954; color:#fff; }
+  .np-readout.is-ended .np-spotify{ background:#1db954; border-color:#1db954; color:#07140b; font-weight:700; animation:glowPulse 1.8s ease-in-out infinite; }
+  .np-readout.is-ended .np-spotify svg{ fill:#07140b; }
 
   /* koncerty připravujeme — monogram ve svítivém kruhu (linka jako oblouk jukeboxu) */
   .soon-ring{ position:relative; width:112px; height:112px; border-radius:50%; display:flex; align-items:center; justify-content:center;
@@ -534,6 +560,7 @@
     /* rozmazání stínu širší než polovina hero dělá v Chromiu svislý šev přes fotku */
     .hero-vignette{ box-shadow:inset 0 0 110px rgba(0,0,0,.7) !important; }
     .cabinet{ padding:26px 22px !important; }
+    .cab-handle{ display:none !important; }   /* úchyty by na úzké skříni překryly seznam skladeb */
   }
   @media (max-width:420px){
     .hero-content h1{ font-size:clamp(38px,12vw,64px) !important; }
@@ -636,11 +663,11 @@
       <span data-i18n="hero.vtext" style="font-family:var(--font); font-size:11px; letter-spacing:.42em; text-transform:uppercase; color:#8a7e64;">Soprán · Crossover</span>
     </div>
     <div class="hero-side" style="position:absolute; right:32px; top:50%; transform:translateY(-50%); z-index:4; display:flex; flex-direction:column; gap:16px; align-items:center;">
-      <a href="#" style="font-family:var(--font); font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">IG</a>
+      <a href="https://www.instagram.com/lenkagraf/" target="_blank" rel="noopener" style="font-family:var(--font); font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">IG</a>
       <span style="width:1px; height:24px; background:rgba(216,185,122,.3);"></span>
-      <a href="#" style="font-family:var(--font); font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">YT</a>
+      <a href="https://www.youtube.com/channel/UCkkjptIeEP-hgV7sv9nQdVg" target="_blank" rel="noopener" style="font-family:var(--font); font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">YT</a>
       <span style="width:1px; height:24px; background:rgba(216,185,122,.3);"></span>
-      <a href="#" style="font-family:var(--font); font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">SP</a>
+      <a href="https://open.spotify.com/artist/7uiOdCDp8aOhCtjvSpaGuh" target="_blank" rel="noopener" style="font-family:var(--font); font-size:10px; letter-spacing:.1em; color:#8a7e64; text-decoration:none; writing-mode:vertical-rl;">SP</a>
     </div>
 
     <div class="hero-content" style="position:absolute; left:0; bottom:clamp(64px,9vh,120px); width:100%; z-index:3; padding:0 clamp(64px,8vw,120px);">
@@ -739,7 +766,7 @@
           <h2 data-i18n="music.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Hudba</h2>
         </div>
       </div>
-      <p data-reveal data-i18n="music.sub" style="margin-bottom:clamp(34px,4vw,52px); font-size:15px; color:#8a857c; max-width:44ch;">Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.</p>
+      <p data-reveal data-i18n="music.sub" style="margin-bottom:clamp(34px,4vw,52px); font-size:15px; color:#8a857c; max-width:44ch;">Dvanáct písní ve 30sekundových ukázkách přímo tady — celé nahrávky na Spotify.</p>
 
       <div style="display:flex; flex-wrap:wrap; gap:clamp(34px,5vw,72px); align-items:center; justify-content:center;">
         <!-- EDITORIAL -->
@@ -751,9 +778,9 @@
           <div style="margin-top:34px;">
             <div data-i18n="about.listen" style="font-family:var(--font); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6b665d; margin-bottom:14px;">Poslechnout také</div>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">
-              <a href="#" style="display:inline-flex; align-items:center; padding:9px 16px; border:1px solid rgba(216,185,122,.3); border-radius:40px; font-family:var(--font); font-size:11px; letter-spacing:.1em; color:#cfc8bb; text-decoration:none; transition:border-color .3s, color .3s;" style-hover="border-color:rgba(216,185,122,.7); color:#f0dcae">Spotify</a>
-              <a href="#" style="display:inline-flex; align-items:center; padding:9px 16px; border:1px solid rgba(216,185,122,.3); border-radius:40px; font-family:var(--font); font-size:11px; letter-spacing:.1em; color:#cfc8bb; text-decoration:none; transition:border-color .3s, color .3s;" style-hover="border-color:rgba(216,185,122,.7); color:#f0dcae">Apple Music</a>
-              <a href="#" style="display:inline-flex; align-items:center; padding:9px 16px; border:1px solid rgba(216,185,122,.3); border-radius:40px; font-family:var(--font); font-size:11px; letter-spacing:.1em; color:#cfc8bb; text-decoration:none; transition:border-color .3s, color .3s;" style-hover="border-color:rgba(216,185,122,.7); color:#f0dcae">YouTube</a>
+              <a href="https://open.spotify.com/artist/7uiOdCDp8aOhCtjvSpaGuh" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:9px 16px; border:1px solid rgba(216,185,122,.3); border-radius:40px; font-family:var(--font); font-size:11px; letter-spacing:.1em; color:#cfc8bb; text-decoration:none; transition:border-color .3s, color .3s;" style-hover="border-color:rgba(216,185,122,.7); color:#f0dcae">Spotify</a>
+              <a href="https://music.apple.com/us/artist/lenka-graf/1300065549" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:9px 16px; border:1px solid rgba(216,185,122,.3); border-radius:40px; font-family:var(--font); font-size:11px; letter-spacing:.1em; color:#cfc8bb; text-decoration:none; transition:border-color .3s, color .3s;" style-hover="border-color:rgba(216,185,122,.7); color:#f0dcae">Apple Music</a>
+              <a href="https://www.youtube.com/channel/UCkkjptIeEP-hgV7sv9nQdVg" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; padding:9px 16px; border:1px solid rgba(216,185,122,.3); border-radius:40px; font-family:var(--font); font-size:11px; letter-spacing:.1em; color:#cfc8bb; text-decoration:none; transition:border-color .3s, color .3s;" style-hover="border-color:rgba(216,185,122,.7); color:#f0dcae">YouTube</a>
             </div>
           </div>
         </div>
@@ -763,10 +790,10 @@
         <div style="position:absolute; inset:0; border-radius:210px 210px 20px 20px; background:repeating-linear-gradient(90deg, rgba(0,0,0,.16) 0 2px, rgba(255,255,255,.015) 2px 6px); pointer-events:none; opacity:.5;"></div>
         <div style="position:absolute; top:13px; left:17px; right:17px; bottom:22px; border:5px solid rgba(240,220,170,.92); border-bottom:none; border-radius:185px 185px 0 0; box-shadow:0 0 22px rgba(240,220,170,.5), inset 0 0 14px rgba(240,220,170,.4); animation:glowPulse 3.6s ease-in-out infinite; pointer-events:none;"></div>
         <div style="position:absolute; top:24px; left:29px; right:29px; bottom:22px; border:3px solid rgba(150,46,63,.85); border-bottom:none; border-radius:162px 162px 0 0; box-shadow:0 0 18px rgba(150,46,63,.55), inset 0 0 10px rgba(150,46,63,.4); animation:glowPulse 3.6s ease-in-out infinite .7s; pointer-events:none;"></div>
-        <div style="position:absolute; left:10px; top:50%; width:30px; height:64px; border-radius:7px; background:linear-gradient(90deg,#5a5048,#d2c9bb 45%,#7a7064); box-shadow:0 3px 8px rgba(0,0,0,.6); display:flex; flex-direction:column; justify-content:center; gap:5px; padding:0 6px; z-index:4;">
+        <div class="cab-handle" style="position:absolute; left:10px; top:50%; width:30px; height:64px; border-radius:7px; background:linear-gradient(90deg,#5a5048,#d2c9bb 45%,#7a7064); box-shadow:0 3px 8px rgba(0,0,0,.6); display:flex; flex-direction:column; justify-content:center; gap:5px; padding:0 6px; z-index:4;">
           <span style="height:4px; border-radius:3px; background:linear-gradient(90deg,#7e2a38,#c25767);"></span><span style="height:4px; border-radius:3px; background:linear-gradient(90deg,#7e2a38,#c25767);"></span><span style="height:4px; border-radius:3px; background:linear-gradient(90deg,#7e2a38,#c25767);"></span>
         </div>
-        <div style="position:absolute; right:10px; top:50%; width:30px; height:64px; border-radius:7px; background:linear-gradient(270deg,#5a5048,#d2c9bb 45%,#7a7064); box-shadow:0 3px 8px rgba(0,0,0,.6); display:flex; flex-direction:column; justify-content:center; gap:5px; padding:0 6px; z-index:4;">
+        <div class="cab-handle" style="position:absolute; right:10px; top:50%; width:30px; height:64px; border-radius:7px; background:linear-gradient(270deg,#5a5048,#d2c9bb 45%,#7a7064); box-shadow:0 3px 8px rgba(0,0,0,.6); display:flex; flex-direction:column; justify-content:center; gap:5px; padding:0 6px; z-index:4;">
           <span style="height:4px; border-radius:3px; background:linear-gradient(90deg,#c25767,#7e2a38);"></span><span style="height:4px; border-radius:3px; background:linear-gradient(90deg,#c25767,#7e2a38);"></span><span style="height:4px; border-radius:3px; background:linear-gradient(90deg,#c25767,#7e2a38);"></span>
         </div>
 
@@ -795,17 +822,19 @@
           </div>
 
           <!-- NOW PLAYING READOUT -->
-          <div style="position:relative; border-radius:10px; padding:11px 15px; background:linear-gradient(180deg,#1a130c,#0c0806); box-shadow:inset 0 0 0 1px rgba(216,185,122,.2), inset 0 4px 18px rgba(0,0,0,.8); overflow:hidden;">
+          <div id="npReadout" class="np-readout" style="position:relative; border-radius:10px; padding:11px 15px; background:linear-gradient(180deg,#1a130c,#0c0806); box-shadow:inset 0 0 0 1px rgba(216,185,122,.2), inset 0 4px 18px rgba(0,0,0,.8); overflow:hidden;">
             <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
               <span style="font-family:var(--font); font-size:10px; letter-spacing:.16em; color:#9a7c4a;"><span id="npCode">A-1</span> · NOW PLAYING</span>
               <span id="npSubtitle" style="font-family:var(--font); font-size:10px; letter-spacing:.04em; color:#8a857c;">Single · 2026</span>
             </div>
             <div id="npTitle" style="font-family:var(--font); font-size:clamp(17px,2.4vw,21px); color:#f0e8da; line-height:1.1; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Křídla snů</div>
             <div id="eq" style="display:flex; align-items:flex-end; gap:3px; height:24px; margin-top:10px;"></div>
+            <div class="np-end"><span data-i18n="music.ended">Konec ukázky</span></div>
+            <a id="npSpotify" class="np-spotify" href="https://open.spotify.com/track/3zZHHhP4cx1vaiHDmeUxUY" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 14.4a.62.62 0 0 1-.86.2c-2.35-1.43-5.3-1.76-8.79-.96a.62.62 0 1 1-.28-1.22c3.81-.87 7.09-.5 9.72 1.12.3.18.39.56.21.86zm1.22-2.72a.78.78 0 0 1-1.07.26c-2.69-1.65-6.79-2.13-9.97-1.17a.78.78 0 1 1-.45-1.49c3.63-1.1 8.15-.57 11.24 1.33.36.22.48.7.25 1.07zm.1-2.83C14.7 8.94 9.36 8.76 6.28 9.7a.94.94 0 1 1-.54-1.8c3.53-1.07 9.42-.86 13.13 1.34a.94.94 0 0 1-.96 1.61z"/></svg><span data-i18n="music.fullSpotify">Celá skladba na Spotify</span><span aria-hidden="true">↗</span></a>
           </div>
 
           <!-- SELECTOR KEYS -->
-          <div id="trackKeys" style="display:flex; flex-direction:column; gap:7px; margin-top:12px;"></div>
+          <div id="trackKeys" class="track-keys" style="display:flex; flex-direction:column; gap:6px; margin-top:12px;"></div>
 
           <!-- CHROME CONTROL STRIP -->
           <div style="margin-top:14px; border-radius:12px; padding:10px 14px; background:linear-gradient(180deg,#cfc6b8 0%,#8a8074 40%,#6f665b 60%,#a39a8c 100%); box-shadow:0 5px 14px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 3px rgba(0,0,0,.4);">
@@ -1106,11 +1135,11 @@
     </div>
     <div style="max-width:1180px; margin:clamp(54px,7vw,80px) auto 0; display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between; padding-top:30px; border-top:1px solid rgba(255,255,255,.07);">
       <div class="socials" style="display:flex; gap:24px; flex-wrap:wrap;">
-        <a href="#" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Instagram</a>
-        <a href="#" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Facebook</a>
-        <a href="#" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">YouTube</a>
-        <a href="#" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Spotify</a>
-        <a href="#" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Apple Music</a>
+        <a href="https://www.instagram.com/lenkagraf/" target="_blank" rel="noopener" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Instagram</a>
+        <a href="https://www.facebook.com/lenka.graf.14" target="_blank" rel="noopener" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Facebook</a>
+        <a href="https://www.youtube.com/channel/UCkkjptIeEP-hgV7sv9nQdVg" target="_blank" rel="noopener" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">YouTube</a>
+        <a href="https://open.spotify.com/artist/7uiOdCDp8aOhCtjvSpaGuh" target="_blank" rel="noopener" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Spotify</a>
+        <a href="https://music.apple.com/us/artist/lenka-graf/1300065549" target="_blank" rel="noopener" style="font-family:var(--font); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#8a857c; text-decoration:none;">Apple Music</a>
       </div>
       <span style="font-family:var(--font); font-size:11px; color:#5c574f;">© 2026 · Demo — Constructiva Visuals</span>
     </div>
@@ -1170,14 +1199,26 @@
   function onScrollJob(fn){ scrollJobs.push(fn); }
   function onMeasureJob(fn){ measureJobs.push(fn); }
 
+  // 30s ukázky z oficiálního YouTube kanálu (se svolením), celé skladby na Spotify;
+  // „Noc lásky mé“ na Spotify není → odkaz na profil interpretky
+  var SPOTIFY_ARTIST = 'https://open.spotify.com/artist/7uiOdCDp8aOhCtjvSpaGuh';
   var TRACKS = [
-    { code:'A-1', title:'Křídla snů', subtitle:'Single · 2026', src:'assets/track-kridla-snu.mp3', cover:null },
-    { code:'A-2', title:'Everything Is Part Of One', subtitle:'Crossover · 2024', src:'assets/track-everything.mp3', cover:null },
-    { code:'A-3', title:'I Dare', subtitle:'Single · 2022', src:'assets/track-i-dare.mp3', cover:'assets/cover-i-dare.jpg' }
+    { code:'A-1', title:'Křídla snů', subtitle:'feat. Jodok Cello · 2026', src:'assets/audio/01-kridla-snu.mp3', cover:null, spotify:'https://open.spotify.com/track/3zZHHhP4cx1vaiHDmeUxUY' },
+    { code:'A-2', title:'Everything Is Part Of One', subtitle:'Single · 2024', src:'assets/audio/02-everything-is-part-of-one.mp3', cover:null, spotify:'https://open.spotify.com/track/2lRd4i6CpOZ78NOJsvni03' },
+    { code:'A-3', title:'You Are Not Alone', subtitle:'feat. The Dark Tenor & Eklipse · 2022', src:'assets/audio/03-you-are-not-alone.mp3', cover:null, spotify:'https://open.spotify.com/track/6C00MWSD1eFMa1t0ChCz34' },
+    { code:'A-4', title:'I Dare', subtitle:'Single · 2022', src:'assets/audio/04-i-dare.mp3', cover:'assets/cover-i-dare.jpg', spotify:'https://open.spotify.com/track/4QRsZa635CKdg9IfVnjJ2i' },
+    { code:'A-5', title:'Ave Maria', subtitle:'feat. Jaroslav Svěcený · 2021', src:'assets/audio/05-ave-maria.mp3', cover:null, spotify:'https://open.spotify.com/track/3qTavFrQAvvtRtxR1LoD1A' },
+    { code:'A-6', title:'Láska pouhá', subtitle:'Single · 2021', src:'assets/audio/06-laska-pouha.mp3', cover:null, spotify:'https://open.spotify.com/track/71UfbWQclk7dXdD8WGZpGg' },
+    { code:'B-1', title:'Vánoční přání', subtitle:'Vánoční poselství · 2019', src:'assets/audio/07-vanocni-prani.mp3', cover:null, spotify:'https://open.spotify.com/track/1B8pueYHmbLpnv8y8VZNPd' },
+    { code:'B-2', title:'Vánoční poselství', subtitle:'feat. Vašo Patejdl · 2018', src:'assets/audio/08-vanocni-poselstvi.mp3', cover:null, spotify:'https://open.spotify.com/track/62T7Vwp2xmNcE0nmg0lbiE' },
+    { code:'B-3', title:'Víru dej', subtitle:'Láska věčná · 2017', src:'assets/audio/09-viru-dej.mp3', cover:null, spotify:'https://open.spotify.com/track/1o9kGd43J5hWOyw1KAlBOy' },
+    { code:'B-4', title:'Mně sílu dáš', subtitle:'Láska věčná · 2017', src:'assets/audio/10-mne-silu-das.mp3', cover:null, spotify:'https://open.spotify.com/track/235fcrFPU2mlqferYYtGs9' },
+    { code:'B-5', title:'Láska věčná', subtitle:'Láska věčná · 2017', src:'assets/audio/11-laska-vecna.mp3', cover:null, spotify:'https://open.spotify.com/track/0QmnD4XMyzn1HR1xWdkSRP' },
+    { code:'B-6', title:'Noc lásky mé', subtitle:'Single · 2017', src:'assets/audio/12-noc-lasky-me.mp3', cover:null, spotify:'https://open.spotify.com/artist/7uiOdCDp8aOhCtjvSpaGuh' }
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.sub':'Vyberte skladbu a pusťte si ji přímo zde — tři nahrávky, jeden dotek.','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','hero.nextGigs':'Nejbližší koncerty','mo.1':'led','mo.2':'úno','mo.3':'bře','mo.4':'dub','mo.5':'kvě','mo.6':'čvn','mo.7':'čvc','mo.8':'srp','mo.9':'zář','mo.10':'říj','mo.11':'lis','mo.12':'pro','hero.moreGigs':'Více o termínech','press.mediaKick':'Z médií','press.mediaTitle':'Rozhovory','press.mediaBody':'Přes sto článků, rozhovorů a reportáží z let 2017–2026 — od Blesku po Harper’s Bazaar.','press.mediaCta':'Rozhovory','shows.note':'Další termíny průběžně doplňujeme.','shows.start':'Začátek','shows.map':'Mapa','shows.m12':'Prosinec 2026','shows.fri':'Pátek','shows.sun':'Neděle','shows.tue':'Úterý','shows.wed':'Středa','show1.venue':'Zámek Zákupy','show1.city':'Zákupy','show1.desc':'2. ročník Popelčiných vánočních trhů','show2.venue':'Palác Žofín','show2.city':'Praha','show2.desc':'Hvězdy Vánoc V. — vánoční galakoncert v doprovodu Orchestru Karla Vlacha','show3.venue':'Městské divadlo','show3.city':'Jablonec nad Nisou','show3.desc':'Vánoční talkshow Pavla Trávníčka','show4.venue':'Břevnovský klášter — Tereziánský sál','show4.short':'Břevnovský klášter','show4.city':'Praha','show4.desc':'Host vánočního recitálu Leony Machálkové v doprovodu pianisty','video.all':'Celá videografie','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.sub':'Dvanáct písní ve 30sekundových ukázkách přímo tady — celé nahrávky na Spotify.','music.ended':'Konec ukázky','music.fullSpotify':'Celá skladba na Spotify','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','hero.nextGigs':'Nejbližší koncerty','mo.1':'led','mo.2':'úno','mo.3':'bře','mo.4':'dub','mo.5':'kvě','mo.6':'čvn','mo.7':'čvc','mo.8':'srp','mo.9':'zář','mo.10':'říj','mo.11':'lis','mo.12':'pro','hero.moreGigs':'Více o termínech','press.mediaKick':'Z médií','press.mediaTitle':'Rozhovory','press.mediaBody':'Přes sto článků, rozhovorů a reportáží z let 2017–2026 — od Blesku po Harper’s Bazaar.','press.mediaCta':'Rozhovory','shows.note':'Další termíny průběžně doplňujeme.','shows.start':'Začátek','shows.map':'Mapa','shows.m12':'Prosinec 2026','shows.fri':'Pátek','shows.sun':'Neděle','shows.tue':'Úterý','shows.wed':'Středa','show1.venue':'Zámek Zákupy','show1.city':'Zákupy','show1.desc':'2. ročník Popelčiných vánočních trhů','show2.venue':'Palác Žofín','show2.city':'Praha','show2.desc':'Hvězdy Vánoc V. — vánoční galakoncert v doprovodu Orchestru Karla Vlacha','show3.venue':'Městské divadlo','show3.city':'Jablonec nad Nisou','show3.desc':'Vánoční talkshow Pavla Trávníčka','show4.venue':'Břevnovský klášter — Tereziánský sál','show4.short':'Břevnovský klášter','show4.city':'Praha','show4.desc':'Host vánočního recitálu Leony Machálkové v doprovodu pianisty','video.all':'Celá videografie','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
           'nav.video':'Videografie','nav.shop':'E-shop',
           'nav.about':'O Lence','nav.press':'Press','about.title':'O Lence','about.role':'Sopranistka · Filantropka','about.lead':'Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.','about.p2':'Založila Nadační fond Energie pomáhá, který kromě podpory konkrétních dobročinných projektů vytvořil unikátní vzdělávací program Energetická Expedice zaměřený na energetickou gramotnost žáků základních škol.','about.p3':'Středobodem života pro Lenku vždy byla a je rodina. Je maminkou dvou dospělých dětí a její rodičovská zkušenost se přirozeně protíná s původně vystudovanou pedagogickou profesí. Mimo jiné i proto se na podporu dětí a jejich vzdělávání zaměřila ve své dlouhodobé charitativní práci.','about.p4':'Žije mezi Českem a Floridou. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Čerpá energii setkáváním s rodinou a přáteli, sportem, cvičením jógy a jak jinak než opět hudbou a zpěvem. Nejoblíbenější formou meditace ke zklidnění těla a mysli je relaxační hudba s křišťálovými mísami doprovázená zpěvem. Mezi její koníčky patří také móda. V nádherných róbách se nezapře vytříbený cit pro eleganci a šarm operní divy.','about.career':'Kariéra','about.careerSub':'Milníky','about.more':'Zobrazit celou kariéru','about.less':'Zobrazit méně','ph.press':'Tisková fotografie','music.title':'Hudba','music.kicker':'Tvorba','music.body':'Od debutového alba Láska věčná, které propojilo operní zpěv s popem, přes spolupráce s Charliem Midnightem a držitelem Grammy Johnem Shanksem až po nejnovější singl Křídla snů s Michalem Dvořákem — Lenčina tvorba spojuje klasiku se současností.','found.kicker':'Nadační fond','found.lead':'Nadační fond Energie pomáhá založila Lenka Graf v roce 2017 s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad. Zaměřuje se především na děti, jejich zdravý rozvoj, vzdělávání a smysluplné kulturní a dobročinné projekty.','found.p2':'Postupně se stěžejním tématem fondu stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě. Energetická Expedice, dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol, získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.','found.s1':'založení fondu','found.s2':'škol zapojených do Energetické Expedice','found.s3':'měsíce interaktivního programu','found.s4':'záštity — MŠMT, MPO a prezident ČR','found.gallery':'Z projektů fondu','found.cta':'Více o fondu','press.sub':'Materiály pro média — fotografie ve vysokém rozlišení a profesní životopis Lenky Graf.','press.gallery':'Fotogalerie','press.gallerySub':'Ve vysokém rozlišení','press.kick':'Pro novináře','press.cvTitle':'CV pro novináře','press.cvBody':'Stručný profesní životopis — vzdělání, kariéra, významné spolupráce a nadační činnost.','press.f1':'Sopranistka a filantropka','press.f2':'Zakladatelka NF Energie pomáhá (2017)','press.f3':'Žije mezi Českem a Floridou','press.cv':'Stáhnout CV (PDF)','press.photos':'Stáhnout fotografie (ZIP)','press.soon':'Soubory ke stažení připravujeme.','cl1':'Vzdělání','c1':'Vystudovala obor bohemistika a hudba na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem. Hudební vzdělání dále rozvíjela na pražské HAMU a ve studiu zpěvu pokračovala také v USA, mimo jiné na State College of Florida pod vedením Melodie Dickerson.','cl2':'2017','c2':'V roce 2017 vydala debutové album Láska věčná, na němž propojila operní zpěv s popem. Na něj navázala dalšími nahrávkami včetně alba Vánoční poselství. Se zpěvákem Petrem Kolářem natočila romantický duet Nechme lásku plout.','cl3':'Spolupráce','c3':'Spolupracovala s mezinárodně uznávanými autory a producenty. Charlie Midnight pro ni napsal píseň You Are Not Alone, podílel se také na skladbě I Dare. Singl Everything Is Part Of One je dílo Johna Shankse, držitele Grammy a producenta řady světových hudebních hvězd.','cl4':'Turné','c4':'Jako host absolvovala německé turné s crossoverovým interpretem The Dark Tenor, s nímž také vystoupila s duetem své písně You Are Not Alone.','cl5':'2023','c5':'V prosinci 2023 vystoupila jako první česká zpěvačka na tradičním adventním koncertu v Drážďanech. S legendárním pěveckým sborem Dresdner Kreuzchor zpívala před téměř 28 tisíci diváky na vyprodaném stadionu koledu Narodil se Kristus pán v češtině a němčině.','cl6':'2025','c6':'V červnu 2025 byla speciálním hostem pražského koncertu slavné crossover skupiny Il Divo v O2 Universu.','cl7':'Benefice','c7':'Pravidelně se objevuje na adventních a benefičních koncertech po boku osobností české hudební scény, například Štefana Margity, Pavla Šporcla, Daniela Hůlky, Olgy Lounové a dalších.','cl8':'Každoročně','c8':'Každoročně pořádá vlastní adventní benefiční koncerty se známým dívčím smyčcovým triem Inflagranti.','cl9':'2025','c9':'V roce 2025 navázala výraznou spolupráci s Michalem Dvořákem ze skupiny Lucie. Aktuálně nejnovější píseň Křídla snů, inspirovaná Dvořákovou symfonií Z Nového světa, propojuje českou klasiku se současným crossoverovým aranžem a symbolicky se vrací k tématu domova. Cellové sólo k písni nahrál věhlasný švýcarský cellista Jodok Vuille, známý také jako influencer Jodok Cello s téměř 7 miliony fanoušků na sociálních sítích.','cl10':'2026','c10':'V květnu 2026 vystoupila v pražské O2 areně jako host jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF Prague Philharmonia.',
           'video.title':'Videografie','video.watch':'Přehrát video','video.more':'Další videa','klip.kick':'Videoklip',
@@ -1187,7 +1228,7 @@
           'rep.kick':'Reportáž',
           'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
           'video.soon':'Připravujeme' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.sub':'Pick a track and play it right here — three recordings, one touch.','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','hero.nextGigs':'Upcoming concerts','mo.1':'Jan','mo.2':'Feb','mo.3':'Mar','mo.4':'Apr','mo.5':'May','mo.6':'Jun','mo.7':'Jul','mo.8':'Aug','mo.9':'Sep','mo.10':'Oct','mo.11':'Nov','mo.12':'Dec','hero.moreGigs':'More dates','press.mediaKick':'In the media','press.mediaTitle':'Interviews','press.mediaBody':'Over a hundred articles, interviews and features from 2017–2026 — from Blesk to Harper’s Bazaar.','press.mediaCta':'Interviews','shows.note':'More dates will be added as they are confirmed.','shows.start':'Starts','shows.map':'Map','shows.m12':'December 2026','shows.fri':'Friday','shows.sun':'Sunday','shows.tue':'Tuesday','shows.wed':'Wednesday','show1.venue':'Zákupy Castle','show1.city':'Zákupy','show1.desc':'Cinderella’s Christmas Market — 2nd edition','show2.venue':'Žofín Palace','show2.city':'Prague','show2.desc':'Stars of Christmas V — Christmas gala concert with the Karel Vlach Orchestra','show3.venue':'Municipal Theatre','show3.city':'Jablonec nad Nisou','show3.desc':'Pavel Trávníček’s Christmas talk show','show4.venue':'Břevnov Monastery — Theresian Hall','show4.short':'Břevnov Monastery','show4.city':'Prague','show4.desc':'Guest at Leona Machálková’s Christmas recital with piano accompaniment','video.all':'Full videography','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.sub':'Twelve songs as 30-second previews right here — full recordings on Spotify.','music.ended':'End of preview','music.fullSpotify':'Full song on Spotify','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','hero.nextGigs':'Upcoming concerts','mo.1':'Jan','mo.2':'Feb','mo.3':'Mar','mo.4':'Apr','mo.5':'May','mo.6':'Jun','mo.7':'Jul','mo.8':'Aug','mo.9':'Sep','mo.10':'Oct','mo.11':'Nov','mo.12':'Dec','hero.moreGigs':'More dates','press.mediaKick':'In the media','press.mediaTitle':'Interviews','press.mediaBody':'Over a hundred articles, interviews and features from 2017–2026 — from Blesk to Harper’s Bazaar.','press.mediaCta':'Interviews','shows.note':'More dates will be added as they are confirmed.','shows.start':'Starts','shows.map':'Map','shows.m12':'December 2026','shows.fri':'Friday','shows.sun':'Sunday','shows.tue':'Tuesday','shows.wed':'Wednesday','show1.venue':'Zákupy Castle','show1.city':'Zákupy','show1.desc':'Cinderella’s Christmas Market — 2nd edition','show2.venue':'Žofín Palace','show2.city':'Prague','show2.desc':'Stars of Christmas V — Christmas gala concert with the Karel Vlach Orchestra','show3.venue':'Municipal Theatre','show3.city':'Jablonec nad Nisou','show3.desc':'Pavel Trávníček’s Christmas talk show','show4.venue':'Břevnov Monastery — Theresian Hall','show4.short':'Břevnov Monastery','show4.city':'Prague','show4.desc':'Guest at Leona Machálková’s Christmas recital with piano accompaniment','video.all':'Full videography','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
           'nav.video':'Videography','nav.shop':'E-shop',
           'nav.about':'About Lenka','nav.press':'Press','about.title':'About Lenka','about.role':'Soprano · Philanthropist','about.lead':'Lenka Graf is a soprano and philanthropist. Over the course of her singing career she has become an icon of the Czech crossover scene, with collaborations with renowned music producers and many performances at home and abroad. Classical music has never felt “serious” to her — she has loved it since childhood and enjoys finding new ways to bring its beauty to a wider audience.','about.p2':'She founded the Energie pomáhá foundation, which, besides supporting specific charitable projects, has created Energetická Expedice (Energy Expedition), a unique educational programme focused on energy literacy for primary school pupils.','about.p3':'Family has always been at the heart of Lenka’s life. She is the mother of two grown-up children, and her experience as a parent naturally meets her original training as a teacher. That is one of the reasons why her long-term charitable work focuses on supporting children and their education.','about.p4':'She lives between the Czech Republic and Florida. Two homes mean a double source of inspiration and a valuable sense of perspective. She draws energy from time with family and friends, from sport and yoga — and, of course, from music and singing. Her favourite form of meditation to calm body and mind is relaxation music with crystal singing bowls accompanied by voice. Fashion is another of her passions: in her beautiful gowns, her refined sense of elegance and the charm of an opera diva are unmistakable.','about.career':'Career','about.careerSub':'Milestones','about.more':'Show full career','about.less':'Show less','ph.press':'Press photo','music.title':'Music','music.kicker':'The music','music.body':'From her debut album Láska věčná, which blended operatic singing with pop, through collaborations with Charlie Midnight and Grammy winner John Shanks, to her latest single Křídla snů with Michal Dvořák — Lenka’s music connects the classical with the contemporary.','found.kicker':'Foundation','found.lead':'Lenka Graf founded the Energie pomáhá foundation in 2017 with the mission of helping where support can have a lasting impact. It focuses above all on children — their healthy development, education and meaningful cultural and charitable projects.','found.p2':'Over time, energy literacy — one of the key skills for life in the modern world — has become the foundation’s central theme. Energetická Expedice (Energy Expedition), a comprehensive two-month interactive educational programme for lower secondary school pupils, has received the patronage of the Ministry of Education, Youth and Sports, the Ministry of Industry and Trade and the President of the Czech Republic. 250 schools have already taken part.','found.s1':'foundation established','found.s2':'schools in the Energy Expedition','found.s3':'months of interactive learning','found.s4':'patronages — two ministries and the President','found.gallery':'From the foundation’s projects','found.cta':'More about the foundation','press.sub':'Media resources — high-resolution photos and Lenka Graf’s professional biography.','press.gallery':'Photo gallery','press.gallerySub':'High resolution','press.kick':'For journalists','press.cvTitle':'Press CV','press.cvBody':'A concise professional biography — education, career, key collaborations and charitable work.','press.f1':'Soprano and philanthropist','press.f2':'Founder of the Energie pomáhá foundation (2017)','press.f3':'Lives between the Czech Republic and Florida','press.cv':'Download CV (PDF)','press.photos':'Download photos (ZIP)','press.soon':'Downloads coming soon.','cl1':'Education','c1':'She studied Czech studies and music at the Faculty of Education of Jan Evangelista Purkyně University in Ústí nad Labem. She went on to develop her musical education at the Academy of Performing Arts in Prague (HAMU) and continued her vocal studies in the USA, including at State College of Florida under Melodie Dickerson.','cl2':'2017','c2':'In 2017 she released her debut album Láska věčná (Eternal Love), blending operatic singing with pop. Further recordings followed, including the album Vánoční poselství (Christmas Message). With singer Petr Kolář she recorded the romantic duet Nechme lásku plout.','cl3':'Collaborations','c3':'She has worked with internationally acclaimed songwriters and producers. Charlie Midnight wrote the song You Are Not Alone for her and also contributed to I Dare. The single Everything Is Part Of One is the work of John Shanks, a Grammy winner and producer for many international stars.','cl4':'Tour','c4':'As a guest she toured Germany with crossover artist The Dark Tenor, performing her song You Are Not Alone with him as a duet.','cl5':'2023','c5':'In December 2023 she became the first Czech singer to perform at the traditional Advent concert in Dresden. With the legendary Dresdner Kreuzchor she sang the carol Narodil se Kristus pán in Czech and German to almost 28,000 people in a sold-out stadium.','cl6':'2025','c6':'In June 2025 she was a special guest at the Prague concert of the famous crossover group Il Divo at O2 Universum.','cl7':'Benefits','c7':'She regularly appears at Advent and benefit concerts alongside leading figures of the Czech music scene, such as Štefan Margita, Pavel Šporcl, Daniel Hůlka, Olga Lounová and others.','cl8':'Every year','c8':'Every year she hosts her own Advent benefit concerts with the well-known female string trio Inflagranti.','cl9':'2025','c9':'In 2025 she began a significant collaboration with Michal Dvořák of the band Lucie. Her latest song, Křídla snů (Wings of Dreams), inspired by Dvořák’s Symphony From the New World, combines Czech classical music with a contemporary crossover arrangement and symbolically returns to the theme of home. The cello solo was recorded by renowned Swiss cellist Jodok Vuille, also known as the influencer Jodok Cello with almost 7 million followers on social media.','cl10':'2026','c10':'In May 2026 she performed at Prague’s O2 arena as a guest at Štefan Margita’s gala concert celebrating his 70th birthday, accompanied by the PKF Prague Philharmonia.',
           'video.title':'Videography','video.watch':'Watch here','video.more':'More videos','klip.kick':'Music video',
@@ -1206,7 +1247,7 @@
   audio.preload = 'metadata';
   audio.addEventListener('timeupdate', function(){ state.time = audio.currentTime; if(audio.duration) state.dur = audio.duration; renderProgress(); });
   audio.addEventListener('loadedmetadata', function(){ state.dur = audio.duration; renderProgress(); });
-  audio.addEventListener('ended', function(){ next(); });
+  audio.addEventListener('ended', function(){ state.playing=false; applyMachine(false); state.time=state.dur; renderProgress(); $('npReadout').classList.add('is-ended'); });
   audio.addEventListener('error', function(){});
   // stopy a jejich délky se načtou až po načtení stránky (v klidu), ať nebrzdí úvod
   var audioInit=false;
@@ -1245,8 +1286,8 @@
       var codeBg = on?'#d8b97a':'rgba(216,185,122,.08)';
       var codeBorder = on?'#d8b97a':'rgba(216,185,122,.3)';
       var titleColor = on?'#f5f1ea':'#cfc8bb';
-      html+='<button data-i="'+i+'" style="display:flex; align-items:center; gap:14px; width:100%; text-align:left; background:'+bg+'; border:1px solid '+border+'; border-radius:9px; padding:9px 12px; cursor:pointer; transition:background .3s, border-color .3s;">'+
-        '<span style="font-family:var(--font); font-size:13px; font-weight:700; letter-spacing:.05em; color:'+codeColor+'; background:'+codeBg+'; border:1px solid '+codeBorder+'; border-radius:6px; padding:6px 9px; flex-shrink:0;">'+t.code+'</span>'+
+      html+='<button data-i="'+i+'"'+(on?' aria-current="true"':'')+' style="display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:'+bg+'; border:1px solid '+border+'; border-radius:9px; padding:7px 11px; cursor:pointer; transition:background .3s, border-color .3s;">'+
+        '<span style="font-family:var(--font); font-size:12px; font-weight:700; letter-spacing:.05em; color:'+codeColor+'; background:'+codeBg+'; border:1px solid '+codeBorder+'; border-radius:6px; padding:5px 8px; flex-shrink:0;">'+t.code+'</span>'+
         '<span style="flex:1; min-width:0;">'+
           '<span style="display:block; font-family:var(--font); font-size:15px; color:'+titleColor+'; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">'+t.title+'</span>'+
           '<span style="display:block; font-family:var(--font); font-size:10px; letter-spacing:.04em; color:#8a857c; margin-top:2px;">'+t.subtitle+'</span>'+
@@ -1255,6 +1296,9 @@
       '</button>';
     });
     box.innerHTML=html;
+    // aktuální skladbu posunout do viditelné části seznamu (jen uvnitř něj, stránka se nehne)
+    var curBtn=box.querySelector('[aria-current]');
+    if(curBtn && (curBtn.offsetTop < box.scrollTop || curBtn.offsetTop+curBtn.offsetHeight > box.scrollTop+box.clientHeight)) box.scrollTop=curBtn.offsetTop-6;
     Array.prototype.forEach.call(box.querySelectorAll('button'), function(b){
       b.addEventListener('click', function(){ selectTrack(+b.getAttribute('data-i')); });
     });
@@ -1271,6 +1315,8 @@
     $('npSubtitle').textContent=cur.subtitle;
     $('npTitle').textContent=cur.title;
     $('npPillTitle').textContent=cur.title;
+    $('npSpotify').href=cur.spotify;
+    $('npReadout').classList.remove('is-ended');
     var img=$('coverImg'), mono=$('coverMono');
     if(cur.cover){ img.src=cur.cover; img.style.display='block'; mono.style.display='none'; }
     else { img.style.display='none'; mono.style.display='block'; }
@@ -1315,6 +1361,7 @@
   function prev(){ selectTrack((state.current-1+TRACKS.length)%TRACKS.length); }
   function togglePlay(){
     initAudio();
+    $('npReadout').classList.remove('is-ended');
     if(state.playing){ audio.pause(); state.playing=false; applyMachine(false); }
     else { audio.play().catch(function(){}); state.playing=true; applyMachine(true); startLoop(); }
   }
@@ -1599,7 +1646,7 @@
       return;
     }
 
-    if(e.key==='1'){ selectTrack(0); } else if(e.key==='2'){ selectTrack(1); } else if(e.key==='3'){ selectTrack(2); }
+    if(/^[1-9]$/.test(e.key) && +e.key<=TRACKS.length && !/INPUT|TEXTAREA/.test((document.activeElement||{}).tagName||'')){ selectTrack(+e.key-1); }
     else if(e.key==='Escape'){ mnav.classList.remove('open'); }
   });
 
