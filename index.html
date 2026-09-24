@@ -134,7 +134,7 @@
   /* hero: nadcházející koncerty — karta nad jménem, přesně na šířku nápisu Lenka Graf
      (width:0 + min-width:100% = karta se roztáhne na šířku bloku, ale sama ho nerozšíří; na mobilu aspoň 340 px) */
   .hero-head{ display:inline-flex; flex-direction:column; min-width:min(100%, 340px); max-width:100%; }
-  .hero-gig{ display:block; box-sizing:border-box; width:0; min-width:100%; margin-bottom:clamp(20px,3vh,30px); padding:10px 16px 11px; container-type:inline-size;
+  .hero-gig{ display:block; box-sizing:border-box; width:0; min-width:100%; margin-bottom:clamp(30px,5.5vh,64px); padding:10px 18px 6px; container-type:inline-size;
     border:1px solid rgba(216,185,122,.3); border-radius:14px; background:rgba(12,10,8,.62); box-shadow:0 24px 60px -24px rgba(0,0,0,.8);
     color:#f0e8da; text-decoration:none; transition:border-color .35s, background .35s; }
   .hero-gig[hidden]{ display:none; }
@@ -146,28 +146,22 @@
   .hero-gig:hover .hero-gig-cta{ color:#d8b97a; }
   .hero-gig-arrow{ transition:transform .35s ease; }
   .hero-gig:hover .hero-gig-arrow{ transform:translateX(4px); }
-  /* velká varianta: 2 × 2 dlaždice — datum nahoře, místo dole; výška roste s oknem, takže karta
-     vyplní prostor nad jménem (≈ výška okna − 560 px na obě řady), ale nikdy nevyjede pod navigaci */
-  .hero-gig-list{ display:grid; grid-template-columns:repeat(var(--n2,2), minmax(0,1fr)); margin-top:10px; border-top:1px solid rgba(255,255,255,.08); }
-  .hg-item{ display:flex; flex-direction:column; justify-content:space-between; gap:12px; min-height:max(120px, min(calc((100vh - 560px) / 2), 55cqw));   /* cqw = šířka karty: na úzké kartě (tablet) nevzniknou vysoké nudle */
-    padding:clamp(14px,2.2vh,26px) clamp(14px,1.6vw,24px); border-left:1px solid rgba(216,185,122,.16); }
-  .hg-item:nth-child(odd){ padding-left:0; border-left:0; }
-  .hg-item:nth-child(n+3){ border-top:1px solid rgba(216,185,122,.16); }
-  .hg-date{ display:flex; flex-direction:column; gap:6px; }
-  .hg-date b{ font-weight:500; font-size:clamp(40px,6vh,84px); line-height:.9; color:#f0dcae; text-shadow:0 0 26px rgba(216,185,122,.25); font-variant-numeric:tabular-nums; }
-  .hg-date span{ font-size:clamp(10px,1.1vh,13px); letter-spacing:.22em; text-transform:uppercase; color:#8a857c; }
-  .hg-venue{ display:block; font-size:clamp(15px,2vh,24px); line-height:1.25; color:#f5f1ea; }
-  /* nízké okno (notebook, na šířku): kompaktní řádek 4 koncertů jako dřív */
+  /* seznam pod sebou: velké datum vlevo, místo vpravo; výška řádků roste s oknem, takže karta vyplní
+     prostor nad jménem (≈ (výška okna − 620 px) / 4 na řádek), na úzké kartě ji brzdí šířka (cqw) */
+  .hero-gig-list{ display:block; margin-top:10px; border-top:1px solid rgba(255,255,255,.08); }
+  .hg-item{ display:grid; grid-template-columns:minmax(92px,24%) minmax(0,1fr); align-items:center; column-gap:clamp(14px,2vw,28px);
+    min-height:max(58px, min(calc((100vh - 620px) / 4), 26cqw)); padding:8px 0; border-top:1px solid rgba(216,185,122,.14); }
+  .hg-item:first-child{ border-top:0; }
+  .hg-date{ display:flex; align-items:baseline; gap:8px; }
+  .hg-date b{ font-weight:500; font-size:clamp(30px,4.6vh,58px); line-height:1; color:#f0dcae; text-shadow:0 0 26px rgba(216,185,122,.25); font-variant-numeric:tabular-nums; }
+  .hg-date span{ font-size:clamp(9.5px,1.05vh,12px); letter-spacing:.22em; text-transform:uppercase; color:#8a857c; }
+  .hg-venue{ display:block; font-size:clamp(16px,2.3vh,26px); line-height:1.25; color:#f5f1ea; }
+  /* nízké okno (notebook na šířku): stejný seznam, jen těsnější */
   @media (max-height:760px){
-    .hero-gig-list{ grid-template-columns:repeat(var(--n,4), minmax(0,1fr)); row-gap:10px; margin-top:8px; padding-top:9px; }
-    .hg-item{ min-height:0; padding:0 12px; gap:3px; justify-content:flex-start; }
-    .hg-item:nth-child(odd){ padding-left:12px; border-left:1px solid rgba(216,185,122,.16); }
-    .hg-item:nth-child(4n+1){ padding-left:0; border-left:0; }
-    .hg-item:nth-child(n+3){ border-top:0; }
-    .hg-date{ flex-direction:row; align-items:baseline; gap:5px; }
-    .hg-date b{ font-size:18px; text-shadow:none; }
+    .hg-item{ min-height:0; padding:7px 0; grid-template-columns:78px minmax(0,1fr); }
+    .hg-date b{ font-size:24px; text-shadow:none; }
     .hg-date span{ font-size:9px; letter-spacing:.16em; }
-    .hg-venue{ font-size:12.5px; line-height:1.3; }
+    .hg-venue{ font-size:15px; }
   }
   @keyframes sideIn{ from{ opacity:0; } to{ opacity:1; } }
   /* zlaté CTA — jednotný hover glow */
@@ -1446,7 +1440,6 @@
         heroGigList.appendChild(item);
       });
       heroGigList.style.setProperty('--n', Math.min(gigs.length, 4));
-      heroGigList.style.setProperty('--n2', Math.min(gigs.length, 2));
       heroGig.hidden=false;
     }
   }
