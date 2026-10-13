@@ -157,12 +157,23 @@
   .hg-date span{ font-size:clamp(9.5px,1.05vh,12px); letter-spacing:.22em; text-transform:uppercase; color:#8a857c; }
   .hg-venue{ display:block; font-size:clamp(16px,2.3vh,26px); line-height:1.25; color:#f5f1ea; }
   /* nízké okno (notebook na šířku): stejný seznam, jen těsnější */
-  @media (max-height:760px){
+  @media (max-height:820px){
     .hg-item{ min-height:0; padding:7px 0; grid-template-columns:78px minmax(0,1fr); }
     .hg-date b{ font-size:24px; text-shadow:none; }
     .hg-date span{ font-size:9px; letter-spacing:.16em; }
     .hg-venue{ font-size:15px; }
   }
+  /* hero: headline + podtitulek + dvě CTA pod jménem */
+  .hero-copy{ margin-top:22px; max-width:640px; }
+  .hero-claim{ font-style:italic; font-weight:400; font-size:clamp(22px,2.5vw,34px); line-height:1.2; letter-spacing:.005em; color:#f0e8da; text-shadow:0 4px 30px rgba(0,0,0,.6); }
+  .hero-sub{ margin-top:12px; max-width:46ch; font-size:clamp(15px,1.25vw,17px); line-height:1.6; color:#b9b2a6; text-shadow:0 2px 18px rgba(0,0,0,.6); }
+  .hero-ctas{ display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; }
+  .hero-cta{ display:inline-flex; align-items:center; padding:14px 28px; border:1px solid rgba(216,185,122,.55); border-radius:40px; background:rgba(12,10,8,.45); color:#f0e8da;
+    font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; white-space:nowrap; transition:background .3s, border-color .3s, transform .25s, box-shadow .3s; }
+  .hero-cta:hover{ background:rgba(216,185,122,.14); border-color:rgba(216,185,122,.9); }
+  .hero-cta--gold{ background:#d8b97a; border-color:#d8b97a; color:#0a0908; font-weight:700; }
+  .hero-cta--gold:hover{ background:#e2c68c; border-color:#e2c68c; transform:translateY(-2px); box-shadow:0 10px 28px -10px rgba(216,185,122,.6); }
+  .hero-cta:focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; }
   @keyframes sideIn{ from{ opacity:0; } to{ opacity:1; } }
   /* zlaté CTA — jednotný hover glow */
   a[style*="background:#d8b97a"], button[style*="background:#d8b97a"]{ transition:transform .3s ease, box-shadow .3s ease, filter .3s ease; }
@@ -320,23 +331,56 @@
   .about-lead{ margin-top:20px; font-size:clamp(20px,2.3vw,26px); line-height:1.55; color:#f0e8da; }
   .about-p{ font-size:clamp(15.5px,1.6vw,17px); line-height:1.8; color:#b3ada2; }
   .about-p + .about-p{ margin-top:18px; }
-  .career{ margin-top:clamp(64px,8vw,110px); }
-  .career-head{ display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap; padding-bottom:22px; border-bottom:1px solid rgba(216,185,122,.22); }
-  .career-list{ list-style:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(28px,5vw,64px); }
-  .career-item{ display:grid; grid-template-columns:104px minmax(0,1fr); gap:18px; padding:26px 0; border-bottom:1px solid rgba(255,255,255,.06); }
-  .career-lbl{ padding-top:4px; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#d8b97a; font-variant-numeric:tabular-nums; }
-  .career-item p{ font-size:15px; line-height:1.7; color:#b3ada2; }
-  .career-item:nth-child(n+5){ display:none; }
-  .career.is-open .career-item:nth-child(n+5){ display:grid; animation:vpanelIn .6s cubic-bezier(.2,.6,.2,1) both; }
-  .career-more{ padding:12px 26px; border:1px solid rgba(216,185,122,.45); border-radius:40px; background:transparent; color:#f0e8da; font-family:var(--font);
-    font-size:11px; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; transition:background .3s, border-color .3s; }
-  .career-more:hover{ background:rgba(216,185,122,.12); border-color:rgba(216,185,122,.8); }
-  .career-more:focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; }
-  .career-more [data-i18n="about.less"], .career.is-open .career-more [data-i18n="about.more"]{ display:none; }
-  .career.is-open .career-more [data-i18n="about.less"]{ display:inline; }
+  .about-h3{ margin:40px 0 16px; font-weight:500; font-size:clamp(24px,2.6vw,30px); line-height:1.1; color:#f5f1ea; }
+
+  /* ═══════════════ PÁS S ČÍSLY (pod hero) ═══════════════ */
+  .stats-band{ position:relative; padding:clamp(44px,5.5vw,72px) 6vw; background:#0a0908; border-top:1px solid rgba(255,255,255,.05); }
+  .stats-list{ list-style:none; max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .stat{ padding:4px clamp(20px,3vw,48px); border-left:1px solid rgba(216,185,122,.22); }
+  .stat:first-child{ padding-left:0; border-left:0; }
+  .stat b{ display:block; font-weight:500; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#f0dcae; white-space:nowrap; text-shadow:0 0 26px rgba(216,185,122,.22); font-variant-numeric:tabular-nums; }
+  .stat span{ display:block; margin-top:14px; max-width:32ch; font-size:clamp(14px,1.3vw,15.5px); line-height:1.55; color:#a9a297; }
+  @media (max-width:760px){
+    .stats-list{ grid-template-columns:minmax(0,1fr); }
+    .stat, .stat:first-child{ padding:22px 0; border-left:0; border-top:1px solid rgba(216,185,122,.18); }
+    .stat:first-child{ padding-top:0; border-top:0; }
+    .stat:last-child{ padding-bottom:0; }
+  }
+
+  /* ═══════════════ 02 HUDBA — perex, diskografie, milníky, advent ═══════════════ */
+  .music-perex{ margin-bottom:clamp(34px,4vw,52px); max-width:52ch; font-size:clamp(17px,1.9vw,20px); line-height:1.55; color:#cfc8bb; }
+  .text-cta{ display:inline-flex; align-items:center; gap:8px; padding-bottom:3px; border-bottom:1px solid rgba(216,185,122,.4); color:#d8b97a;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; transition:border-color .3s, color .3s; }
+  .text-cta:hover{ border-color:#d8b97a; color:#f0dcae; }
+  #diskografie{ scroll-margin-top:104px; }
+  .ms-grid{ margin-top:clamp(64px,8vw,110px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(48px,6vw,88px); align-items:start; }
+  .ms-h{ padding-bottom:20px; border-bottom:1px solid rgba(216,185,122,.22); font-weight:500; font-size:clamp(26px,3.2vw,36px); line-height:1.05; color:#f5f1ea; }
+  .ms-list{ list-style:none; }
+  .ms-item{ position:relative; padding:22px 0 22px 26px; border-bottom:1px solid rgba(255,255,255,.06); }
+  .ms-item::before{ content:''; position:absolute; left:1px; top:30px; width:7px; height:7px; border-radius:50%; background:#9a7c4a; box-shadow:0 0 0 3px rgba(216,185,122,.1); }
+  .ms-lbl{ display:block; margin-bottom:6px; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#d8b97a; font-variant-numeric:tabular-nums; }
+  .ms-ttl{ font-weight:500; font-size:clamp(18px,1.9vw,21px); line-height:1.25; color:#f0e8da; }
+  .ms-item p{ margin-top:8px; font-size:15px; line-height:1.7; color:#b3ada2; }
+  .advent{ position:relative; overflow:hidden; margin-top:clamp(56px,7vw,96px); display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:18px clamp(24px,5vw,72px); align-items:start;
+    padding:clamp(30px,4vw,50px) clamp(26px,4.5vw,56px); border-radius:14px; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.45), inset 0 0 0 1px rgba(216,185,122,.18); }
+  .advent::before{ content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:linear-gradient(180deg,#f0dcae,#9a7c4a); }
+  .advent-h{ font-weight:500; font-size:clamp(26px,3vw,36px); line-height:1.1; color:#f0dcae; }
+  .advent-p{ font-size:clamp(16px,1.7vw,18px); line-height:1.75; color:#b3ada2; }
+  @media (max-width:900px){
+    .ms-grid, .advent{ grid-template-columns:minmax(0,1fr); }
+  }
+
+  /* ═══════════════ 04 KONCERTY — úvod ═══════════════ */
+  .shows-intro{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:18px clamp(28px,5vw,72px); align-items:end; margin-bottom:clamp(44px,5.5vw,72px); }
+  .shows-intro-h{ font-weight:500; font-size:clamp(26px,3.2vw,38px); line-height:1.12; color:#f5f1ea; }
+  .shows-intro-p{ font-size:clamp(16px,1.7vw,18px); line-height:1.75; color:#b3ada2; }
+  .shows-kick{ margin-bottom:16px; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#d8b97a; }
+  .shows-kick[hidden]{ display:none; }
+  @media (max-width:900px){ .shows-intro{ grid-template-columns:minmax(0,1fr); } }
 
   /* ═══════════════ 03 NADAČNÍ FOND ═══════════════ */
   .found-grid{ display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:clamp(36px,6vw,80px); align-items:center; }
+  .found-h4{ margin:32px 0 12px; font-weight:500; font-size:clamp(22px,2.4vw,28px); line-height:1.1; color:#f0dcae; }
   .found-lead{ margin:24px 0 20px; font-size:clamp(18px,2.1vw,22px); line-height:1.65; font-style:italic; color:#e3dbcf; }
   .found-stats{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(12px,1.8vw,18px); }
   .fstat{ padding:clamp(20px,2.4vw,28px); border-radius:14px; background:rgba(255,255,255,.025); border:1px solid rgba(201,138,150,.2); }
@@ -393,10 +437,8 @@
   }
   @media (max-width:900px){
     .found-grid, .press-grid{ grid-template-columns:1fr; }
-    .career-list{ grid-template-columns:1fr; }
   }
   @media (max-width:600px){
-    .career-item{ grid-template-columns:1fr; gap:8px; padding:22px 0; }
     .found-gallery{ grid-template-columns:minmax(0,1fr); }
     .fg{ grid-column:auto !important; }
     .fg--side{ aspect-ratio:854/718; }
@@ -686,16 +728,13 @@
         </a>
         <h1 data-reveal style="font-family:var(--font); font-weight:500; font-size:clamp(48px,9vw,128px); line-height:.86; letter-spacing:-.015em; color:#f7f3ec; text-shadow:0 8px 70px rgba(0,0,0,.6);">Lenka&nbsp;Graf</h1>
       </div>
-      <div data-reveal style="display:flex; flex-wrap:wrap; align-items:center; gap:clamp(20px,3vw,36px); margin-top:24px;">
-        <p data-i18n="hero.claim" style="font-family:var(--font); font-style:italic; font-weight:400; font-size:clamp(17px,1.9vw,24px); color:#ddd5c8; letter-spacing:.01em; margin:0;">Soprán mezi operou a současností</p>
+      <div data-reveal class="hero-copy">
+        <p data-i18n="hero.claim" class="hero-claim">Klasika, která nemusí být vážná</p>
+        <p data-i18n="hero.sub" class="hero-sub">Sopranistka Lenka Graf otevírá klasickou hudbu lidem, kteří si mysleli, že není pro ně.</p>
       </div>
-      <div data-reveal style="display:inline-flex; align-items:center; gap:11px; margin-top:22px; padding:8px 18px; border:1px solid rgba(216,185,122,.42); border-radius:40px; background:rgba(20,16,11,.45);">
-        <span style="display:flex; align-items:flex-end; gap:2.5px; height:11px;">
-          <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .9s ease-in-out infinite;"></span>
-          <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .9s ease-in-out infinite .3s;"></span>
-          <span style="width:2px; height:100%; background:#d8b97a; transform-origin:bottom; animation:ndot .9s ease-in-out infinite .55s;"></span>
-        </span>
-        <span data-i18n="hero.badge" style="font-family:var(--font); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#d8b97a;">Nový singl · Křídla snů</span>
+      <div data-reveal class="hero-ctas">
+        <a href="#hudba" class="hero-cta hero-cta--gold" data-i18n="hero.ctaListen">Poslechnout si tvorbu</a>
+        <a href="#koncerty" class="hero-cta" data-i18n="hero.ctaShows">Termíny koncertů</a>
       </div>
     </div>
 
@@ -705,6 +744,15 @@
     </a>
   </section>
 
+  <!-- PÁS S ČÍSLY (pod hero) -->
+  <section id="cisla" class="stats-band" aria-label="V číslech">
+    <ul class="stats-list">
+      <li data-reveal class="stat"><b data-i18n="stats.n1">28&nbsp;000</b><span data-i18n="stats.l1">diváků v&nbsp;Drážďanech</span></li>
+      <li data-reveal class="stat"><b>O2 arena</b><span data-i18n="stats.l2">kde vystupovala jako hostka galakoncertu Štefana Margity po boku PKF – Prague Philharmonia</span></li>
+      <li data-reveal class="stat"><b>250</b><span data-i18n="stats.l3">základních škol zapojených do vzdělávacího programu jejího nadačního fondu</span></li>
+    </ul>
+  </section>
+
   <!-- 01 O LENCE -->
   <section id="o-lence" style="position:relative; padding:clamp(80px,11vw,150px) 6vw; background:radial-gradient(70% 50% at 88% 10%, rgba(216,185,122,.05), transparent 58%), #0a0908; border-top:1px solid rgba(255,255,255,.05);">
     <div style="max-width:1180px; margin:0 auto;">
@@ -712,7 +760,7 @@
         <div class="hl" style="height:1px; background:linear-gradient(90deg,rgba(216,185,122,.45),rgba(216,185,122,0) 60%); margin-bottom:22px;"></div>
         <div style="display:flex; align-items:baseline; gap:16px;">
           <span style="font-family:var(--font); font-size:12px; letter-spacing:.1em; color:#9a7c4a;">01 —</span>
-          <h2 data-i18n="about.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">O Lence</h2>
+          <h2 data-i18n="about.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">O Lence Graf</h2>
         </div>
       </div>
 
@@ -723,37 +771,16 @@
       <div class="about-bg"><img src="assets/portrait-about.jpg" alt="Portrét sopranistky Lenky Graf" width="1700" height="1390" loading="lazy" decoding="async"></div>
       <div class="about-text">
         <span data-reveal data-i18n="about.role" class="about-role">Sopranistka · Filantropka</span>
-        <p data-reveal data-i18n="about.lead" class="about-lead">Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.</p>
+        <p data-reveal data-i18n="about.lead" class="about-lead">Klasická hudba nebyla pro Lenku Graf nikdy „vážná“. Miluje ji od dětství a&nbsp;celou kariéru hledá způsoby, jak ji dostat k&nbsp;lidem, kteří by si na koncert klasiky sami nezašli.</p>
         <div data-reveal style="height:1px; width:64px; background:linear-gradient(90deg,#d8b97a,rgba(216,185,122,0)); margin:30px 0;"></div>
         <div data-reveal>
-          <p data-i18n="about.p2" class="about-p">Založila Nadační fond Energie pomáhá, který kromě podpory konkrétních dobročinných projektů vytvořil unikátní vzdělávací program Energetická Expedice zaměřený na energetickou gramotnost žáků základních škol.</p>
-          <p data-i18n="about.p3" class="about-p">Středobodem života pro Lenku vždy byla a je rodina. Je maminkou dvou dospělých dětí a její rodičovská zkušenost se přirozeně protíná s původně vystudovanou pedagogickou profesí. Mimo jiné i proto se na podporu dětí a jejich vzdělávání zaměřila ve své dlouhodobé charitativní práci.</p>
-          <p data-i18n="about.p4" class="about-p">Žije mezi Českem a Floridou. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Čerpá energii setkáváním s rodinou a přáteli, sportem, cvičením jógy a jak jinak než opět hudbou a zpěvem. Nejoblíbenější formou meditace ke zklidnění těla a mysli je relaxační hudba s křišťálovými mísami doprovázená zpěvem. Mezi její koníčky patří také móda. V nádherných róbách se nezapře vytříbený cit pro eleganci a šarm operní divy.</p>
+          <p data-i18n="about.p1" class="about-p">Právě díky této vášni vznikl její osobitý styl – školený operní hlas v&nbsp;písních, které fungují mimo koncertní sál. Dnes patří mezi nejvýraznější osobnosti české crossoverové scény. Vystudovala bohemistiku a&nbsp;hudbu na Pedagogické fakultě Univerzity J. E. Purkyně v&nbsp;Ústí nad Labem, hudební vzdělání dále rozvíjela na pražské HAMU. Ve studiu zpěvu pokračovala i&nbsp;ve Spojených státech, mimo jiné na State College of Florida pod vedením Melodie Dickerson.</p>
+          <p data-i18n="about.p2" data-i18n-html class="about-p">V&nbsp;roce 2017 vydala debutové album <em>Láska věčná</em>, na kterém poprvé spojila operní zpěv s&nbsp;popem. Následovalo <em>Vánoční poselství</em>, romantický duet <em>Nechme lásku plout</em> s&nbsp;Petrem Kolářem a&nbsp;spolupráce s&nbsp;autory a&nbsp;producenty světového formátu. Jako hostka absolvovala německé turné crossoverového interpreta The Dark Tenor.</p>
         </div>
-      </div>
-    </div>
-
-    <div style="max-width:1180px; margin:0 auto;">
-      <!-- KARIÉRA — prvních 4 milníků, zbytek po rozbalení -->
-      <div id="career" class="career">
-        <div data-reveal class="career-head">
-          <h3 data-i18n="about.career" style="font-family:var(--font); font-weight:500; font-size:clamp(26px,3.4vw,38px); line-height:1; color:#f5f1ea;">Kariéra</h3>
-          <span data-i18n="about.careerSub" style="font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#6b665d;">Milníky</span>
-        </div>
-        <ol data-reveal class="career-list">
-          <li class="career-item"><span class="career-lbl" data-i18n="cl1">Vzdělání</span><p data-i18n="c1">Vystudovala obor bohemistika a hudba na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem. Hudební vzdělání dále rozvíjela na pražské HAMU a ve studiu zpěvu pokračovala také v USA, mimo jiné na State College of Florida pod vedením Melodie Dickerson.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl2">2017</span><p data-i18n="c2">V roce 2017 vydala debutové album Láska věčná, na němž propojila operní zpěv s popem. Na něj navázala dalšími nahrávkami včetně alba Vánoční poselství. Se zpěvákem Petrem Kolářem natočila romantický duet Nechme lásku plout.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl3">Spolupráce</span><p data-i18n="c3">Spolupracovala s mezinárodně uznávanými autory a producenty. Charlie Midnight pro ni napsal píseň You Are Not Alone, podílel se také na skladbě I Dare. Singl Everything Is Part Of One je dílo Johna Shankse, držitele Grammy a producenta řady světových hudebních hvězd.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl4">Turné</span><p data-i18n="c4">Jako host absolvovala německé turné s crossoverovým interpretem The Dark Tenor, s nímž také vystoupila s duetem své písně You Are Not Alone.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl5">2023</span><p data-i18n="c5">V prosinci 2023 vystoupila jako první česká zpěvačka na tradičním adventním koncertu v Drážďanech. S legendárním pěveckým sborem Dresdner Kreuzchor zpívala před téměř 28 tisíci diváky na vyprodaném stadionu koledu Narodil se Kristus pán v češtině a němčině.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl6">2025</span><p data-i18n="c6">V červnu 2025 byla speciálním hostem pražského koncertu slavné crossover skupiny Il Divo v O2 Universu.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl7">Benefice</span><p data-i18n="c7">Pravidelně se objevuje na adventních a benefičních koncertech po boku osobností české hudební scény, například Štefana Margity, Pavla Šporcla, Daniela Hůlky, Olgy Lounové a dalších.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl8">Každoročně</span><p data-i18n="c8">Každoročně pořádá vlastní adventní benefiční koncerty se známým dívčím smyčcovým triem Inflagranti.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl9">2025</span><p data-i18n="c9">V roce 2025 navázala výraznou spolupráci s Michalem Dvořákem ze skupiny Lucie. Aktuálně nejnovější píseň Křídla snů, inspirovaná Dvořákovou symfonií Z Nového světa, propojuje českou klasiku se současným crossoverovým aranžem a symbolicky se vrací k tématu domova. Cellové sólo k písni nahrál věhlasný švýcarský cellista Jodok Vuille, známý také jako influencer Jodok Cello s téměř 7 miliony fanoušků na sociálních sítích.</p></li>
-          <li class="career-item"><span class="career-lbl" data-i18n="cl10">2026</span><p data-i18n="c10">V květnu 2026 vystoupila v pražské O2 areně jako host jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF Prague Philharmonia.</p></li>
-        </ol>
-        <div style="text-align:center; margin-top:34px;">
-          <button id="careerMore" class="career-more" aria-expanded="false" aria-controls="career"><span data-i18n="about.more">Zobrazit celou kariéru</span><span data-i18n="about.less">Zobrazit méně</span></button>
+        <div data-reveal>
+          <h3 data-i18n="about.offstage" class="about-h3">Mimo pódium</h3>
+          <p data-i18n="about.p3" class="about-p">Středobodem jejího života je rodina. Je maminkou dvou dětí a&nbsp;rodičovská zkušenost se u&nbsp;ní přirozeně protíná s&nbsp;původně vystudovanou pedagogickou profesí. I&nbsp;proto se ve své charitativní práci soustředí právě na děti a&nbsp;jejich vzdělávání.</p>
+          <p data-i18n="about.p4" class="about-p">Žije mezi Českem a&nbsp;Spojenými státy. Dva domovy pro ni znamenají dvojí inspiraci i&nbsp;cenný nadhled. Energii čerpá ze setkávání s&nbsp;rodinou a&nbsp;přáteli, ze sportu, z&nbsp;jógy a, jak jinak, z&nbsp;hudby. Nejraději medituje při relaxační hudbě. Mezi její záliby patří móda – v&nbsp;jejím výběru rób se nezapře vytříbený cit pro eleganci a&nbsp;šarm operní divy.</p>
         </div>
       </div>
     </div>
@@ -769,15 +796,16 @@
           <h2 data-i18n="music.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Hudba</h2>
         </div>
       </div>
-      <p data-reveal data-i18n="music.sub" style="margin-bottom:clamp(34px,4vw,52px); font-size:15px; color:#8a857c; max-width:44ch;">Dvanáct písní ve 30sekundových ukázkách přímo tady — celé nahrávky na Spotify.</p>
+      <p data-reveal data-i18n="music.sub" class="music-perex">Operní zpěv, pop a&nbsp;spolupráce s&nbsp;producenty, kteří pracovali se světovými hvězdami.</p>
 
       <div style="display:flex; flex-wrap:wrap; gap:clamp(34px,5vw,72px); align-items:center; justify-content:center;">
         <!-- EDITORIAL -->
         <div data-reveal style="flex:1 1 300px; min-width:280px; max-width:480px;">
           <span data-i18n="music.kicker" style="font-family:var(--font); font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#9a7c4a;">Tvorba</span>
-          <blockquote data-i18n="about.quote" style="margin:22px 0 0; font-family:var(--font); font-style:italic; font-weight:500; font-size:clamp(26px,3.6vw,40px); line-height:1.22; letter-spacing:-.005em; color:#f5f1ea;">„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."</blockquote>
-          <div style="height:1px; width:64px; background:linear-gradient(90deg,#d8b97a,rgba(216,185,122,0)); margin:30px 0;"></div>
-          <p data-i18n="music.body" style="font-size:clamp(16px,1.9vw,18px); line-height:1.78; color:#b3ada2;">Od debutového alba Láska věčná, které propojilo operní zpěv s popem, přes spolupráce s Charliem Midnightem a držitelem Grammy Johnem Shanksem až po nejnovější singl Křídla snů s Michalem Dvořákem — Lenčina tvorba spojuje klasiku se současností.</p>
+          <h3 data-i18n="music.h" style="margin:20px 0 0; font-family:var(--font); font-weight:500; font-size:clamp(28px,3.6vw,42px); line-height:1.15; letter-spacing:-.005em; color:#f5f1ea;">Operní hlas v&nbsp;písních, které hrají rádia</h3>
+          <div style="height:1px; width:64px; background:linear-gradient(90deg,#d8b97a,rgba(216,185,122,0)); margin:28px 0;"></div>
+          <p data-i18n="music.body" data-i18n-html style="font-size:clamp(16px,1.9vw,18px); line-height:1.78; color:#b3ada2;">Debutovým albem <em>Láska věčná</em> propojila Lenka Graf operní zpěv s&nbsp;popem. A&nbsp;u&nbsp;tohoto spojení již zůstala. Píseň <em>You Are Not Alone</em> pro ni napsal americký autor Charlie Midnight, singl <em>Everything Is Part Of One</em> pochází z&nbsp;dílny držitele Grammy Johna Shankse. Zatím poslední skladba <em>Křídla snů</em> vznikla ve spolupráci s&nbsp;Michalem Dvořákem ze skupiny Lucie a&nbsp;vrací se k&nbsp;Dvořákově <em>Novosvětské</em>.</p>
+          <a href="#diskografie" class="text-cta" style="margin-top:22px;"><span data-i18n="music.cta">Celá diskografie</span> <span aria-hidden="true">↓</span></a>
           <div style="margin-top:34px;">
             <div data-i18n="about.listen" style="font-family:var(--font); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#6b665d; margin-bottom:14px;">Poslechnout také</div>
             <div style="display:flex; flex-wrap:wrap; gap:10px;">
@@ -869,6 +897,36 @@
         </div>
       </div>
       </div>
+
+      <!-- DISKOGRAFIE + KONCERTNÍ MILNÍKY -->
+      <div id="diskografie" class="ms-grid">
+        <div data-reveal>
+          <h3 data-i18n="disc.title" class="ms-h">Alba a singly</h3>
+          <ol class="ms-list">
+            <li class="ms-item"><span class="ms-lbl">2017</span><h4 class="ms-ttl">Láska věčná</h4><p data-i18n="disc.d1">Debutové album, na němž Lenka Graf propojila operní zpěv s&nbsp;popem.</p></li>
+            <li class="ms-item"><h4 class="ms-ttl">Vánoční poselství</h4><p data-i18n="disc.d2">Album vánočních písní.</p></li>
+            <li class="ms-item"><h4 class="ms-ttl">Nechme lásku plout</h4><p data-i18n="disc.d3">Romantický duet s&nbsp;Petrem Kolářem.</p></li>
+            <li class="ms-item"><h4 class="ms-ttl">You Are Not Alone</h4><p data-i18n="disc.d4">Píseň, kterou pro ni napsal americký autor a&nbsp;producent Charlie Midnight.</p></li>
+            <li class="ms-item"><h4 class="ms-ttl">Everything Is Part Of One</h4><p data-i18n="disc.d5">Singl z&nbsp;dílny Johna Shankse, držitele ceny Grammy a&nbsp;producenta řady světových hvězd.</p></li>
+            <li class="ms-item"><span class="ms-lbl">2025</span><h4 class="ms-ttl">Křídla snů</h4><p data-i18n="disc.d6" data-i18n-html>Spolupráce s&nbsp;Michalem Dvořákem ze skupiny Lucie. Píseň inspirovaná symfonií Antonína Dvořáka <em>Z Nového světa</em> propojuje českou klasiku se současným crossoverovým aranžmá a&nbsp;vrací se k&nbsp;tématu domova. Cellové sólo nahrál švýcarský cellista Jodok Vuille známý jako influencer Jodok Cello s&nbsp;téměř sedmi miliony fanoušků na sociálních sítích.</p></li>
+          </ol>
+        </div>
+        <div data-reveal>
+          <h3 data-i18n="miles.title" class="ms-h">Koncertní milníky</h3>
+          <ol class="ms-list">
+            <li class="ms-item"><span class="ms-lbl" data-i18n="miles.l1">Květen 2026</span><h4 class="ms-ttl" data-i18n="miles.t1">O2 arena, Praha</h4><p data-i18n="miles.d1">Hostka jubilejního galakoncertu Štefana Margity k&nbsp;jeho 70. narozeninám za doprovodu PKF – Prague Philharmonia</p></li>
+            <li class="ms-item"><span class="ms-lbl" data-i18n="miles.l2">Červen 2025</span><h4 class="ms-ttl" data-i18n="miles.t2">O2 Universum, Praha</h4><p data-i18n="miles.d2">Speciální host pražského koncertu crossoverové skupiny Il Divo</p></li>
+            <li class="ms-item"><span class="ms-lbl" data-i18n="miles.l3">Prosinec 2023</span><h4 class="ms-ttl" data-i18n="miles.t3">Drážďany</h4><p data-i18n="miles.d3">Vystoupila na tradičním adventním koncertu. Zpívala před téměř 28 tisíci diváky na vyprodaném stadionu.</p></li>
+            <li class="ms-item"><h4 class="ms-ttl" data-i18n="miles.t4">Německé turné The Dark Tenor</h4><p data-i18n="miles.d4" data-i18n-html>Hostování na turné crossoverového interpreta, se kterým vystoupila i&nbsp;v&nbsp;duetu své písně <em>You Are Not Alone</em>.</p></li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ADVENTNÍ ČAS -->
+      <div data-reveal class="advent">
+        <h3 data-i18n="advent.title" class="advent-h">Adventní čas podle Lenky Graf</h3>
+        <p data-i18n="advent.body" class="advent-p">Prosinec patří u&nbsp;Lenky Graf benefičním koncertům. Vlastní adventní koncerty pořádá každoročně. Spolupracuje se známým dívčím smyčcovým triem Inflagranti a&nbsp;pravidelně vystupuje i&nbsp;na koncertech po boku osobností české hudební scény.</p>
+      </div>
     </div>
   </section>
 
@@ -887,10 +945,17 @@
       <div class="found-grid">
         <div>
           <h3 data-reveal style="font-family:var(--font); font-weight:500; font-size:clamp(34px,4.6vw,56px); line-height:1; color:#f0dcae;">Energie pomáhá</h3>
-          <p data-reveal data-i18n="found.lead" class="found-lead">Nadační fond Energie pomáhá založila Lenka Graf v roce 2017 s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad. Zaměřuje se především na děti, jejich zdravý rozvoj, vzdělávání a smysluplné kulturní a dobročinné projekty.</p>
-          <p data-reveal data-i18n="found.p2" class="about-p">Postupně se stěžejním tématem fondu stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě. Energetická Expedice, dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol, získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.</p>
+          <p data-reveal data-i18n="found.lead" class="found-lead">Nadační fond s&nbsp;posláním pomáhat tam, kde může mít podpora dlouhodobý dopad.</p>
+          <div data-reveal>
+            <p data-i18n="found.p1" class="about-p">Lenka Graf ho založila v&nbsp;roce 2017. Zaměřuje se především na děti, jejich zdravý rozvoj a&nbsp;vzdělávání. Dále se věnuje smysluplným kulturním a&nbsp;dobročinným projektům.</p>
+            <p data-i18n="found.p2" class="about-p">Stěžejním tématem fondu se postupně stala energetická gramotnost jako jedna z&nbsp;klíčových dovedností pro život v&nbsp;moderním světě.</p>
+          </div>
+          <div data-reveal>
+            <h4 class="found-h4" data-i18n="found.exp">Energetická Expedice</h4>
+            <p data-i18n="found.p3" class="about-p">Jedná se o&nbsp;dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol. Získal záštitu Ministerstva školství, mládeže a&nbsp;tělovýchovy, Ministerstva průmyslu a&nbsp;obchodu i&nbsp;prezidenta České republiky. Zapojilo se do něj již 250 škol.</p>
+          </div>
           <div data-reveal style="margin-top:34px;">
-            <a href="https://energie-pomaha.cz/" target="_blank" rel="noopener" data-i18n="found.cta" style="display:inline-block; padding:15px 38px; background:#d8b97a; color:#0a0908; border-radius:40px; font-family:var(--font); font-size:12px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; font-weight:700; transition:transform .25s;" style-hover="transform:translateY(-2px)">Více o fondu</a>
+            <a href="https://energie-pomaha.cz/" target="_blank" rel="noopener" data-i18n="found.cta" style="display:inline-block; padding:15px 38px; background:#d8b97a; color:#0a0908; border-radius:40px; font-family:var(--font); font-size:12px; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; font-weight:700; transition:transform .25s;" style-hover="transform:translateY(-2px)">Web nadačního fondu</a>
           </div>
         </div>
         <div data-reveal class="found-stats">
@@ -924,6 +989,13 @@
           <h2 data-i18n="shows.title" style="font-family:var(--font); font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1; color:#f5f1ea;">Nadcházející koncerty</h2>
         </div>
       </div>
+
+      <!-- úvod: blok „Na pódiu“ z domovské stránky -->
+      <div data-reveal class="shows-intro">
+        <h3 data-i18n="stage.title" class="shows-intro-h">Od adventního koncertu v&nbsp;Drážďanech po O2 arenu</h3>
+        <p data-i18n="stage.body" class="shows-intro-p">V&nbsp;prosinci 2023 stála na vyprodaném stadionu v&nbsp;Drážďanech. O&nbsp;rok později byla speciálním hostem pražského koncertu skupiny Il Divo. Každý advent pořádá vlastní benefiční koncerty.</p>
+      </div>
+      <div data-reveal class="shows-kick" id="showsKick" data-i18n="stage.cta">Kde ji uslyšíte</div>
 
       <!-- PROGRAM — proběhlé termíny skryje JS (podle data-date), když nezbude žádný, ukáže se blok Připravujeme -->
       <ol class="shows-list" id="showsList">
@@ -1102,7 +1174,7 @@
           <ul class="press-facts">
             <li data-i18n="press.f1">Sopranistka a filantropka</li>
             <li data-i18n="press.f2">Zakladatelka NF Energie pomáhá (2017)</li>
-            <li data-i18n="press.f3">Žije mezi Českem a Floridou</li>
+            <li data-i18n="press.f3">Žije mezi Českem a&nbsp;Spojenými státy</li>
           </ul>
           <div style="display:flex; flex-direction:column; gap:12px; margin-top:30px;">
             <a href="#" data-soon class="press-btn press-btn--gold" data-i18n="press.cv">Stáhnout CV (PDF)</a>
@@ -1221,25 +1293,101 @@
   ];
 
   var I18N = {
-    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.badge':'Nový singl · Křídla snů','hero.claim':'Soprán mezi operou a současností','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','about.quote':'„Hudba je most mezi tím, co bylo, a tím, co teprve přijde."','music.sub':'Dvanáct písní ve 30sekundových ukázkách přímo tady — celé nahrávky na Spotify.','music.ended':'Konec ukázky','music.fullSpotify':'Celá skladba na Spotify','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','hero.nextGigs':'Nejbližší koncerty','mo.1':'led','mo.2':'úno','mo.3':'bře','mo.4':'dub','mo.5':'kvě','mo.6':'čvn','mo.7':'čvc','mo.8':'srp','mo.9':'zář','mo.10':'říj','mo.11':'lis','mo.12':'pro','hero.moreGigs':'Více o termínech','press.mediaKick':'Z médií','press.mediaTitle':'Rozhovory','press.mediaBody':'Přes sto článků, rozhovorů a reportáží z let 2017–2026 — od Blesku po Harper’s Bazaar.','press.mediaCta':'Rozhovory','shows.note':'Další termíny průběžně doplňujeme.','shows.start':'Začátek','shows.map':'Mapa','shows.m12':'Prosinec 2026','shows.fri':'Pátek','shows.sun':'Neděle','shows.tue':'Úterý','shows.wed':'Středa','show1.venue':'Zámek Zákupy','show1.city':'Zákupy','show1.desc':'2. ročník Popelčiných vánočních trhů','show2.venue':'Palác Žofín','show2.city':'Praha','show2.desc':'Hvězdy Vánoc V. — vánoční galakoncert v doprovodu Orchestru Karla Vlacha','show3.venue':'Městské divadlo','show3.city':'Jablonec nad Nisou','show3.desc':'Vánoční talkshow Pavla Trávníčka','show4.venue':'Břevnovský klášter — Tereziánský sál','show4.short':'Břevnovský klášter','show4.city':'Praha','show4.desc':'Host vánočního recitálu Leony Machálkové v doprovodu pianisty','video.all':'Celá videografie','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
+    cs: { 'nav.music':'Hudba','nav.shows':'Koncerty','nav.foundation':'Nadační fond','hero.claim':'Klasika, která nemusí být vážná','hero.scroll':'Poslechnout','hero.vtext':'Soprán · Crossover','about.listen':'Poslechnout také','music.sub':'Operní zpěv, pop a spolupráce s producenty, kteří pracovali se světovými hvězdami.','music.ended':'Konec ukázky','music.fullSpotify':'Celá skladba na Spotify','shows.title':'Nadcházející koncerty','shows.soon':'Připravujeme','shows.soonTitle':'Nové termíny brzy oznámíme','shows.soonBody':'Program dalších koncertů právě připravujeme. Termíny i vstupenky zveřejníme zde — odběratelé novinek se je dozví jako první.','shows.soonCta':'Odebírat novinky','hero.nextGigs':'Nejbližší koncerty','mo.1':'led','mo.2':'úno','mo.3':'bře','mo.4':'dub','mo.5':'kvě','mo.6':'čvn','mo.7':'čvc','mo.8':'srp','mo.9':'zář','mo.10':'říj','mo.11':'lis','mo.12':'pro','hero.moreGigs':'Více o termínech','press.mediaKick':'Z médií','press.mediaTitle':'Rozhovory','press.mediaBody':'Přes sto článků, rozhovorů a reportáží z let 2017–2026 — od Blesku po Harper’s Bazaar.','press.mediaCta':'Rozhovory','shows.note':'Další termíny průběžně doplňujeme.','shows.start':'Začátek','shows.map':'Mapa','shows.m12':'Prosinec 2026','shows.fri':'Pátek','shows.sun':'Neděle','shows.tue':'Úterý','shows.wed':'Středa','show1.venue':'Zámek Zákupy','show1.city':'Zákupy','show1.desc':'2. ročník Popelčiných vánočních trhů','show2.venue':'Palác Žofín','show2.city':'Praha','show2.desc':'Hvězdy Vánoc V. — vánoční galakoncert v doprovodu Orchestru Karla Vlacha','show3.venue':'Městské divadlo','show3.city':'Jablonec nad Nisou','show3.desc':'Vánoční talkshow Pavla Trávníčka','show4.venue':'Břevnovský klášter — Tereziánský sál','show4.short':'Břevnovský klášter','show4.city':'Praha','show4.desc':'Host vánočního recitálu Leony Machálkové v doprovodu pianisty','video.all':'Celá videografie','news.title':'Zůstaňte v kontaktu','news.sub':'Novinky o koncertech, singlech a projektech.','news.btn':'Odebírat','news.ph':'Váš e-mail','news.thanks':'Děkujeme! Brzy se ozveme.',
           'nav.video':'Videografie','nav.shop':'E-shop',
-          'nav.about':'O Lence','nav.press':'Press','about.title':'O Lence','about.role':'Sopranistka · Filantropka','about.lead':'Lenka Graf je sopranistka a filantropka. Během své pěvecké kariéry se stala ikonou české crossover scény a má za sebou spolupráce se slavnými hudebními producenty a mnoho vystoupení u nás i v zahraničí. Klasická hudba pro ni nikdy nebyla „vážná“, miluje ji od dětství a baví ji hledat nové cesty, jak její krásu přiblížit širšímu publiku.','about.p2':'Založila Nadační fond Energie pomáhá, který kromě podpory konkrétních dobročinných projektů vytvořil unikátní vzdělávací program Energetická Expedice zaměřený na energetickou gramotnost žáků základních škol.','about.p3':'Středobodem života pro Lenku vždy byla a je rodina. Je maminkou dvou dospělých dětí a její rodičovská zkušenost se přirozeně protíná s původně vystudovanou pedagogickou profesí. Mimo jiné i proto se na podporu dětí a jejich vzdělávání zaměřila ve své dlouhodobé charitativní práci.','about.p4':'Žije mezi Českem a Floridou. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Čerpá energii setkáváním s rodinou a přáteli, sportem, cvičením jógy a jak jinak než opět hudbou a zpěvem. Nejoblíbenější formou meditace ke zklidnění těla a mysli je relaxační hudba s křišťálovými mísami doprovázená zpěvem. Mezi její koníčky patří také móda. V nádherných róbách se nezapře vytříbený cit pro eleganci a šarm operní divy.','about.career':'Kariéra','about.careerSub':'Milníky','about.more':'Zobrazit celou kariéru','about.less':'Zobrazit méně','ph.press':'Tisková fotografie','music.title':'Hudba','music.kicker':'Tvorba','music.body':'Od debutového alba Láska věčná, které propojilo operní zpěv s popem, přes spolupráce s Charliem Midnightem a držitelem Grammy Johnem Shanksem až po nejnovější singl Křídla snů s Michalem Dvořákem — Lenčina tvorba spojuje klasiku se současností.','found.kicker':'Nadační fond','found.lead':'Nadační fond Energie pomáhá založila Lenka Graf v roce 2017 s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad. Zaměřuje se především na děti, jejich zdravý rozvoj, vzdělávání a smysluplné kulturní a dobročinné projekty.','found.p2':'Postupně se stěžejním tématem fondu stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě. Energetická Expedice, dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol, získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.','found.s1':'založení fondu','found.s2':'škol zapojených do Energetické Expedice','found.s3':'měsíce interaktivního programu','found.s4':'záštity — MŠMT, MPO a prezident ČR','found.gallery':'Z projektů fondu','found.cta':'Více o fondu','press.sub':'Materiály pro média — fotografie ve vysokém rozlišení a profesní životopis Lenky Graf.','press.gallery':'Fotogalerie','press.gallerySub':'Ve vysokém rozlišení','press.kick':'Pro novináře','press.cvTitle':'CV pro novináře','press.cvBody':'Stručný profesní životopis — vzdělání, kariéra, významné spolupráce a nadační činnost.','press.f1':'Sopranistka a filantropka','press.f2':'Zakladatelka NF Energie pomáhá (2017)','press.f3':'Žije mezi Českem a Floridou','press.cv':'Stáhnout CV (PDF)','press.photos':'Stáhnout fotografie (ZIP)','press.soon':'Soubory ke stažení připravujeme.','cl1':'Vzdělání','c1':'Vystudovala obor bohemistika a hudba na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem. Hudební vzdělání dále rozvíjela na pražské HAMU a ve studiu zpěvu pokračovala také v USA, mimo jiné na State College of Florida pod vedením Melodie Dickerson.','cl2':'2017','c2':'V roce 2017 vydala debutové album Láska věčná, na němž propojila operní zpěv s popem. Na něj navázala dalšími nahrávkami včetně alba Vánoční poselství. Se zpěvákem Petrem Kolářem natočila romantický duet Nechme lásku plout.','cl3':'Spolupráce','c3':'Spolupracovala s mezinárodně uznávanými autory a producenty. Charlie Midnight pro ni napsal píseň You Are Not Alone, podílel se také na skladbě I Dare. Singl Everything Is Part Of One je dílo Johna Shankse, držitele Grammy a producenta řady světových hudebních hvězd.','cl4':'Turné','c4':'Jako host absolvovala německé turné s crossoverovým interpretem The Dark Tenor, s nímž také vystoupila s duetem své písně You Are Not Alone.','cl5':'2023','c5':'V prosinci 2023 vystoupila jako první česká zpěvačka na tradičním adventním koncertu v Drážďanech. S legendárním pěveckým sborem Dresdner Kreuzchor zpívala před téměř 28 tisíci diváky na vyprodaném stadionu koledu Narodil se Kristus pán v češtině a němčině.','cl6':'2025','c6':'V červnu 2025 byla speciálním hostem pražského koncertu slavné crossover skupiny Il Divo v O2 Universu.','cl7':'Benefice','c7':'Pravidelně se objevuje na adventních a benefičních koncertech po boku osobností české hudební scény, například Štefana Margity, Pavla Šporcla, Daniela Hůlky, Olgy Lounové a dalších.','cl8':'Každoročně','c8':'Každoročně pořádá vlastní adventní benefiční koncerty se známým dívčím smyčcovým triem Inflagranti.','cl9':'2025','c9':'V roce 2025 navázala výraznou spolupráci s Michalem Dvořákem ze skupiny Lucie. Aktuálně nejnovější píseň Křídla snů, inspirovaná Dvořákovou symfonií Z Nového světa, propojuje českou klasiku se současným crossoverovým aranžem a symbolicky se vrací k tématu domova. Cellové sólo k písni nahrál věhlasný švýcarský cellista Jodok Vuille, známý také jako influencer Jodok Cello s téměř 7 miliony fanoušků na sociálních sítích.','cl10':'2026','c10':'V květnu 2026 vystoupila v pražské O2 areně jako host jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF Prague Philharmonia.',
+          'nav.about':'O Lence','nav.press':'Press','about.title':'O Lence Graf','about.role':'Sopranistka · Filantropka','about.lead':'Klasická hudba nebyla pro Lenku Graf nikdy „vážná“. Miluje ji od dětství a celou kariéru hledá způsoby, jak ji dostat k lidem, kteří by si na koncert klasiky sami nezašli.','about.p2':'V roce 2017 vydala debutové album <em>Láska věčná</em>, na kterém poprvé spojila operní zpěv s popem. Následovalo <em>Vánoční poselství</em>, romantický duet <em>Nechme lásku plout</em> s Petrem Kolářem a spolupráce s autory a producenty světového formátu. Jako hostka absolvovala německé turné crossoverového interpreta The Dark Tenor.','about.p3':'Středobodem jejího života je rodina. Je maminkou dvou dětí a rodičovská zkušenost se u ní přirozeně protíná s původně vystudovanou pedagogickou profesí. I proto se ve své charitativní práci soustředí právě na děti a jejich vzdělávání.','about.p4':'Žije mezi Českem a Spojenými státy. Dva domovy pro ni znamenají dvojí inspiraci i cenný nadhled. Energii čerpá ze setkávání s rodinou a přáteli, ze sportu, z jógy a, jak jinak, z hudby. Nejraději medituje při relaxační hudbě. Mezi její záliby patří móda – v jejím výběru rób se nezapře vytříbený cit pro eleganci a šarm operní divy.','ph.press':'Tisková fotografie','music.title':'Hudba','music.kicker':'Tvorba','music.body':'Debutovým albem <em>Láska věčná</em> propojila Lenka Graf operní zpěv s popem. A u tohoto spojení již zůstala. Píseň <em>You Are Not Alone</em> pro ni napsal americký autor Charlie Midnight, singl <em>Everything Is Part Of One</em> pochází z dílny držitele Grammy Johna Shankse. Zatím poslední skladba <em>Křídla snů</em> vznikla ve spolupráci s Michalem Dvořákem ze skupiny Lucie a vrací se k Dvořákově <em>Novosvětské</em>.','found.kicker':'Nadační fond','found.lead':'Nadační fond s posláním pomáhat tam, kde může mít podpora dlouhodobý dopad.','found.p2':'Stěžejním tématem fondu se postupně stala energetická gramotnost jako jedna z klíčových dovedností pro život v moderním světě.','found.s1':'založení fondu','found.s2':'škol zapojených do Energetické Expedice','found.s3':'měsíce interaktivního programu','found.s4':'záštity — MŠMT, MPO a prezident ČR','found.gallery':'Z projektů fondu','found.cta':'Web nadačního fondu','press.sub':'Materiály pro média — fotografie ve vysokém rozlišení a profesní životopis Lenky Graf.','press.gallery':'Fotogalerie','press.gallerySub':'Ve vysokém rozlišení','press.kick':'Pro novináře','press.cvTitle':'CV pro novináře','press.cvBody':'Stručný profesní životopis — vzdělání, kariéra, významné spolupráce a nadační činnost.','press.f1':'Sopranistka a filantropka','press.f2':'Zakladatelka NF Energie pomáhá (2017)','press.f3':'Žije mezi Českem a Spojenými státy','press.cv':'Stáhnout CV (PDF)','press.photos':'Stáhnout fotografie (ZIP)','press.soon':'Soubory ke stažení připravujeme.',
           'video.title':'Videografie','video.watch':'Přehrát video','klip.v2':'Nechme lásku plout','after.v3':'KVIFF 2026','rep.v5':'Host koncertu Il Divo','video.more':'Další videa','klip.kick':'Videoklip',
           
           'after.kick':'Aftermovie',
           'after.v1':'Koncert Děčín','after.v2':'Vánoční koncert se Štefanem Margitou',
           'rep.kick':'Reportáž',
           'rep.v1':'Adventní koncert — Žofín','rep.v2':'Rozhovor pro CNN Prima News','rep.v3':'Křest — Praha','rep.v4':'Duet s Kolářem',
+          'hero.sub':'Sopranistka Lenka Graf otevírá klasickou hudbu lidem, kteří si mysleli, že není pro ně.',
+          'hero.ctaListen':'Poslechnout si tvorbu',
+          'hero.ctaShows':'Termíny koncertů',
+          'stats.n1':'28 000',
+          'stats.l1':'diváků v Drážďanech',
+          'stats.l2':'kde vystupovala jako hostka galakoncertu Štefana Margity po boku PKF – Prague Philharmonia',
+          'stats.l3':'základních škol zapojených do vzdělávacího programu jejího nadačního fondu',
+          'about.p1':'Právě díky této vášni vznikl její osobitý styl – školený operní hlas v písních, které fungují mimo koncertní sál. Dnes patří mezi nejvýraznější osobnosti české crossoverové scény. Vystudovala bohemistiku a hudbu na Pedagogické fakultě Univerzity J. E. Purkyně v Ústí nad Labem, hudební vzdělání dále rozvíjela na pražské HAMU. Ve studiu zpěvu pokračovala i ve Spojených státech, mimo jiné na State College of Florida pod vedením Melodie Dickerson.',
+          'about.offstage':'Mimo pódium',
+          'music.h':'Operní hlas v písních, které hrají rádia',
+          'music.cta':'Celá diskografie',
+          'disc.title':'Alba a singly',
+          'disc.d1':'Debutové album, na němž Lenka Graf propojila operní zpěv s popem.',
+          'disc.d2':'Album vánočních písní.',
+          'disc.d3':'Romantický duet s Petrem Kolářem.',
+          'disc.d4':'Píseň, kterou pro ni napsal americký autor a producent Charlie Midnight.',
+          'disc.d5':'Singl z dílny Johna Shankse, držitele ceny Grammy a producenta řady světových hvězd.',
+          'disc.d6':'Spolupráce s Michalem Dvořákem ze skupiny Lucie. Píseň inspirovaná symfonií Antonína Dvořáka <em>Z Nového světa</em> propojuje českou klasiku se současným crossoverovým aranžmá a vrací se k tématu domova. Cellové sólo nahrál švýcarský cellista Jodok Vuille známý jako influencer Jodok Cello s téměř sedmi miliony fanoušků na sociálních sítích.',
+          'miles.title':'Koncertní milníky',
+          'miles.l1':'Květen 2026',
+          'miles.t1':'O2 arena, Praha',
+          'miles.d1':'Hostka jubilejního galakoncertu Štefana Margity k jeho 70. narozeninám za doprovodu PKF – Prague Philharmonia',
+          'miles.l2':'Červen 2025',
+          'miles.t2':'O2 Universum, Praha',
+          'miles.d2':'Speciální host pražského koncertu crossoverové skupiny Il Divo',
+          'miles.l3':'Prosinec 2023',
+          'miles.t3':'Drážďany',
+          'miles.d3':'Vystoupila na tradičním adventním koncertu. Zpívala před téměř 28 tisíci diváky na vyprodaném stadionu.',
+          'miles.t4':'Německé turné The Dark Tenor',
+          'miles.d4':'Hostování na turné crossoverového interpreta, se kterým vystoupila i v duetu své písně <em>You Are Not Alone</em>.',
+          'advent.title':'Adventní čas podle Lenky Graf',
+          'advent.body':'Prosinec patří u Lenky Graf benefičním koncertům. Vlastní adventní koncerty pořádá každoročně. Spolupracuje se známým dívčím smyčcovým triem Inflagranti a pravidelně vystupuje i na koncertech po boku osobností české hudební scény.',
+          'found.p1':'Lenka Graf ho založila v roce 2017. Zaměřuje se především na děti, jejich zdravý rozvoj a vzdělávání. Dále se věnuje smysluplným kulturním a dobročinným projektům.',
+          'found.exp':'Energetická Expedice',
+          'found.p3':'Jedná se o dvouměsíční komplexní interaktivní vzdělávací program pro žáky druhého stupně základních škol. Získal záštitu Ministerstva školství, mládeže a tělovýchovy, Ministerstva průmyslu a obchodu i prezidenta České republiky. Zapojilo se do něj již 250 škol.',
+          'stage.title':'Od adventního koncertu v Drážďanech po O2 arenu',
+          'stage.body':'V prosinci 2023 stála na vyprodaném stadionu v Drážďanech. O rok později byla speciálním hostem pražského koncertu skupiny Il Divo. Každý advent pořádá vlastní benefiční koncerty.',
+          'stage.cta':'Kde ji uslyšíte',
           'video.soon':'Připravujeme' },
-    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.badge':'New single · Wings of Dreams','hero.claim':'A soprano between opera and the present','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','about.quote':'"Music is a bridge between what has been and what is yet to come."','music.sub':'Twelve songs as 30-second previews right here — full recordings on Spotify.','music.ended':'End of preview','music.fullSpotify':'Full song on Spotify','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','hero.nextGigs':'Upcoming concerts','mo.1':'Jan','mo.2':'Feb','mo.3':'Mar','mo.4':'Apr','mo.5':'May','mo.6':'Jun','mo.7':'Jul','mo.8':'Aug','mo.9':'Sep','mo.10':'Oct','mo.11':'Nov','mo.12':'Dec','hero.moreGigs':'More dates','press.mediaKick':'In the media','press.mediaTitle':'Interviews','press.mediaBody':'Over a hundred articles, interviews and features from 2017–2026 — from Blesk to Harper’s Bazaar.','press.mediaCta':'Interviews','shows.note':'More dates will be added as they are confirmed.','shows.start':'Starts','shows.map':'Map','shows.m12':'December 2026','shows.fri':'Friday','shows.sun':'Sunday','shows.tue':'Tuesday','shows.wed':'Wednesday','show1.venue':'Zákupy Castle','show1.city':'Zákupy','show1.desc':'Cinderella’s Christmas Market — 2nd edition','show2.venue':'Žofín Palace','show2.city':'Prague','show2.desc':'Stars of Christmas V — Christmas gala concert with the Karel Vlach Orchestra','show3.venue':'Municipal Theatre','show3.city':'Jablonec nad Nisou','show3.desc':'Pavel Trávníček’s Christmas talk show','show4.venue':'Břevnov Monastery — Theresian Hall','show4.short':'Břevnov Monastery','show4.city':'Prague','show4.desc':'Guest at Leona Machálková’s Christmas recital with piano accompaniment','video.all':'Full videography','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
+    en: { 'nav.music':'Music','nav.shows':'Shows','nav.foundation':'Foundation','hero.claim':'Classical music that doesn’t have to be serious','hero.scroll':'Listen','hero.vtext':'Soprano · Crossover','about.listen':'Listen also','music.sub':'Operatic singing, pop and collaborations with producers who have worked with international stars.','music.ended':'End of preview','music.fullSpotify':'Full song on Spotify','shows.title':'Upcoming shows','shows.soon':'Coming soon','shows.soonTitle':'New dates to be announced','shows.soonBody':'The next concert programme is in the works. Dates and tickets will be published here — newsletter subscribers will be the first to know.','shows.soonCta':'Subscribe to news','hero.nextGigs':'Upcoming concerts','mo.1':'Jan','mo.2':'Feb','mo.3':'Mar','mo.4':'Apr','mo.5':'May','mo.6':'Jun','mo.7':'Jul','mo.8':'Aug','mo.9':'Sep','mo.10':'Oct','mo.11':'Nov','mo.12':'Dec','hero.moreGigs':'More dates','press.mediaKick':'In the media','press.mediaTitle':'Interviews','press.mediaBody':'Over a hundred articles, interviews and features from 2017–2026 — from Blesk to Harper’s Bazaar.','press.mediaCta':'Interviews','shows.note':'More dates will be added as they are confirmed.','shows.start':'Starts','shows.map':'Map','shows.m12':'December 2026','shows.fri':'Friday','shows.sun':'Sunday','shows.tue':'Tuesday','shows.wed':'Wednesday','show1.venue':'Zákupy Castle','show1.city':'Zákupy','show1.desc':'Cinderella’s Christmas Market — 2nd edition','show2.venue':'Žofín Palace','show2.city':'Prague','show2.desc':'Stars of Christmas V — Christmas gala concert with the Karel Vlach Orchestra','show3.venue':'Municipal Theatre','show3.city':'Jablonec nad Nisou','show3.desc':'Pavel Trávníček’s Christmas talk show','show4.venue':'Břevnov Monastery — Theresian Hall','show4.short':'Břevnov Monastery','show4.city':'Prague','show4.desc':'Guest at Leona Machálková’s Christmas recital with piano accompaniment','video.all':'Full videography','news.title':'Stay in touch','news.sub':'News about concerts, singles and projects.','news.btn':'Subscribe','news.ph':'Your e-mail','news.thanks':'Thank you — we will be in touch.',
           'nav.video':'Videography','nav.shop':'E-shop',
-          'nav.about':'About Lenka','nav.press':'Press','about.title':'About Lenka','about.role':'Soprano · Philanthropist','about.lead':'Lenka Graf is a soprano and philanthropist. Over the course of her singing career she has become an icon of the Czech crossover scene, with collaborations with renowned music producers and many performances at home and abroad. Classical music has never felt “serious” to her — she has loved it since childhood and enjoys finding new ways to bring its beauty to a wider audience.','about.p2':'She founded the Energie pomáhá foundation, which, besides supporting specific charitable projects, has created Energetická Expedice (Energy Expedition), a unique educational programme focused on energy literacy for primary school pupils.','about.p3':'Family has always been at the heart of Lenka’s life. She is the mother of two grown-up children, and her experience as a parent naturally meets her original training as a teacher. That is one of the reasons why her long-term charitable work focuses on supporting children and their education.','about.p4':'She lives between the Czech Republic and Florida. Two homes mean a double source of inspiration and a valuable sense of perspective. She draws energy from time with family and friends, from sport and yoga — and, of course, from music and singing. Her favourite form of meditation to calm body and mind is relaxation music with crystal singing bowls accompanied by voice. Fashion is another of her passions: in her beautiful gowns, her refined sense of elegance and the charm of an opera diva are unmistakable.','about.career':'Career','about.careerSub':'Milestones','about.more':'Show full career','about.less':'Show less','ph.press':'Press photo','music.title':'Music','music.kicker':'The music','music.body':'From her debut album Láska věčná, which blended operatic singing with pop, through collaborations with Charlie Midnight and Grammy winner John Shanks, to her latest single Křídla snů with Michal Dvořák — Lenka’s music connects the classical with the contemporary.','found.kicker':'Foundation','found.lead':'Lenka Graf founded the Energie pomáhá foundation in 2017 with the mission of helping where support can have a lasting impact. It focuses above all on children — their healthy development, education and meaningful cultural and charitable projects.','found.p2':'Over time, energy literacy — one of the key skills for life in the modern world — has become the foundation’s central theme. Energetická Expedice (Energy Expedition), a comprehensive two-month interactive educational programme for lower secondary school pupils, has received the patronage of the Ministry of Education, Youth and Sports, the Ministry of Industry and Trade and the President of the Czech Republic. 250 schools have already taken part.','found.s1':'foundation established','found.s2':'schools in the Energy Expedition','found.s3':'months of interactive learning','found.s4':'patronages — two ministries and the President','found.gallery':'From the foundation’s projects','found.cta':'More about the foundation','press.sub':'Media resources — high-resolution photos and Lenka Graf’s professional biography.','press.gallery':'Photo gallery','press.gallerySub':'High resolution','press.kick':'For journalists','press.cvTitle':'Press CV','press.cvBody':'A concise professional biography — education, career, key collaborations and charitable work.','press.f1':'Soprano and philanthropist','press.f2':'Founder of the Energie pomáhá foundation (2017)','press.f3':'Lives between the Czech Republic and Florida','press.cv':'Download CV (PDF)','press.photos':'Download photos (ZIP)','press.soon':'Downloads coming soon.','cl1':'Education','c1':'She studied Czech studies and music at the Faculty of Education of Jan Evangelista Purkyně University in Ústí nad Labem. She went on to develop her musical education at the Academy of Performing Arts in Prague (HAMU) and continued her vocal studies in the USA, including at State College of Florida under Melodie Dickerson.','cl2':'2017','c2':'In 2017 she released her debut album Láska věčná (Eternal Love), blending operatic singing with pop. Further recordings followed, including the album Vánoční poselství (Christmas Message). With singer Petr Kolář she recorded the romantic duet Nechme lásku plout.','cl3':'Collaborations','c3':'She has worked with internationally acclaimed songwriters and producers. Charlie Midnight wrote the song You Are Not Alone for her and also contributed to I Dare. The single Everything Is Part Of One is the work of John Shanks, a Grammy winner and producer for many international stars.','cl4':'Tour','c4':'As a guest she toured Germany with crossover artist The Dark Tenor, performing her song You Are Not Alone with him as a duet.','cl5':'2023','c5':'In December 2023 she became the first Czech singer to perform at the traditional Advent concert in Dresden. With the legendary Dresdner Kreuzchor she sang the carol Narodil se Kristus pán in Czech and German to almost 28,000 people in a sold-out stadium.','cl6':'2025','c6':'In June 2025 she was a special guest at the Prague concert of the famous crossover group Il Divo at O2 Universum.','cl7':'Benefits','c7':'She regularly appears at Advent and benefit concerts alongside leading figures of the Czech music scene, such as Štefan Margita, Pavel Šporcl, Daniel Hůlka, Olga Lounová and others.','cl8':'Every year','c8':'Every year she hosts her own Advent benefit concerts with the well-known female string trio Inflagranti.','cl9':'2025','c9':'In 2025 she began a significant collaboration with Michal Dvořák of the band Lucie. Her latest song, Křídla snů (Wings of Dreams), inspired by Dvořák’s Symphony From the New World, combines Czech classical music with a contemporary crossover arrangement and symbolically returns to the theme of home. The cello solo was recorded by renowned Swiss cellist Jodok Vuille, also known as the influencer Jodok Cello with almost 7 million followers on social media.','cl10':'2026','c10':'In May 2026 she performed at Prague’s O2 arena as a guest at Štefan Margita’s gala concert celebrating his 70th birthday, accompanied by the PKF Prague Philharmonia.',
+          'nav.about':'About Lenka','nav.press':'Press','about.title':'About Lenka Graf','about.role':'Soprano · Philanthropist','about.lead':'Classical music has never been “serious” for Lenka Graf. She has loved it since childhood, and throughout her career she has looked for ways to bring it to people who would never go to a classical concert on their own.','about.p2':'In 2017 she released her debut album <em>Láska věčná</em> (Eternal Love), on which she first combined operatic singing with pop. It was followed by <em>Vánoční poselství</em> (Christmas Message), the romantic duet <em>Nechme lásku plout</em> with Petr Kolář, and collaborations with world-class songwriters and producers. As a guest, she toured Germany with crossover artist The Dark Tenor.','about.p3':'Family is at the heart of her life. She is the mother of two children, and her experience as a parent naturally meets her original training as a teacher. That is also why her charitable work focuses on children and their education.','about.p4':'She lives between the Czech Republic and the United States. Two homes mean a double source of inspiration and a valuable sense of perspective. She draws energy from time with family and friends, from sport, from yoga and – of course – from music. She most enjoys meditating to relaxing music. Fashion is another of her passions – her choice of gowns reveals a refined sense of elegance and the charm of an opera diva.','ph.press':'Press photo','music.title':'Music','music.kicker':'The music','music.body':'With her debut album <em>Láska věčná</em>, Lenka Graf combined operatic singing with pop – and she has stayed with that combination ever since. The song <em>You Are Not Alone</em> was written for her by American songwriter Charlie Midnight, and the single <em>Everything Is Part Of One</em> comes from Grammy winner John Shanks. Her latest song, <em>Křídla snů</em> (Wings of Dreams), was created with Michal Dvořák of the band Lucie and returns to Dvořák’s <em>New World Symphony</em>.','found.kicker':'Foundation','found.lead':'A foundation with the mission of helping where support can have a lasting impact.','found.p2':'Over time, energy literacy – one of the key skills for life in the modern world – has become the foundation’s central theme.','found.s1':'foundation established','found.s2':'schools in the Energy Expedition','found.s3':'months of interactive learning','found.s4':'patronages — two ministries and the President','found.gallery':'From the foundation’s projects','found.cta':'Foundation website','press.sub':'Media resources — high-resolution photos and Lenka Graf’s professional biography.','press.gallery':'Photo gallery','press.gallerySub':'High resolution','press.kick':'For journalists','press.cvTitle':'Press CV','press.cvBody':'A concise professional biography — education, career, key collaborations and charitable work.','press.f1':'Soprano and philanthropist','press.f2':'Founder of the Energie pomáhá foundation (2017)','press.f3':'Lives between the Czech Republic and the United States','press.cv':'Download CV (PDF)','press.photos':'Download photos (ZIP)','press.soon':'Downloads coming soon.',
           'video.title':'Videography','video.watch':'Watch here','klip.v2':'Nechme lásku plout','after.v3':'Karlovy Vary IFF 2026','rep.v5':'Guest of Il Divo','video.more':'More videos','klip.kick':'Music video',
           
           'after.kick':'Aftermovie',
           'after.v1':'Děčín concert','after.v2':'Christmas concert with Štefan Margita',
           'rep.kick':'TV feature',
           'rep.v1':'Advent concert — Žofín','rep.v2':'Interview for CNN Prima News','rep.v3':'Launch — Prague','rep.v4':'Duet with Kolář',
+          'hero.sub':'Soprano Lenka Graf opens up classical music to people who thought it wasn’t for them.',
+          'hero.ctaListen':'Listen to her music',
+          'hero.ctaShows':'Concert dates',
+          'stats.n1':'28,000',
+          'stats.l1':'spectators in Dresden',
+          'stats.l2':'where she was a guest at Štefan Margita’s gala concert alongside PKF – Prague Philharmonia',
+          'stats.l3':'primary schools taking part in her foundation’s educational programme',
+          'about.p1':'This passion gave rise to her distinctive style – a trained operatic voice in songs that work outside the concert hall. Today she is one of the most prominent figures of the Czech crossover scene. She studied Czech language and music at the Faculty of Education of Jan Evangelista Purkyně University in Ústí nad Labem and went on to develop her musical education at the Academy of Performing Arts in Prague (HAMU). She continued her vocal studies in the United States, including at State College of Florida under Melodie Dickerson.',
+          'about.offstage':'Off stage',
+          'music.h':'An operatic voice in songs made for the radio',
+          'music.cta':'Full discography',
+          'disc.title':'Albums and singles',
+          'disc.d1':'Debut album on which Lenka Graf combined operatic singing with pop.',
+          'disc.d2':'An album of Christmas songs.',
+          'disc.d3':'A romantic duet with Petr Kolář.',
+          'disc.d4':'A song written for her by American songwriter and producer Charlie Midnight.',
+          'disc.d5':'A single by John Shanks, Grammy winner and producer for many international stars.',
+          'disc.d6':'A collaboration with Michal Dvořák of the band Lucie. Inspired by Antonín Dvořák’s Symphony <em>From the New World</em>, the song combines Czech classical music with a contemporary crossover arrangement and returns to the theme of home. The cello solo was recorded by Swiss cellist Jodok Vuille, known as the influencer Jodok Cello with almost seven million followers on social media.',
+          'miles.title':'Concert milestones',
+          'miles.l1':'May 2026',
+          'miles.t1':'O2 arena, Prague',
+          'miles.d1':'Guest at Štefan Margita’s anniversary gala concert celebrating his 70th birthday, accompanied by PKF – Prague Philharmonia',
+          'miles.l2':'June 2025',
+          'miles.t2':'O2 Universum, Prague',
+          'miles.d2':'Special guest at the Prague concert of crossover group Il Divo',
+          'miles.l3':'December 2023',
+          'miles.t3':'Dresden',
+          'miles.d3':'Performed at the traditional Advent concert, singing to almost 28,000 people in a sold-out stadium.',
+          'miles.t4':'German tour with The Dark Tenor',
+          'miles.d4':'Guest appearances on the crossover artist’s tour, including a duet of her song <em>You Are Not Alone</em>.',
+          'advent.title':'Advent with Lenka Graf',
+          'advent.body':'For Lenka Graf, December belongs to benefit concerts. She hosts her own Advent concerts every year, works with the well-known female string trio Inflagranti and regularly performs at concerts alongside leading figures of the Czech music scene.',
+          'found.p1':'Lenka Graf founded it in 2017. It focuses above all on children, their healthy development and education, and also supports meaningful cultural and charitable projects.',
+          'found.exp':'Energy Expedition',
+          'found.p3':'Energetická Expedice (Energy Expedition) is a comprehensive two-month interactive educational programme for lower secondary school pupils. It has received the patronage of the Ministry of Education, Youth and Sports, the Ministry of Industry and Trade and the President of the Czech Republic. 250 schools have already taken part.',
+          'stage.title':'From an Advent concert in Dresden to the O2 arena',
+          'stage.body':'In December 2023 she sang in a sold-out stadium in Dresden. A year later she was a special guest at Il Divo’s Prague concert. Every Advent she hosts her own benefit concerts.',
+          'stage.cta':'Where to hear her',
           'video.soon':'Coming soon' }
   };
 
@@ -1388,7 +1536,7 @@
     var dict=I18N[state.lang];
     document.documentElement.lang = state.lang;
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function(el){
-      var k=el.getAttribute('data-i18n'); if(dict[k]!=null) el.textContent=dict[k];
+      var k=el.getAttribute('data-i18n'); if(dict[k]!=null){ if(el.hasAttribute('data-i18n-html')) el.innerHTML=dict[k]; else el.textContent=dict[k]; }
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n-ph]'), function(el){
       var k=el.getAttribute('data-i18n-ph'); if(dict[k]!=null) el.placeholder=dict[k];
@@ -1419,7 +1567,7 @@
     Array.prototype.forEach.call(showsList.querySelectorAll('[data-date]'), function(li){
       if(new Date(li.getAttribute('data-date')+'T23:59:59') < now) li.parentNode.removeChild(li); else upcoming++;
     });
-    if(!upcoming){ showsList.hidden=true; $('showsNote').hidden=true; $('showsSoon').hidden=false; }
+    if(!upcoming){ showsList.hidden=true; $('showsNote').hidden=true; $('showsKick').hidden=true; $('showsSoon').hidden=false; }
 
     // hero: všechny nadcházející koncerty podle data — texty i klíče překladů se převezmou z programu
     var heroGig=$('heroGig'), heroGigList=$('heroGigList');
@@ -1443,15 +1591,6 @@
       heroGig.hidden=false;
     }
   }
-
-  // ---- O Lence: rozbalení celé kariéry ----
-  var career=$('career'), careerMore=$('careerMore');
-  if(career && careerMore){ careerMore.addEventListener('click', function(){
-    var open = career.classList.toggle('is-open');
-    careerMore.setAttribute('aria-expanded', open?'true':'false');
-    // při sbalení vrátit na začátek kariéry, jinak by uživatel skončil hluboko pod ní
-    if(!open){ window.scrollTo({ top: career.getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth' }); }
-  }); }
 
   // ---- press: soubory ke stažení zatím nejsou ----
   Array.prototype.forEach.call(document.querySelectorAll('[data-soon]'), function(a){
