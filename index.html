@@ -361,19 +361,35 @@
   .ms-lbl{ display:block; margin-bottom:6px; font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:#d8b97a; font-variant-numeric:tabular-nums; }
   .ms-ttl{ font-weight:500; font-size:clamp(18px,1.9vw,21px); line-height:1.25; color:#f0e8da; }
   .ms-item p{ margin-top:8px; font-size:15px; line-height:1.7; color:#b3ada2; }
-  .advent{ position:relative; overflow:hidden; margin-top:clamp(56px,7vw,96px); display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:18px clamp(24px,5vw,72px); align-items:start;
+  .advent{ position:relative; overflow:hidden; margin-top:clamp(56px,7vw,96px); display:grid; grid-template-columns:minmax(0,6fr) minmax(0,5fr); gap:clamp(24px,4vw,56px); align-items:center;
     padding:clamp(30px,4vw,50px) clamp(26px,4.5vw,56px); border-radius:14px; background:linear-gradient(120deg,#17120c 0%,#100c08 100%); box-shadow:0 30px 70px rgba(0,0,0,.45), inset 0 0 0 1px rgba(216,185,122,.18); }
   .advent::before{ content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:linear-gradient(180deg,#f0dcae,#9a7c4a); }
+  .advent-img{ grid-column:2; grid-row:1; aspect-ratio:3/2; overflow:hidden; border-radius:10px; }
+  .advent-img img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .advent-txt{ grid-column:1; grid-row:1; }
+  .advent-p{ margin-top:18px; }
   .advent-h{ font-weight:500; font-size:clamp(26px,3vw,36px); line-height:1.1; color:#f0dcae; }
   .advent-p{ font-size:clamp(16px,1.7vw,18px); line-height:1.75; color:#b3ada2; }
   @media (max-width:900px){
     .ms-grid, .advent{ grid-template-columns:minmax(0,1fr); }
+    .advent-img, .advent-txt{ grid-column:1; grid-row:auto; }
   }
 
   /* ═══════════════ 04 KONCERTY — úvod ═══════════════ */
   .shows-intro{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:18px clamp(28px,5vw,72px); align-items:end; margin-bottom:clamp(44px,5.5vw,72px); }
   .shows-intro-h{ font-weight:500; font-size:clamp(26px,3.2vw,38px); line-height:1.12; color:#f5f1ea; }
   .shows-intro-p{ font-size:clamp(16px,1.7vw,18px); line-height:1.75; color:#b3ada2; }
+  .stage-photos{ display:grid; grid-template-columns:minmax(0,6fr) minmax(0,3fr) minmax(0,5fr); gap:clamp(10px,1.4vw,16px); margin-bottom:clamp(44px,5.5vw,72px); }
+  .sp{ height:clamp(240px,30vw,420px); overflow:hidden; border-radius:10px; }
+  .sp img{ display:block; width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.2,.6,.2,1); }
+  .sp:hover img{ transform:scale(1.03); }
+  .sp--b img{ object-position:50% 25%; }
+  .sp--c img{ object-position:60% 40%; }
+  @media (max-width:700px){
+    .stage-photos{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .sp--a{ grid-column:1 / -1; height:58vw; }
+    .sp--b, .sp--c{ height:64vw; }
+  }
   .shows-kick{ margin-bottom:16px; font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:#d8b97a; }
   .shows-kick[hidden]{ display:none; }
   @media (max-width:900px){ .shows-intro{ grid-template-columns:minmax(0,1fr); } }
@@ -402,6 +418,10 @@
   .press-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
   .press-gallery{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,1.4vw,16px); }
   .press-gallery .ph{ aspect-ratio:4/5; }
+  .pg{ position:relative; display:block; aspect-ratio:4/5; overflow:hidden; border-radius:10px; background:#14110d; }
+  .pg img{ display:block; width:100%; height:100%; object-fit:cover; object-position:50% 18%; transition:transform 1s cubic-bezier(.2,.6,.2,1); }
+  .pg:hover img{ transform:scale(1.04); }
+  .pg:focus-visible{ outline:2px solid #d8b97a; outline-offset:3px; }
   .press-cv{ position:relative; padding:clamp(28px,3.4vw,42px); background:linear-gradient(150deg,#17120c 0%,#0e0b08 100%); }
   .press-facts{ list-style:none; margin-top:22px; border-top:1px solid rgba(255,255,255,.07); }
   .press-facts li{ padding:12px 0 12px 20px; position:relative; font-size:14px; color:#cfc8bb; border-bottom:1px solid rgba(255,255,255,.07); }
@@ -924,8 +944,11 @@
 
       <!-- ADVENTNÍ ČAS -->
       <div data-reveal class="advent">
+        <figure class="advent-img"><img src="assets/koncerty/advent-sbor.jpg" alt="Lenka Graf s dětským pěveckým sborem" width="1400" height="933" loading="lazy" decoding="async"></figure>
+        <div class="advent-txt">
         <h3 data-i18n="advent.title" class="advent-h">Adventní čas podle Lenky Graf</h3>
         <p data-i18n="advent.body" class="advent-p">Prosinec patří u&nbsp;Lenky Graf benefičním koncertům. Vlastní adventní koncerty pořádá každoročně. Spolupracuje se známým dívčím smyčcovým triem Inflagranti a&nbsp;pravidelně vystupuje i&nbsp;na koncertech po boku osobností české hudební scény.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -994,6 +1017,11 @@
       <div data-reveal class="shows-intro">
         <h3 data-i18n="stage.title" class="shows-intro-h">Od adventního koncertu v&nbsp;Drážďanech po O2 arenu</h3>
         <p data-i18n="stage.body" class="shows-intro-p">V&nbsp;prosinci 2023 stála na vyprodaném stadionu v&nbsp;Drážďanech. O&nbsp;rok později byla speciálním hostem pražského koncertu skupiny Il Divo. Každý advent pořádá vlastní benefiční koncerty.</p>
+      </div>
+      <div data-reveal class="stage-photos">
+        <figure class="sp sp--a"><img src="assets/koncerty/gala-orchestr.jpg" alt="Lenka Graf v duetu na galakoncertu s orchestrem" width="1400" height="933" loading="lazy" decoding="async"></figure>
+        <figure class="sp sp--b"><img src="assets/koncerty/na-podiu.jpg" alt="Lenka Graf zpívá na pódiu v černých třpytivých šatech" width="733" height="1100" loading="lazy" decoding="async"></figure>
+        <figure class="sp sp--c"><img src="assets/koncerty/duet.jpg" alt="Lenka Graf v červených šatech v duetu na koncertě" width="1400" height="1072" loading="lazy" decoding="async"></figure>
       </div>
       <div data-reveal class="shows-kick" id="showsKick" data-i18n="stage.cta">Kde ji uslyšíte</div>
 
@@ -1158,12 +1186,12 @@
             <span data-i18n="press.gallerySub" style="font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:#6b665d;">Ve vysokém rozlišení</span>
           </div>
           <div class="press-gallery">
-            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
-            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
-            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
-            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
-            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
-            <div class="ph"><span class="ph-mark">LG</span><span class="ph-txt" data-i18n="ph.press">Tisková fotografie</span></div>
+            <a class="pg" href="assets/press/full/lenka-graf-01.jpg" target="_blank" rel="noopener"><img src="assets/press/lenka-graf-01.jpg" alt="Tisková fotografie — Lenka Graf v světle modrém kostýmu" width="600" height="900" loading="lazy" decoding="async"></a>
+            <a class="pg" href="assets/press/full/lenka-graf-02.jpg" target="_blank" rel="noopener"><img src="assets/press/lenka-graf-02.jpg" alt="Tisková fotografie — Lenka Graf ve žlutém saku" width="600" height="900" loading="lazy" decoding="async"></a>
+            <a class="pg" href="assets/press/full/lenka-graf-03.jpg" target="_blank" rel="noopener"><img src="assets/press/lenka-graf-03.jpg" alt="Tisková fotografie — Lenka Graf v tmavě modrých šatech" width="600" height="900" loading="lazy" decoding="async"></a>
+            <a class="pg" href="assets/press/full/lenka-graf-04.jpg" target="_blank" rel="noopener"><img src="assets/press/lenka-graf-04.jpg" alt="Tisková fotografie — Lenka Graf v černých šatech na smaragdovém pozadí" width="600" height="900" loading="lazy" decoding="async"></a>
+            <a class="pg" href="assets/press/full/lenka-graf-05.jpg" target="_blank" rel="noopener"><img src="assets/press/lenka-graf-05.jpg" alt="Tisková fotografie — Lenka Graf v černobílém kostýmu" width="600" height="900" loading="lazy" decoding="async"></a>
+            <a class="pg" href="assets/press/full/lenka-graf-06.jpg" target="_blank" rel="noopener"><img src="assets/press/lenka-graf-06.jpg" alt="Tisková fotografie — Lenka Graf v černých šatech s mašlí" width="600" height="900" loading="lazy" decoding="async"></a>
           </div>
         </div>
 

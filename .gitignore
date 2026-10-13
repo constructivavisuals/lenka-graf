@@ -5,3 +5,6 @@
 # Zdrojové video (stovky MB až GB) — do gitu jdou jen zkomprimované verze v assets/video/
 /Reportaze/
 /Aftermovies/
+
+# Zdrojové fotky od klientky — na web jdou jen zmenšené verze v assets/
+/fotky_navic/
