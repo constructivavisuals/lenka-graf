@@ -1,6 +1,6 @@
 # Lenka Graf – statický web (Constructiva Visuals)
-# Nahrazuje původní WordPress na www.lenkagraf.com. Platí pro Apache (Zoner / CZECHIA.COM).
-# Přesměrování http -> https zajišťuje hosting, tady se neřeší.
+# Konfigurace pro Apache 2.4 (Zoner / CZECHIA.COM). Nahrazuje původní WordPress na www.lenkagraf.com.
+# Podrobný popis pravidel: DOKUMENTACE.pdf, kapitola „Konfigurace serveru“.
 
 DirectoryIndex index.html
 Options -Indexes
@@ -10,9 +10,17 @@ AddType font/woff2 .woff2
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # lenkagraf.com -> www.lenkagraf.com (dřív to dělal WordPress)
+  # skryté soubory (.htaccess, stav FTP deploye apod.) nejsou veřejné; /.well-known zůstává kvůli ověření certifikátu
+  RewriteRule (^|/)\.(?!well-known(/|$)) - [F]
+
+  # lenkagraf.com -> https://www.lenkagraf.com (jedním přesměrováním pro http i https)
   RewriteCond %{HTTP_HOST} ^lenkagraf\.com$ [NC]
   RewriteRule ^(.*)$ https://www.lenkagraf.com/$1 [R=301,L]
+
+  # http -> https; pokud to už dělá hosting, pravidlo se neuplatní (za proxy bere v úvahu X-Forwarded-Proto)
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
   # staré adresy WordPressu -> nové stránky
   RewriteRule ^z-medii/?$ /rozhovory.html [R=301,L]
